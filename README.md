@@ -41,29 +41,6 @@ some example images about the bot👇🏻
 ---
 
 ## 🍴 How Install
-[![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/)
-
-[![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
-
-Packages  |  Version  |  Install
-------------- | ------------- | -------------
-[quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^7.1.3  | `npm install quick.db`
-[passport-discord](https://www.npmjs.com/package/passport-discord) | Latest ^0.1.4  | `npm install passport-discord`
-[axios](https://www.npmjs.com/package/axios) | Lastest ^0.27.2 | `npm install axios`
-[body-parser](https://www.npmjs.com/package/body-parser) | Lastest ^1.20.0 | `npm install body-parser`
-[cli-color](https://www.npmjs.com/package/cli-color) | Lastest ^2.0.2 | `npm install cli-color`
-[cpu-stat](https://www.npmjs.com/package/cpu-stat) | Lastest ^2.0.1 | `npm install cpu-stat`
-[discord.js](https://www.npmjs.com/package/discord.js) | Lastest ^13.7.0 | `npm install discord.js`
-[dotenv](https://www.npmjs.com/package/dotenv) | Lastest ^16.0.1 | `npm install dotenv`
-[ejs](https://www.npmjs.com/package/ejs) | Lastest ^3.1.8 | `npm install ejs`
-[express](https://www.npmjs.com/package/express) | Lastest ^4.18.1 | `npm install express`
-[express-session](https://www.npmjs.com/package/express-session) | Lastest ^1.17.3 | `npm install express-session`
-[fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
-[memorystore](https://www.npmjs.com/package/memorystore) | Lastest ^1.6.7 | `npm install memorystore`
-[moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
-[ms](https://www.npmjs.com/package/ms) | Lastest ^2.1.3 | `npm install ms`
-[os](https://www.npmjs.com/package/os) | Lastest ^0.1.2 | `npm install os`
-[passport](https://www.npmjs.com/package/passport) | Lastest ^0.6.0 | `npm install passport`
 
 for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
 ```js
@@ -89,6 +66,25 @@ if you need so much configuration about the bot you can go in to the `config.js`
 ```
 
 - if you didn't install source packages you need for install all packages open that👉🏻 `install.bat`
+Packages  |  Version  |  Install
+------------- | ------------- | -------------
+[quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^7.1.3  | `npm install quick.db`
+[passport-discord](https://www.npmjs.com/package/passport-discord) | Latest ^0.1.4  | `npm install passport-discord`
+[axios](https://www.npmjs.com/package/axios) | Lastest ^0.27.2 | `npm install axios`
+[body-parser](https://www.npmjs.com/package/body-parser) | Lastest ^1.20.0 | `npm install body-parser`
+[cli-color](https://www.npmjs.com/package/cli-color) | Lastest ^2.0.2 | `npm install cli-color`
+[cpu-stat](https://www.npmjs.com/package/cpu-stat) | Lastest ^2.0.1 | `npm install cpu-stat`
+[discord.js](https://www.npmjs.com/package/discord.js) | Lastest ^13.7.0 | `npm install discord.js`
+[dotenv](https://www.npmjs.com/package/dotenv) | Lastest ^16.0.1 | `npm install dotenv`
+[ejs](https://www.npmjs.com/package/ejs) | Lastest ^3.1.8 | `npm install ejs`
+[express](https://www.npmjs.com/package/express) | Lastest ^4.18.1 | `npm install express`
+[express-session](https://www.npmjs.com/package/express-session) | Lastest ^1.17.3 | `npm install express-session`
+[fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
+[memorystore](https://www.npmjs.com/package/memorystore) | Lastest ^1.6.7 | `npm install memorystore`
+[moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
+[ms](https://www.npmjs.com/package/ms) | Lastest ^2.1.3 | `npm install ms`
+[os](https://www.npmjs.com/package/os) | Lastest ^0.1.2 | `npm install os`
+[passport](https://www.npmjs.com/package/passport) | Lastest ^0.6.0 | `npm install passport`
 
 - if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
@@ -96,6 +92,19 @@ if you need so much configuration about the bot you can go in to the `config.js`
 
 - EZPZ your ticket sytem are installed and running around 🕺
 
+- How run bot in replit or heroco?
+that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓
+[![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/)
+
+  <a href="https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/">
+    <img align="center" alt="Deploy on Herokucd" src ="https://www.herokucdn.com/deploy/button.svg" >
+  </a>
+
+[![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
+
+  <a href="https://repl.it/github/Sobhan-SRZA/Ticker-Boy/">
+    <img align="center" alt="Use on Replit" src ="https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/" >
+  </a>
 
 # **📫 Contact me in :** &nbsp;
 
