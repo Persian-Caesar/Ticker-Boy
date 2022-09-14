@@ -1,23 +1,45 @@
 
 
-# Bot Ticket Kar Ba Reaction 😁
+## 🎫 Ticker Boy Source (advanced ticket system🎟)
+Hi there👋🏻
+this source bot writes with love and much works❤️‍🔥
+with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975)"** you can help us to make so many bots in future🫂.
+please give **"star ⭐️"** to this project❤️   
   <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
     <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=30% >
   </a>
 
-Salam Guys 🖐
+some example images about the bot👇🏻
+---
 
-In Suorse Bot Ticketi Hast Ke Ba Reaction Kar Mikone🤠
+**Perfect Help Menu For Members:**
 
-Nahve Faeall Kardane In Bot Ro Paean tozih Dadam👇🏻🙂
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711787945431111/bandicam_2022-09-15_00-57-31-682.jpg?width=686&height=1024" >
+  </a>
 
 
-## Nahve Nasbe Bot
+---
+
+**Worked With Advanced Button Systems:**
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg" >
+  </a>
+
+---
+
+**Easy To Setup**
+
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024" >
+  </a>
+
+---
+
+## 🍴 How Install
 [![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/)
 
 [![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
-
-Shoma baraie Faeall Kardan Bot Baiad In Pish Niaz Haro Nasb Konid😉
 
 Packages  |  Version  |  Install
 ------------- | ------------- | -------------
@@ -39,45 +61,37 @@ Packages  |  Version  |  Install
 [os](https://www.npmjs.com/package/os) | Lastest ^0.1.2 | `npm install os`
 [passport](https://www.npmjs.com/package/passport) | Lastest ^0.6.0 | `npm install passport`
 
-In Code Haie Nasb Ro Dar Terminal Bezanid Ta Bot Okshe
-
-- Prefix Va Token Bot Ro Dar Inja Vared Konid👉🏻 `.env`
+for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
 ```js
-TOKEN="BOT-TOKEN"
-PREFIX="BOT_PREFIX"
+TOKEN=BOT-TOKEN
+PREFIX=BOT_PREFIX
+CLIENT_ID=BOT_CLIENT_ID
 ```
 
-- Ino Baz Konid👉🏻 `start.bat`
+if you need so much configuration about the bot you can go in to the `config.js` file and edit some parameters for customizing your bot, that file addresses is here `/storage/config.js`
+```js
+//some example code from "storage/config.js"
 
-- Easy Bot Shoma Dorost Shod 🕺
+    discord: {
+        token: process.env.TOKEN,//please don't touch 
+        prefix: process.env.PREFIX,//please don't touch 
+        invite: `https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975`,//please don't touch 
+        server_support: "https://discord.gg/at5Q72HNAx",//you can changed it
+        server_id: "912596015075455016",//you can changed it
+        server_channel_report: "988020418612961322",//you can changed it
+        server_channel_status: "988020102186303608",//you can changed it     
+    },
 
- ## Rah Haie Ertebat Ba Ma
-- Contact [Mr.SIN RE#1528](https://discord.gg/vgnhGXabNw) For Any issues or Question
+```
 
-- And Also Dont Forget To join My [Discord!](https://discord.gg/DMvSQMMu)
+- if you didn't install source packages you need for install all packages open that👉🏻 `install.bat`
 
----
+- if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
-**Easy To Setup**
+- if you want run your source you need for run your bot open that👉🏻 `start.bat`
 
-  <a href="https://zil.ink/sobhan.srza">
-    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024" >
-  </a>
+- EZPZ your ticket sytem are installed and running around 🕺
 
----
-
-  <a href="https://zil.ink/sobhan.srza">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711787945431111/bandicam_2022-09-15_00-57-31-682.jpg?width=686&height=1024" >
-  </a>
-
-
----
-
-  <a href="https://zil.ink/sobhan.srza">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg" >
-  </a>
-
----
 
 - **📫 Contact me in :** &nbsp;
 
