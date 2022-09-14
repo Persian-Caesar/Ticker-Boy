@@ -14,15 +14,27 @@ Nahve Faeall Kardane In Bot Ro Paean tozih Dadam👇🏻🙂
 [![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
 
 Shoma baraie Faeall Kardan Bot Baiad In Pish Niaz Haro Nasb Konid😉
-```js
-- [discord.js] npm install discord.js
-- [dateformat] npm install dateformat
-- [quick.db]   npm install quick.db
-- [fs]         npm install fs
-- [path]       npm install path 
-```
 
----aha---s---
+Packages  |  Version  |  Install
+------------- | ------------- | -------------
+quick.db  | Latest ^7.1.3  | npm install quick.db
+passport-discord | Latest ^0.1.4  | npm install passport-discord
+axios | Lastest ^0.27.2 | npm install axios
+body-parser | Lastest ^1.20.0 | npm install body-parser
+cli-color | Lastest ^2.0.2 | npm install cli-color
+cpu-stat | Lastest ^2.0.1 | npm install cpu-stat
+discord.js | Lastest ^13.7.0 | npm install discord.js
+dotenv | Lastest ^16.0.1 | npm install dotenv
+ejs | Lastest ^3.1.8 | npm install ejs
+express | Lastest ^4.18.1 | npm install express
+express-session | Lastest ^1.17.3 | npm install express-session
+fs | Lastest ^0.0.1-security | npm install fs
+memorystore | Lastest ^1.6.7 | npm install memorystore
+moment | Lastest ^2.29.3 | npm install moment
+ms | Lastest ^2.1.3 | npm install ms
+os | Lastest ^0.1.2 | npm install os
+passport | Lastest ^0.6.0 | npm install passport
+
 In Code Haie Nasb Ro Dar Terminal Bezanid Ta Bot Okshe
 
 - Prefix Va Token Bot Ro Dar Inja Vared Konid👉🏻 `.env`
