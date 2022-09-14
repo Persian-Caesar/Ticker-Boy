@@ -1,6 +1,10 @@
 
 
 # Bot Ticket Kar Ba Reaction 😁
+  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
+    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" >
+  </a>
+
 Salam Guys 🖐
 
 In Suorse Bot Ticketi Hast Ke Ba Reaction Kar Mikone🤠
