@@ -27,7 +27,7 @@ Packages  |  Version  |  Install
 [dotenv](https://www.npmjs.com/package/dotenv) | Lastest ^16.0.1 | `npm install dotenv`
 [ejs](https://www.npmjs.com/package/ejs) | Lastest ^3.1.8 | `npm install ejs`
 [express](https://www.npmjs.com/package/express) | Lastest ^4.18.1 | `npm install express`
-express-session | Lastest ^1.17.3 | `npm install express-session`
+[express-session](https://www.npmjs.com/package/express-session) | Lastest ^1.17.3 | `npm install express-session`
 [fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
 [memorystore](https://www.npmjs.com/package/memorystore) | Lastest ^1.6.7 | `npm install memorystore`
 [moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
