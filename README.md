@@ -1,14 +1,14 @@
 
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
+  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
+    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=30% >
+  </a>
 Hi there👋🏻
 this source bot writes with love and much works❤️‍🔥
 with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975)"** you can help us to make so many bots in future🫂.
 please give **"star ⭐️"** to this project❤️   
 
-  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
-    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=30% >
-  </a>
 
 some example images about the bot👇🏻
 ---
