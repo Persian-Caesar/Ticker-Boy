@@ -92,7 +92,7 @@ PREFIX="BOT_PREFIX"
     <img src="https://discord.com/api/guilds/912596015075455016/widget.png?style=banner2" alt="sizar-team.png">
   </a>
 </p>
-<p align="right">
+<p align="center">
   <a href="https://zil.ink/sobhan.srza">
     <img alt="My Discord Account" src="https://discord.c99.nl/widget/theme-1/831934465609302056.png"  />
   </a>
