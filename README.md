@@ -2,7 +2,7 @@
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
   <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
-    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=30% >
+    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=20% >
   </a>
 
 Hi there👋🏻
@@ -12,6 +12,7 @@ please give **"star ⭐️"** to this project❤️
 
 
 some example images about the bot👇🏻
+
 ---
 
 **Perfect Help Menu For Members:**
@@ -24,6 +25,7 @@ some example images about the bot👇🏻
 ---
 
 **Worked With Advanced Button Systems:**
+
   <a href="https://zil.ink/sobhan.srza">
     <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg" >
   </a>
@@ -95,7 +97,7 @@ if you need so much configuration about the bot you can go in to the `config.js`
 - EZPZ your ticket sytem are installed and running around 🕺
 
 
-- **📫 Contact me in :** &nbsp;
+# **📫 Contact me in :** &nbsp;
 
 <p align="center">
   <a href="https://zil.ink/sobhan.srza">
