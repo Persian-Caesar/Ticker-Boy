@@ -97,13 +97,20 @@ Packages  |  Version  |  Install
 - How run bot in replit or heroco?
 that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓
 
+<p align="center">
+
   <a href="https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/">
     <img align="center" alt="Deploy on Herokucd" src ="https://www.herokucdn.com/deploy/button.svg" >
+  </a>
+
+  <a href="https://glitch.com/edit/#!/import/github/Sobhan-SRZA/Ticker-Boy/">
+    <img align="center" alt="Remix on Glitch" src ="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" >
   </a>
 
   <a href="https://repl.it/github/Sobhan-SRZA/Ticker-Boy/">
     <img align="center" alt="Use on Replit" src ="https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/" >
   </a>
+</p>
 
 # **📫 Contact me in :** &nbsp;
 
