@@ -9,9 +9,9 @@ Nahve Faeall Kardane In Bot Ro Paean tozih Dadam👇🏻🙂
 
 
 ## Nahve Nasbe Bot
-[![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Discord-Reaction-Ticket-Bot/)
+[![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/)
 
-[![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Discord-Reaction-Ticket-Bot/)](https://repl.it/github/Sobhan-SRZA/Discord-Reaction-Ticket-Bot/)
+[![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
 
 Shoma baraie Faeall Kardan Bot Baiad In Pish Niaz Haro Nasb Konid😉
 ```js
@@ -21,6 +21,8 @@ Shoma baraie Faeall Kardan Bot Baiad In Pish Niaz Haro Nasb Konid😉
 - [fs]         npm install fs
 - [path]       npm install path 
 ```
+
+---aha---s---
 In Code Haie Nasb Ro Dar Terminal Bezanid Ta Bot Okshe
 
 - Prefix Va Token Bot Ro Dar Inja Vared Konid👉🏻 `.env`
