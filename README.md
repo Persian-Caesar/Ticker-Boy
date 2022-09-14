@@ -59,12 +59,21 @@ PREFIX="BOT_PREFIX"
 ---
 
 **Easy To Setup**
-https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024
+
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024" >
+  </a>
 
 ---
 
-https://media.discordapp.net/attachments/906230974319300638/1019711787945431111/bandicam_2022-09-15_00-57-31-682.jpg?width=686&height=1024
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711787945431111/bandicam_2022-09-15_00-57-31-682.jpg?width=686&height=1024" >
+  </a>
+
 
 ---
 
-https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg
+  <a href="https://zil.ink/sobhan.srza">
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg" >
+  </a>
+
