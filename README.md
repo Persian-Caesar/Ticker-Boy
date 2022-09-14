@@ -66,6 +66,7 @@ if you need so much configuration about the bot you can go in to the `config.js`
 ```
 
 - if you didn't install source packages you need for install all packages open that👉🏻 `install.bat`
+
 Packages  |  Version  |  Install
 ------------- | ------------- | -------------
 [quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^7.1.3  | `npm install quick.db`
@@ -86,6 +87,7 @@ Packages  |  Version  |  Install
 [os](https://www.npmjs.com/package/os) | Lastest ^0.1.2 | `npm install os`
 [passport](https://www.npmjs.com/package/passport) | Lastest ^0.6.0 | `npm install passport`
 
+
 - if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
 - if you want run your source you need for run your bot open that👉🏻 `start.bat`
@@ -94,13 +96,10 @@ Packages  |  Version  |  Install
 
 - How run bot in replit or heroco?
 that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓
-[![Deploy on Herokucd](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/)
 
   <a href="https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/">
     <img align="center" alt="Deploy on Herokucd" src ="https://www.herokucdn.com/deploy/button.svg" >
   </a>
-
-[![Use on Replit](https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/)](https://repl.it/github/Sobhan-SRZA/Ticker-Boy/)
 
   <a href="https://repl.it/github/Sobhan-SRZA/Ticker-Boy/">
     <img align="center" alt="Use on Replit" src ="https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/" >
