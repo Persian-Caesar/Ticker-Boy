@@ -44,7 +44,7 @@ some example images about the bot👇🏻
 
 for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
 ```js
-TOKEN=BOT-TOKEN
+TOKEN=BOT_TOKEN
 PREFIX=BOT_PREFIX
 CLIENT_ID=BOT_CLIENT_ID
 ```
