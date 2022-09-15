@@ -27,7 +27,7 @@ module.exports = {
         iconURL: message.guild.iconURL({ dynamic: true })
       })
       .setAuthor({
-        name: `Requested by ` + message.member.tag,
+        name: `Requested by ` + message.member.username,
         iconURL: message.member.displayAvatarURL({ dynamic: true })
       })
   
