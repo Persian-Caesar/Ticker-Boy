@@ -32,7 +32,7 @@ some example images about the bot👇🏻
 
 ---
 
-**Easy To Setup**
+**Easy To Setup:**
 
   <a href="https://zil.ink/sobhan.srza">
     <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024" >
