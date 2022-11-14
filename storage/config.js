@@ -3,13 +3,13 @@ module.exports = {
     source: {
         website : {
             support: "https://discord.gg/at5Q72HNAx",
-            domain: "https://Ticker-Boy.sobhansrza.repl.co"//you need get your repl.co link in replit with keepAlive code, then replace the link
+            domain: "https://Ticker-Boy.your_replit_name.repl.co"//you need get your repl.co link in replit with keepAlive code, then replace the link
         },   
         anti_crash: true,//turn on or off the antiCrash file
         keep_alive: true,//turn on or off the keepAlive file
         dashboard: false,//turn on or off the bot dashboard website
         port: 1528,//don't need to touch or changed
-        callback: 'https://Ticker-Boy.sobhansrza.repl.co/callback',//you need get your repl.co link in replit with keepAlive code, then replace the link right behind of /callback
+        callback: 'https://Ticker-Boy.your_replit_name.repl.co/callback',//you need get your repl.co link in replit with keepAlive code, then replace the link right behind of /callback
         secret: process.env.USER_SECRET_ID,//bot secret id, you can get it in discord developer portal
         client_id: process.env.CLIENT_ID,//bot client id, you can get it in discord server or in discord developer portal
     },
@@ -34,8 +34,8 @@ module.exports = {
  * @INFO
  * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
  * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
+ * Work for Persian Czar | https://dsc.gg/sizar-team
  * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
+ * Please Mention Us Persian Czar, When Using This Code!
  * @INFO
  */
