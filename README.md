@@ -16,9 +16,9 @@ some example images about the bot👇🏻
 ---
 
 **👌🏻Perfect Help Menu For Members:**
-                       
+
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711787945431111/bandicam_2022-09-15_00-57-31-682.jpg?width=686&height=1024" width = 30% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041798984676683876/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_05_20_..png?width=411&height=559" width = 30% />
   </a>
 
 ---
@@ -26,15 +26,16 @@ some example images about the bot👇🏻
 **⚒️Worked With Advanced Button Systems:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1019711824549118075/bandicam_2022-09-15_00-59-30-164.jpg" width = 30% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799572005064704/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_57_..png" width = 30% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799783402184797/Captures_23_08_1401_11_09_40_..png" width = 30% />
   </a>
 
 ---
 
 **💻Easy To Setup:**
-                                                                                                                                                  
+
   <a href="http://sobhan.epizy.com">
-    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1019711500396548117/bandicam_2022-09-15_01-08-42-689.jpg?width=895&height=1024" width = 30% />
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1041799572797796422/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_38_..png?width=589&height=559" width = 30% />
   </a>
 
 ---
