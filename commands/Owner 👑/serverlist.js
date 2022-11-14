@@ -100,6 +100,7 @@ run: async function(bot, message, args, prefix){
           .slice(i0, i1)
           .join("\n");
 
+
       // Update the embed with new informations
       embed
         .setTitle(

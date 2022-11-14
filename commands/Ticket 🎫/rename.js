@@ -74,14 +74,6 @@ module.exports = {
      })
    }catch(e) {
     console.log(e)
-    return message.reply({
-            content: `${bot.emotes.error} **| Error, \`\`\`js\n${e}\`\`\`**`,
-            components: '',
-        }).then(message.member.send({
-                content: `Salam aziz👋🏻\n agar man iradi dashtam mitoni to dm moshkelam ro begi ta sazandeganam checkesh bokonannd😉\n vaya be server support biayid:\n ${bot.config.discord.server_support||"https://discord.gg/5GYNec4urW"}`,
-                components: [NeedHelpButtons(bot)] 
-            })
-          );
   }
  }
 }

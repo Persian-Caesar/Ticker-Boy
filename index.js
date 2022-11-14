@@ -6,7 +6,8 @@ const {
   Intents, 
   Collection 
 } = require('discord.js');
-const config = require('./storage/config');
+const config = require('./storage/config.js');
+const status = require("./storage/status.json");
 const clc = require("cli-color");
 const fs = require('fs');
 const client = new Client({
@@ -18,24 +19,26 @@ const client = new Client({
     },
     /*presence: {//setting bot status in client
         activities: [{
-          name: `${config.status.text}`.replace("{prefix}", config.discord.prefix), 
-          type: config.status.type, 
-          url: config.status.url
+          name: `${status.text}`.replace("{prefix}", config.discord.prefix), 
+          type: status.type, 
+          url: status.url
         }],
-        status: config.status.presence,
+        status: status.presence,
         afk: true
     },*/
-    ws: { 
-      properties: { 
-        $browser: "Discord iOS"//can be "Discord Android" or "Discord iOS" 
-       }
+    ws:{
+        properties: {
+            browser: "Discord Android",//Discord Web | Discord Android | Discord Ios | Discord Client
+            os: "Android"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
+        },
     },
 });
 client.config = config;
 client.prefix = client.config.discord.prefix;
 client.token = client.config.discord.token;
-client.emotes = client.config.emojis;
-client.colors = client.config.colors;
+client.emotes = require("./storage/emotes.json");
+client.colors = require("./storage/colors.json");
+client.embed = require("./storage/embed.json");
 client.categories = fs.readdirSync(`./commands`);
 client.commands = new Collection();
 client.slashCommands = new Collection();
@@ -60,8 +63,9 @@ try {
   console.log("\n")
 } catch { /* */ }
 
+
 //===========================================================================================================//
-//======== Console ========
+//======== Consol ========
 if(client.token){
     client.login(client.token).catch(e => {
      console.log(clc.red("The Bot Token You Entered Into Your Project Is Incorrect Or Your Bot's INTENTS Are OFF!\n"))
@@ -69,6 +73,15 @@ if(client.token){
   } else {
    console.log(clc.red("Please Write Your Bot Token Opposite The Token In The config.js File In Your Project!"))   
   }
+//========== Replit Alive
+setInterval(() => {
+     if(!client || !client.user) {
+    console.log("The Client Didn't Login Proccesing Kill 1")
+        process.kill(1);
+    } else {
+   }
+}, 10000); 
+
 /**
  * @INFO
  * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs

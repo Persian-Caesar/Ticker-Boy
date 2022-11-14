@@ -1,11 +1,4 @@
 const {
-  NeedHelpButtons,
-  NeedHelpMenu,
-  epochDateNow,
-  HelpCategoryEmbed,
-  errorEmbed
-} = require('../../functions/functions.js');
-const {
   MessageActionRow,
   MessageButton,
   MessageEmbed,
@@ -15,58 +8,63 @@ module.exports = {
     name: 'report',
     aliases: ['bug','rp'],
     category: 'Help 🆘',
-    utilisation: '{prefix}report',
-     description: 'for report bot bugs to developers :)',
-  async execute(bot, message, args) { 
+    usage: '[report-text]',
+    description: 'for report bot bugs to developers :)',
+    cooldown: 6,
+   run: async function(client, message, args, prefix, logsChannel){
 const choice = args.slice().join(" ");
-    try{
         if (!choice){
- return message.channel.send({
-                     embed: errorEmbed(message, 'for report a bugs of bot you have to write your *message* right behind of command.', bot), 
-                     components: [NeedHelpButtons(bot)] 
-                    })
-        }else {
-          const sizarTMserver = bot.guilds.cache.get(bot.config.discord.server_id);
-          const channelbug = sizarTMserver.channels.cache.get(bot.config.discord.server_channel_report);
-          let invite = await message.channel.createInvite({
-              maxAge: 0, 
-              maxUses: 5
-          })
-         const soal = new MessageEmbed()
-            .setAuthor({
-              name: `${message.author.username}`,
-              iconURL: message.author.displayAvatarURL({ dynamic: true })
+ return message.reply({
+     content: "Please write the text of your report on the command to be checked or visit the bot support server and share it with the creators in a special chat room or in the buggy ticket ticket.",
+      components: [new MessageActionRow()
+        .addComponents([new MessageButton()
+            .setStyle('LINK')
+            .setLabel('Invite Me')
+             .setEmoji(client.emotes.invite)
+                 .setURL(client.config.discord.invite)],[new MessageButton()
+            .setStyle('LINK')
+            .setLabel('Support Server!')
+             .setEmoji(client.emotes.help)
+       .setURL(`${client.config.discord.server_support}`)])
+            ] 
+    })
+}else {
+      const channelbug = client.channels.cache.get(client.config.discord.server_channel_report);
+        let invite = await message.channel.createInvite({
+            maxAge: 0, 
+            maxUses: 5
+        }, )
+
+     const soal = new MessageEmbed()
+      .setAuthor(`${message.author.tag}`,message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setTitle(`This Guy Have a Report, User ID: "${message.author.id}"`)
+      .setColor('#2F3136')
+      .addField(`> **User :**`,`${client.emotes.reply}${message.author}`,true)
+      .addField(`> **Send :**` ,`${client.emotes.reply}${choice}`,true) 
+      .addField(`> **Server :**`, `${client.emotes.reply}${invite.url}`,true)
+      .setURL(invite.url)
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setFooter({ 
+         text: `Requested By ${message.author.tag}`,
+         iconURL: client.user.displayAvatarURL({ dynamic: true })
+      })
+    channelbug.send({ embeds: [soal] }).then((msg)=> {
+      msg.react(client.emotes.report)
+     })
+        message.reply({
+            content: 'Your bug request or comment was sent to the support server, or the admins join the server and solve it, or request a friend. Thanks.',
+           components: [new MessageActionRow()
+        .addComponents([new MessageButton()
+            .setStyle('LINK')
+            .setLabel('Support Server!')
+             .setEmoji(client.emotes.help)
+       .setURL(`${client.config.discord.server_support}`)])
+            ] 
             })
-            .setTimestamp()
-            .setTitle(`This Guy Have a Report, User ID: "${message.author.id}"`)
-            .setColor('#2F3136')
-            .addField(`> **User :**`,`<:reply_desgine:950701730675445790>**${message.author}**`,true)
-            .addField(`> **Send :**` ,`<:reply_desgine:950701730675445790>${choice}`,true) 
-            .addField(`> **Server :**`, `<:reply_desgine:950701730675445790>**${invite.url}**`,true)
-            .setURL(invite.url)
-            .setThumbnail(message.guild.iconURL({ dynamic: true }))
-            .setFooter({
-              text: `Requested By ${message.author.tag}`,
-              iconURL: bot.user.displayAvatarURL({ dynamic: true })
-            })
-          channelbug.send({ embeds: [soal] }).then((msg)=> {
-            msg.react(bot.emotes.report)
-           })
-           message.reply({
-            content: bot.emotes.success + `| \`\`\`js\n ${bot.emotes.report}| Successfuly your report or bug message send to My Developers ${bot.emotes.hurt} \`\`\`**thank's for sending your message to us.\nFor helping you my develpoers or admins send a \`Friend-Request\` for you or just join to server and fix your problem. :)**`,
-            components: [NeedHelpButtons(bot)] 
-           })     
+     
     }
-  }catch(e) {
-    console.log(e)
-    return message.reply({
-            content: `${bot.emotes.error} **| Error, \`\`\`js\n${e}\`\`\`**`,
-        }).then(message.member.send({
-                content: `Salam aziz👋🏻\n agar man iradi dashtam mitoni to dm moshkelam ro begi ta sazandeganam checkesh bokonannd😉\n vaya be server support biayid:\n ${bot.config.discord.server_support||"https://discord.gg/5GYNec4urW"}`,
-                components: [NeedHelpButtons(bot)] 
-            })
-        );
-    }
+
     }
 }
 /**

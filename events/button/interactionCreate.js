@@ -14,6 +14,7 @@ module.exports = async (client, interaction) => {
     if(!interaction.isButton())return;    
   //ticket
 let logsChannel = interaction.guild.channels.cache.find(c => c.id === db.get(`modlog_${interaction.guild.id}`));
+let prefix = db.get(`prefix_${interaction.guild.id}`) || client.prefix;
 let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`);
   if(interaction.customId === "cancel"){
         interaction.update({
@@ -26,7 +27,7 @@ let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.i
                     .setColor(client.colors.none)
                     .setDescription(`You have canceled your request to work some thing and now the work have bin canceled for you. Good luck and victory.`)                    
                     .setFooter({
-                      text: "Canceled | created by Mr.SIN RE#1528",
+                      text: "Canceled • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()
@@ -44,15 +45,14 @@ let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.i
     interaction.update({
           embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.x + '| **Canceled The Making A Ticket**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`شما درخواست ساخت تیکت خود را لغو کردید و اکنون دیگر تیکتی برای شما ساخته نمیشود موفق و پیروز باشید.🤗`)
-                    .addField(`Language: EN:flag_us:`,`You have canceled your request to make a ticket and now a ticket can no longer be made for you. Good luck and victory.🤗`)                    
+                    .addField(`${client.emotes.reason}Description:`,`You have canceled your request to make a ticket and now a ticket can no longer be made for you. Good luck and victory.🤗`)                    
                     .setFooter({
-                      text: "Canceled | created by Mr.SIN RE#1528",
+                      text: "Canceled • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
           components: [new MessageActionRow()
@@ -67,22 +67,20 @@ let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.i
     })
   }
 if (interaction.customId == 'create') {
-    interaction.update({
-          embeds: [new MessageEmbed()
+    let embed = new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.ticket + '| **Create Ticket**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت تیکت را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به لیست کلیک کنید و دلیل ساخت تیکت خود را تعیین کنید ولی در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
-                    .addField(`Language: EN:flag_us:`,`Dear friend, you have made a request to make a ticket. If you agree to make your ticket, click on the menu below the message and specify the reason for making your ticket, but if you disagree, click on the red button, be successful and victorious.😎`)                    
+                    .addField(`${client.emotes.reason}Description:`,`Dear friend, you have made a request to make a ticket. If you agree to make your ticket, click on the menu below the message and specify the reason for making your ticket, but if you disagree, click on the red button, be successful and victorious.😎`)                    
                     .setFooter({
-                      text: "Create Ticket | created by Mr.SIN RE#1528",
+                      text: "Create Ticket • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
-                    })],
-         components: [new MessageActionRow()
-          .addComponents([new MessageSelectMenu()
+                    })
+
+   let menu = new MessageSelectMenu()
             .setPlaceholder(`${client.emotes.ticket}| Select Your Ticket Reason`)
             .setOptions([
               {
@@ -109,19 +107,45 @@ if (interaction.customId == 'create') {
             .setMinValues(1)
             .setMaxValues(1)
             .setCustomId("ticket_menu")  
-          ]),new MessageActionRow()
-            .addComponents([new MessageButton()
+
+  let cancel = new MessageButton()
               .setStyle("DANGER")
               .setLabel("Canceled")
               .setCustomId("dont_do")
-              .setEmoji(client.emotes.x)],[new MessageButton()
+             .setEmoji(client.emotes.x)
+  
+    return interaction.update({
+          embeds: [embed],
+          components: [new MessageActionRow()
+          .addComponents([menu]),new MessageActionRow()
+            .addComponents([cancel],[new MessageButton()
               .setStyle("LINK")
               .setEmoji(client.emotes.support)
               .setLabel("Support")
-              .setURL("https://dsc.gg/sizar-team")
+              .setURL(client.config.discord.server_support)
           ])
          ]
     })
+      setTimeout(()=>{
+        embed.setFooter({
+        text: `The Time Is Up • for use again: ${prefix}ticket`,
+        iconURL: interaction.guild.iconURL({ dynamic: true })
+        })
+        menu.setDisabled(true)
+        cancel.setDisabled(true)
+        interaction.update({
+          embeds: [embed],
+          components: [new MessageActionRow()
+          .addComponents([menu]),new MessageActionRow()
+            .addComponents([cancel],[new MessageButton()
+              .setStyle("LINK")
+              .setEmoji(client.emotes.support)
+              .setLabel("Support")
+              .setURL(client.config.discord.server_support)
+          ])
+         ]
+        })
+    },61*1000)
 }
        if (interaction.customId == 'create_need_help_ticket') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
@@ -155,13 +179,11 @@ if (interaction.customId == 'create') {
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`
-سلام به چنل **ساپورت و کمک رسانی** (تیکت) خوش اومدید لطفا دلیل باز کردن تیکتتان را به صورت خلاصه توضیح دهید تا ادمین های سرور در سریع ترین زمان ممگن به تیکت شما رسیدگی کنند (لطفا از منشن کردن ادمین ها خودداری کنید)`)
-                    .addField(`Language: EN:flag_us:`,`
+                   .addField(`${client.emotes.reason}Description:`,`
 Hello to the **support and help** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Support And Help\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()
@@ -190,9 +212,8 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
       .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
       .setColor(client.colors.none)
       .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
-              .addField(`Language: PER:flag_ir:`,`
-چنل تیکت شما ساخته شد و اکنون آماده است.\n لطفا منتظر مدیرتور ها ویا ادمین ها باشید با آنلا صحبت کنید`)
-              .addField(`Language: EN:flag_us:`,`
+
+              .addField(`${client.emotes.reason}Description:`,`
 your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
       .setTimestamp()
       .addFields(
@@ -223,8 +244,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         }
       )
       .setFooter({
-        text: "Ticket Information | created by Mr.SIN RE#1528",
-        iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+        text: "Ticket Information • "+client.embed.footerText,
+        iconURL: client.embed.footerIcon
       })]
  }
       interaction.channel.messages.fetch(db.get(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`)).then(msg =>{
@@ -270,8 +291,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
        });
            });
@@ -286,7 +307,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription(`️**My Friend, you just have a another ticket.\nI can't create new ticket for you because you have got a ticket.\nAlso you can close your old ticket.\nyour old ticket channel is ${interaction.guild.channels.cache.find(x => x.name === ticketName)}**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -326,16 +347,16 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                    content:  `<@${interaction.user.id}>`,
                    embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`سلام به چنل **اکسچنج و تبادل** (تیکت) خوش اومدید لطفا دلیل باز کردن تیکتتان را به صورت خلاصه توضیح دهید تا ادمین های سرور در سریع ترین زمان ممکن به تیکت شما رسیدگی کنند (لطفا از منشن ادمین ها خودداری کنید)`)
-                    .addField(`Language: EN:flag_us:`,`Hello to the **exchange** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
+
+                    .addField(`${client.emotes.reason}Description:`,`Hello to the **exchange** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Exchange\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()
@@ -364,9 +385,8 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
           .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
           .setColor(client.colors.none)
           .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
-                  .addField(`Language: PER:flag_ir:`,`
-چنل تیکت شما ساخته شد و اکنون آماده است.\n لطفا منتظر مدیرتور ها ویا ادمین ها باشید با آنلا صحبت کنید`)
-                  .addField(`Language: EN:flag_us:`,`
+
+                  .addField(`${client.emotes.reason}Description:`,`
 your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
           .setTimestamp()
           .addFields(
@@ -397,8 +417,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             }
           )
           .setFooter({
-            text: "Ticket Information | created by Mr.SIN RE#1528",
-            iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+            text: "Ticket Information • "+client.embed.footerText,
+            iconURL: client.embed.footerIcon
           })]
      }
       interaction.channel.messages.fetch(db.get(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`)).then(msg =>{
@@ -444,8 +464,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
        });
            });
@@ -460,7 +480,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription(`️**My Friend, you just have a another ticket.\nI can't create new ticket for you because you have got a ticket.\nAlso you can close your old ticket.\nyour old ticket channel is ${interaction.guild.channels.cache.find(x => x.name === ticketName)}**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -505,13 +525,12 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`
-سلام به چنل **گزارش ادمین ، بات یا ممبر ها** (تیکت) خوش اومدید لطفا دلیل باز کردن تیکتتان را به صورت خلاصه توضیح دهید تا ادمین های سرور در سریع ترین زمان ممگن به تیکت شما رسیدگی کنند (لطفا از منشن کردن ادمین ها خودداری کنید)`)
-                    .addField(`Language: EN:flag_us:`,`
+
+                    .addField(`${client.emotes.reason}Description:`,`
 Hello to the **report admins, bots or members** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Report\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()
@@ -540,9 +559,8 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
           .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
           .setColor(client.colors.none)
           .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
-                  .addField(`Language: PER:flag_ir:`,`
-چنل تیکت شما ساخته شد و اکنون آماده است.\n لطفا منتظر مدیرتور ها ویا ادمین ها باشید با آنلا صحبت کنید`)
-                  .addField(`Language: EN:flag_us:`,`
+
+                  .addField(`${client.emotes.reason}Description:`,`
 your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
           .setTimestamp()
           .addFields(
@@ -573,8 +591,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             }
           )
           .setFooter({
-            text: "Ticket Information | created by Mr.SIN RE#1528",
-            iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+            text: "Ticket Information • "+client.embed.footerText,
+            iconURL: client.embed.footerIcon
           })]
      }
       interaction.channel.messages.fetch(db.get(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`)).then(msg =>{
@@ -620,8 +638,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
        });
            });
@@ -636,7 +654,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription(`️**My Friend, you just have a another ticket.\nI can't create new ticket for you because you have got a ticket.\nAlso you can close your old ticket.\nyour old ticket channel is ${interaction.guild.channels.cache.find(x => x.name === ticketName)}**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -681,13 +699,11 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
-                    .addField(`Language: PER:flag_ir:`,`
-سلام به چنل **ثبت نام برای ادمینی** (تیکت) خوش اومدید لطفا دلیل باز کردن تیکتتان را به صورت خلاصه توضیح دهید تا ادمین های سرور در سریع ترین زمان ممگن به تیکت شما رسیدگی کنند (لطفا از منشن کردن ادمین ها خودداری کنید)`)
-                    .addField(`Language: EN:flag_us:`,`
+                     .addField(`${client.emotes.reason}Description:`,`
 Hello to the **register for admin** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Admin Program\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()
@@ -716,9 +732,8 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
             .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
             .setColor(client.colors.none)
             .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
-                    .addField(`Language: PER:flag_ir:`,`
-چنل تیکت شما ساخته شد و اکنون آماده است.\n لطفا منتظر مدیرتور ها ویا ادمین ها باشید با آنلا صحبت کنید`)
-                    .addField(`Language: EN:flag_us:`,`
+                   
+                    .addField(`${client.emotes.reason}Description:`,`
 your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
             .setTimestamp()
             .addFields(
@@ -749,8 +764,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
               }
             )
             .setFooter({
-              text: "Ticket Information | created by Mr.SIN RE#1528",
-              iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+              text: "Ticket Information • "+client.embed.footerText,
+              iconURL: client.embed.footerIcon
             })]
        }
       interaction.channel.messages.fetch(db.get(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`)).then(msg =>{
@@ -796,8 +811,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
        });
            });
@@ -812,7 +827,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription(`️**My Friend, you just have a another ticket.\nI can't create new ticket for you because you have got a ticket.\nAlso you can close your old ticket.\nyour old ticket channel is ${interaction.guild.channels.cache.find(x => x.name === ticketName)}**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -858,7 +873,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                   .setDescription(`**This ticket created by ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} now have bin Closed By <@!${interaction.user.id}> .**`)
                   .addField(`**Reason:**`, `\`\`\`js\n close the ticket\`\`\``)
                   .setFooter({
-                    text: "Successfuly | created by Mr.SIN RE#1528",
+                    text: "Successfuly • "+client.embed.footerText,
                     iconURL: interaction.guild.iconURL({ dynamic: true })
                   })]
           }
@@ -879,7 +894,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription(`**This ticket created by ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} now have bin Closed By <@!${interaction.user.id}> .**`)
                     .addField(`**Reason:**`, `\`\`\`js\n close the ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                components: [
@@ -944,8 +959,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
        });
          
@@ -972,7 +987,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                  .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${(Date.parse(new Date()) / 1000)}:R>**.\nplease wait.`)
                  .addField(`**Reason:**`, `\`\`\`js\n delete the ticket\`\`\``)
                  .setFooter({
-                   text: "Successfuly | created by Mr.SIN RE#1528",
+                   text: "Successfuly • "+client.embed.footerText,
                    iconURL: interaction.guild.iconURL({ dynamic: true })
                  })],
           }
@@ -986,7 +1001,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -1008,7 +1023,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${(Date.parse(new Date()) / 1000)}:R>**.\nplease wait.`)
                     .addField(`**Reason:**`, `\`\`\`js\n delete the ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
              components: [
@@ -1075,8 +1090,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
                    });
            db.delete(`TicketControl_${interaction.channel.id}`);
@@ -1091,7 +1106,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -1113,7 +1128,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription(`**This ticket created by ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} now have bin user ticket have bin Opened by <@!${interaction.user.id}> .**`)
                     .addField(`**Reason:**`, `\`\`\`js\n open the ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                 components: [
@@ -1151,7 +1166,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription(`**This ticket created by ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} now have bin user ticket have bin Opened by <@!${interaction.user.id}> .**`)
                     .addField(`**Reason:**`, `\`\`\`js\n open the ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                 components: [
@@ -1216,8 +1231,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
                    });
        } else if (interaction.customId == 'renameTicketTrue') {
@@ -1234,7 +1249,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription(`**this ticket name have bin changed successfuly${client.emotes.success}.\nthis ticket name is changed to:\`${db.fetch(`RenameTicket_${interaction.channel.id}`)}\`**`)
                     .addField(`**Reason:**`, `\`\`\`js\n rename the last ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
          components: [
@@ -1288,8 +1303,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
                    });
        } else if(interaction.customId == "addmemberTicket"){
@@ -1320,7 +1335,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setDescription("**I add this people** *"+txt+"* **to your ticket bro.**")
                     .addField(`**Reason:**`, `\`\`\`js\n add people in the ticket\`\`\``)
                     .setFooter({
-                      text: "Successfuly | created by Mr.SIN RE#1528",
+                      text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
          components: [
@@ -1374,8 +1389,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           }
         )
         .setFooter({
-          text: "Logs Information | created by Mr.SIN RE#1528",
-          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+          text: "Logs Information • "+client.embed.footerText,
+          iconURL: client.embed.footerIcon
         })]
                    });
 
@@ -1391,7 +1406,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     .setColor(client.colors.none)
                     .setDescription("**user stop the adding people to his ticket channel.**")
                     .setFooter({
-                      text: "Cancel | created by Mr.SIN RE#1528",
+                      text: "Cancel • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })],
                    components: [new MessageActionRow()

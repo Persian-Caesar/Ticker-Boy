@@ -129,7 +129,7 @@ let Sub = interaction.options.getSubcommand();
            interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -154,7 +154,7 @@ let Sub = interaction.options.getSubcommand();
         if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -195,7 +195,7 @@ let Sub = interaction.options.getSubcommand();
            interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -220,7 +220,7 @@ let Sub = interaction.options.getSubcommand();
         if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -262,7 +262,7 @@ let Sub = interaction.options.getSubcommand();
            interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -288,7 +288,7 @@ let Sub = interaction.options.getSubcommand();
         if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -310,7 +310,7 @@ let Sub = interaction.options.getSubcommand();
      interaction.reply({
          embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle(client.emotes.rename+'| **Request To Change Ticket Name**')
@@ -342,7 +342,7 @@ let Sub = interaction.options.getSubcommand();
            interaction.editReply({
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -366,7 +366,7 @@ db.delete(`RenameTicket_${interaction.channel.id}`)
 return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -392,7 +392,7 @@ return interaction.reply({
         if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -413,7 +413,7 @@ return interaction.reply({
         interaction.reply({
                    embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('📇| **Request To Adding People To Ticket**')
@@ -445,7 +445,7 @@ return interaction.reply({
            interaction.editReply({
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -469,7 +469,7 @@ return interaction.reply({
            interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')

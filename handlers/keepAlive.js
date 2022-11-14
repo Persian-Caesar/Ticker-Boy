@@ -1,16 +1,15 @@
 const express = require('express');
-var clc = require("cli-color");
+const clc = require("cli-color");
 const app = express();
 const stringlength = 69;
 module.exports = async (client) => {
 let port = client.config.source.port;
 app.use(express.static("public"));
-/*
-app.get("/", (request, response) => {
-  response.setHeader('Content-Type', 'text/html');
-  response.send(__dirname + `/app/client.html`);
+app.get("/", (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send(__dirname + `/app/index.html`);
 });
-*/
+
 const listener = app.listen(port, () =>{
   console.log("\n"+
   clc.yellowBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`) + `\n` +

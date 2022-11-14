@@ -5,7 +5,7 @@ fs.readdirSync('./commands').forEach(dirs => {
     const commands = fs.readdirSync(`./commands/${dirs}`).filter(files => files.endsWith('.js'));
     for (const file of commands) {
         const command = require(`./../commands/${dirs}/${file}`);
-        client.commands.set(command.name, command);
+client.commands.set(command.name, command);
     };
 });
 try {

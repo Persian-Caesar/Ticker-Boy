@@ -34,28 +34,28 @@ module.exports = {
 var prefix = await db.fetch(`prefix_${interaction.guild.id}`)||client.prefix;
 let help = new MessageEmbed()
   .setThumbnail(client.user.displayAvatarURL({ format: "png" }))
-  .setTitle(`${client.user.username} Help Commands :)`)
+  .setTitle(`${client.user.tag} Help Commands :)`)
   .setURL(client.config.discord.server_support)
-  .setFooter({ 
-     text: `Message Guild ${interaction.guild.name} | Made by Mr.SIN RE#1528 |`, 
-     iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
-  })
+   .setFooter({ 
+      text: `Message Guild ${interaction.guild.name} • ${client.embed.footerText}`, 
+      iconURL: client.embed.footerIcon
+   })
   .setAuthor({ 
-     name: `Requested by ${interaction.user.username}`, 
+     name: `Requested by ${interaction.user.tag}`, 
      iconURL: interaction.member.displayAvatarURL({ dynamic: true }) 
   })
-  .setColor("#2F3136")
+  .setColor(clienr.colors.none)
   .setDescription(`**this embed show you bot commands and categorys.**`)
   .addField(`Commands[\`${client.commands.size}\`] & SlashCommands[\`${client.slashCommands.size}\`] Categories `,`${'**' + client.categories.map(i => '`' + i + '`').join(' , ') + '**'}`,false)
-  .addField(`Help 🆘 [${client.commands.filter(c => c.category === 'Help 🆘').size}]`,`This category of commands is to request help from bot founders and see all bot commands.`,false)
-  .addField(`Infos 📊 [${client.commands.filter(c => c.category === 'Infos 📊').size}]`,`Using these commands, you can get the information you want about the bot.`,false)
-  .addField(`Setup 💻 [${client.commands.filter(c => c.category === 'Setup 💻').size}]`,`Using these bot commands, you can configure the bot on your server.\nThese commands are for server admins only.`,false)
-  .addField(`Ticket 🎫 [${client.commands.filter(c => c.category === 'Ticket 🎫').size}]`,`With these bot commands, you can create private channels to communicate with admins and other important people, which we call these channels, channel tickets.پدThese commands are all related to ticket channels.`,false)
-  .addField(`VIP 💎 [${client.commands.filter(c => c.category === 'VIP 💎').size}]`,`This batch of bot commands is for important people who have purchased bot premium.\nIn order to use these commands, you need to buy the bot insurance premium to become one of the special people.\n(These commands are locked for others)`,false)
-  .addField(`Owner 👑 [${client.commands.filter(c => c.category === 'Owner 👑').size}]`,`This category of bot commands is only for founders and cannot be used by other people.\nThese commands are for editing the bot and setting it up.`,false)
+  .addField(`Help 🆘 [${client.commands.filter(c => c.category === 'Help 🆘').size}]`,`This category of commands is to request help from bot founders and see all bot commands.`,true)
+  .addField(`Infos 📊 [${client.commands.filter(c => c.category === 'Infos 📊').size}]`,`Using these commands, you can get the information you want about the bot.`,true)
+  .addField(`Setup 💻 [${client.commands.filter(c => c.category === 'Setup 💻').size}]`,`Using these bot commands, you can configure the bot on your server.\nThese commands are for server admins only.`,true)
+  .addField(`Ticket 🎫 [${client.commands.filter(c => c.category === 'Ticket 🎫').size}]`,`With these bot commands, you can create private channels to communicate with admins and other important people, which we call these channels, channel tickets.These commands are all related to ticket channels.`,true)
+  .addField(`VIP 💎 [${client.commands.filter(c => c.category === 'VIP 💎').size}]`,`This batch of bot commands is for important people who have purchased bot premium.\nIn order to use these commands, you need to buy the bot insurance premium to become one of the special people.\n(These commands are locked for others)`,true)
+  .addField(`Owner 👑 [${client.commands.filter(c => c.category === 'Owner 👑').size}]`,`This category of bot commands is only for founders and cannot be used by other people.\nThese commands are for editing the bot and setting it up.`,true)
   .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
   .setTimestamp()
-  .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support||"https://discord.gg/5GYNec4urW"})**`,false)
+  .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support})**`,false)
 
 try {
 const choice = interaction.options.getString("report_message");
@@ -67,11 +67,11 @@ if(choice){
       maxUses: 5
   })
   const report = new MessageEmbed()
-   .setAuthor({name:`${interaction.user.username}`,iconURL:interaction.user.displayAvatarURL({ dynamic: true })})
+   .setAuthor({name:`${interaction.user.tag}`,iconURL:interaction.member.displayAvatarURL({ dynamic: true })})
    .setTimestamp()
-   .setTitle(`This Guy Have a Report, User ID: "${interaction.user.id}"`)
-   .setColor('#2F3136')
-   .addField(`> **User :**`,`${client.emotes.reply}${interaction.user}`,true)
+   .setTitle(`This Guy Have a Report, User ID: "${interaction.member.id}"`)
+   .setColor(client.colors.none)
+   .addField(`> **User :**`,`${client.emotes.reply}${interaction.member}`,true)
    .addField(`> **Send :**` ,`${client.emotes.reply}${choice}`,true) 
    .addField(`> **Server :**`, `${client.emotes.reply}${invite.url}`,true)
    .setURL(invite.url)
@@ -84,7 +84,7 @@ if(choice){
    })
    interaction.reply({
     ephemeral: true,
-    content: client.emotes.success + `| \`\`\`js\n ${client.emotes.report}| Successfuly your report or bug message send to My Developers ${client.emotes.hurt} \`\`\`**thank's for sending your message to us.\nFor helping you my develpoers or admins send a \`Friend-Request\` for you or just join to server and fix your problem. :)**`,
+    content: client.emotes.success + `| \`\`\`js\n ${client.emotes.report} Successfuly your report or bug message send to My Developers ${client.emotes.hurt} \`\`\`**thank's for sending your message to us.\nFor helping you my develpoers or admins send a \`Friend-Request\` for you or just join to server and fix your problem. :)**`,
    })
   }
  }catch{
@@ -104,9 +104,9 @@ if(choice){
     .addField('Name', cmd.name)
     .addField('Description', cmd.description || 'No Description provided!')
     .addField('Aliase(s)', cmd.aliases.map((a) => `**\`${a}\`**`).join(", ") || 'No Aliases provided!')
-    .setFooter({ text: `${client.user.name} Help || more info ${prefix}help || Made by Mr.SIN RE#1528 |`, iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`})
-    .setAuthor({ name: `Requested by ${interaction.member.name}`, iconURL: interaction.member.displayAvatarURL({ dynamic: true }), url: '' })
-    .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support}||https://discord.gg/5GYNec4urW)**`)
+    .setFooter({ text: `${client.user.tag} Help • more info ${prefix}help • ${client.embed.footerText}`, iconURL: client.embed.footerIcon })
+    .setAuthor({ name: `Requested by ${interaction.user.tag}`, iconURL: interaction.member.displayAvatarURL({ dynamic: true }), url: '' })
+    .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support})**`)
        if (cmd.utilisation) {
          var usage = cmd.utilisation.split('\n').map(i => { return client.prefix + i})
          if (cmd.cooldown) embed.addField('Cooldown', `**\`${cmd.cooldown} Seconds\`**`)
@@ -118,12 +118,12 @@ if(choice){
               .addComponents([new MessageButton()
                 .setStyle('LINK')
                 .setLabel('Invite Me')
-                .setEmoji('🤖')
+                .setEmoji(client.emotes.invite)
                 .setURL(client.config.discord.invite)
               ],[new MessageButton()
                   .setStyle('LINK')
                   .setLabel('Support Server!')
-                  .setEmoji('🧰')
+                  .setEmoji(client.emotes.help)
                   .setURL(`${client.config.discord.server_support}`)
               ]) 
              ],
@@ -135,7 +135,7 @@ if (!interaction.options.getString("report_message"||"command_name")){
       .setCustomId("help_menu")
       .setMaxValues(1)
       .setMinValues(1)
-      .setPlaceholder("🆘| Click me to show bot commands !!")
+      .setPlaceholder(`${client.emotes.help}| Click me to show bot commands !!`)
       .addOptions([
             {
                 label: 'Infos Help',
@@ -188,12 +188,12 @@ if (!interaction.options.getString("report_message"||"command_name")){
                      .addComponents([new MessageButton()
                        .setStyle('LINK')
                        .setLabel('Invite Me')
-                       .setEmoji('🤖')
+                       .setEmoji(client.emotes.invite)
                        .setURL(client.config.discord.invite)
                      ],[new MessageButton()
                          .setStyle('LINK')
                          .setLabel('Support Server!')
-                         .setEmoji('🧰')
+                         .setEmoji(client.emotes.help)
                          .setURL(`${client.config.discord.server_support}`)
                      ])
                   ],
@@ -209,12 +209,12 @@ if (!interaction.options.getString("report_message"||"command_name")){
               .addComponents([new MessageButton()
                 .setStyle('LINK')
                 .setLabel('Invite Me')
-                .setEmoji('🤖')
+                .setEmoji(client.emotes.invite)
                 .setURL(client.config.discord.invite)
               ],[new MessageButton()
                   .setStyle('LINK')
                   .setLabel('Support Server!')
-                  .setEmoji('🧰')
+                  .setEmoji(client.emotes.help)
                   .setURL(`${client.config.discord.server_support}`)
               ])
            ]

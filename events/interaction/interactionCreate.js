@@ -14,10 +14,11 @@ try {
     return interaction.reply({content: `${client.emotes.off}| I am missing the Permission to \`USE_EXTERNAL_EMOJIS\`` })
     if(!interaction.guild.me.permissions.has(Permissions.FLAGS.EMBED_LINKS)) 
     return interaction.reply({content: `${client.emotes.error}| I am missing the Permission to \`EMBED_LINKS\`` })
-    if(!interaction.guild.me.permissions.has(Permissions.FLAGS.ADD_REACTIONS)) 
+    /*if(!interaction.guild.me.permissions.has(Permissions.FLAGS.ADD_REACTIONS)) 
     return interaction.reply({embeds: [new MessageEmbed()
       .setColor(client.colors.red)
       .setTitle(`${client.emotes.entry}| I am missing the Permission to \`ADD_REACTIONS\``)]})
+      */
 
         if (interaction.isCommand()) {
             const command = client.slashCommands.get(interaction.commandName);

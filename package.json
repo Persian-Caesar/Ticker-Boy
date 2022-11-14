@@ -1,7 +1,7 @@
 {
   "name": "ticker-boy",
   "main": "index.js",
-  "author": "Mr.SIN RE#1528 | Persian Czar",
+  "author": "Mr.SIN RE#1528 | SIZAR Team",
   "version": "6.3.0",
   "description": "this is wonderful ticket bot with slash commands & buttons. | Build by SIZAR Team",
   "license": "ISC",
@@ -27,7 +27,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cli-color": "^2.0.2",
     "cpu-stat": "^2.0.1",

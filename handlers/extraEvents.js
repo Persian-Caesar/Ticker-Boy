@@ -2,7 +2,7 @@ const moment = require("moment");
 const clc = require("cli-color");
 module.exports = async (client) => {
 client.logger = (data) => {
-    let logstring = `${clc.greenBright(`SIZAR_Team`)}${clc.blackBright(` | `)}${clc.cyan(`${moment().format("ddd DD-MM-YYYY HH:mm:ss.SSSS")}`)}${clc.magenta(` 〢 `)}`
+    let logstring = `${clc.greenBright(`Perisan_Czar`)}${clc.blackBright(` | `)}${clc.cyan(`${moment().format("ddd DD-MM-YYYY HH:mm:ss.SSSS")}`)}${clc.magenta(` 〢 `)}`
     if (typeof data == "string") {
       console.log(logstring, data.split("\n").map(d => clc.green(`${d}`)).join(`\n${logstring} `))
     } else if (typeof data == "object") {

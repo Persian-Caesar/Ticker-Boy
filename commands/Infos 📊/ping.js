@@ -4,6 +4,9 @@ const {
   MessageEmbed,
   Permissions
 } = require("discord.js");
+const {
+   wait
+} = require('../../functions/functions.js');
 module.exports = {
   name: "ping", //the command name for execution & for helpcmd [OPTIONAL]
   aliases: [ "pong" ], //the command aliases for helpcmd [OPTIONAL]
@@ -11,6 +14,7 @@ module.exports = {
   usage: '',
   description: "get bot ms requestes and bot ping.", //the command description for helpcmd [OPTIONAL]
   run: async function(bot, message, args, prefix){
+            let timer = 3000;
             var states = "🟢 Excellent";
             var states2 = "🟢 Excellent";
             var msg = `${Date.now() - message.createdTimestamp}`;
@@ -21,18 +25,58 @@ module.exports = {
             if (Number(api) > 70) states2 = "🟢 Good";
             if (Number(api) > 170) states2 = "🟡 Not Bad";
             if (Number(api) > 350) states2 = "🔴 Soo Bad";
+    
     let pingEmbed = new MessageEmbed()
       .setThumbnail(bot.user.displayAvatarURL())
-      .setColor("#2F3136")
+      .setColor(bot.colors.none)
       .setDescription(`**Pong🏓!** \n 📱${bot.user.username} Ping `)
       .addField("**Time Taken:**", `\`${msg + " ms 📶 | " + states}\``, true)
       .addField("**WebSocket:**", `\`${api + " ms 📶 | " + states2}\``, true)
       .setTimestamp()
-      .setFooter({text:`Requested by ${message.author.username}`, iconURL:`${message.author.displayAvatarURL()}`});
-   message.channel.send({ 
-                    embeds: [pingEmbed]
-              });
-    
+      .setFooter({text:`Requested by ${message.author.tag}`, iconURL:`${message.author.displayAvatarURL()}`});
+   let pingingEmbed = new MessageEmbed()
+      .setColor(bot.colors.none)
+      .setDescription(`**Pinging...**`)
+      .setTimestamp()
+   let pingButton = new MessageButton()
+          .setDisabled(true)
+          .setStyle("PRIMARY")
+          .setCustomId("loading")
+          .setEmoji("🔃")
+          .setLabel("Process Is Loading...")
+   message.reply({ 
+     embeds: [pingingEmbed],
+     components: [new MessageActionRow().addComponents([pingButton])]
+              }).then((m)=>{
+         wait(50)
+             pingingEmbed.setDescription('**Pinging.**')
+             m.edit({ embeds: [pingingEmbed] })
+         wait(50)
+             pingingEmbed.setDescription('**Pinging..**')
+             m.edit({ embeds: [pingingEmbed] })
+         wait(50)
+             pingingEmbed.setDescription('**Pinging...**')
+             m.edit({ embeds: [pingingEmbed] })
+          wait(50)
+             pingingEmbed.setDescription('**Pinging.**')
+             m.edit({ embeds: [pingingEmbed] })
+           wait(50)
+             pingingEmbed.setDescription('**Pinging..**')
+             m.edit({ embeds: [pingingEmbed] })
+           wait(50)
+             pingingEmbed.setDescription('**Pinging...**')
+             m.edit({ embeds: [pingingEmbed] })
+     
+           wait(50)
+        pingButton
+          .setDisabled(true)
+          .setStyle("SUCCESS")
+          .setCustomId("pong")
+          .setEmoji("🏓")
+          .setLabel("Pong!!")
+             m.edit({ embeds: [pingEmbed], components: [new MessageActionRow().addComponents([pingButton])] })
+
+      })
      
    }
 }

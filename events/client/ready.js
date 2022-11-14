@@ -3,7 +3,7 @@ var Discord = require('discord.js')
 module.exports = async (client) => {
    setInterval(function Activitys() {
       let totalUsers = client.guilds.cache.reduce((acc, value) => acc + value.memberCount, 0)
-      /*
+      
       let Presence = [ "dnd", "idle", "online" ]; //can be: online | dnd | idle | offline
       let PresencePower = Presence[Math.floor(Math.random() * Presence.length)]
       let Activity = [`${client.prefix}help`, `${client.prefix}ticket` , `${client.guilds.cache.size} Servers`, `${totalUsers} Users`];
@@ -14,11 +14,9 @@ module.exports = async (client) => {
       let URLPower = URL[Math.floor(Math.random() * URL.length)];
      client.user.setPresence({ status: PresencePower })
      client.user.setActivity({ type: DisplayPower, name: ActivityPower, url: URLPower });      
-      */
-     setTimeout(()=>{
+      /*
      client.user.setPresence({ status: "online" })
      client.user.setActivity({ type: "WATCHING", name: `${totalUsers} Users` });
-     },5000)
      setTimeout(()=>{
      client.user.setPresence({ status: "idle" })
      client.user.setActivity({ type: "PLAYING", name: `${client.guilds.cache.size} Servers` });
@@ -26,12 +24,14 @@ module.exports = async (client) => {
      setTimeout(()=>{
      client.user.setPresence({ status: "dnd" })
      client.user.setActivity({ type: "COMPETING", name: `${client.prefix}help` });
-     },5000)
+     },10000)
      setTimeout(()=>{
      client.user.setPresence({ status: "dnd" })
      client.user.setActivity({ type: "COMPETING", name: `${client.prefix}ticket` });
-     },5000)
-   }, 5000)
+     },15000)
+     */
+   }, 10000)
+   
 try{
    const stringlength = 69;
    console.log("\n")

@@ -11,7 +11,7 @@ const {
 module.exports = async (client, interaction) => {
   if(!interaction.isSelectMenu())return;
   if(interaction.customId === "help_menu"){
-    let prefix = db.get(`prefix_${interaction.guild.id}`) | client.prefix;
+    let prefix = db.get(`prefix_${interaction.guild.id}`) || client.prefix;
     let help_member = db.get(`help_member_${interaction.guild.id}_${interaction.channel.id}`)
     if(help_member){
     if(interaction.user.id === help_member){
@@ -45,10 +45,21 @@ module.exports = async (client, interaction) => {
   if(interaction.customId === "ticket_menu"){
       if(interaction.values[0] === 'need_help'){
          await interaction.reply({
-					        ephemeral: true,
-					        content: `🔃| Process Loading...`,
-					        ephemeral: true
-				       })
+                   components: [new MessageActionRow()
+                  .addComponents([new MessageButton()
+         .setDisabled(true)
+                      .setStyle("PRIMARY")
+                      .setCustomId("loading")
+                      .setEmoji("🔃")
+                      .setLabel("Process Is Loading...")
+                  ])
+                    ],
+					          embeds: [new MessageEmbed()
+                        .setColor(client.colors.none)
+                        .setTitle(`🔃| Process Is Loading...`)
+                    ],
+                ephemeral: true
+				        })
          interaction.editReply({
               	content: `  `,
                 embeds: [new MessageEmbed()
@@ -74,9 +85,20 @@ module.exports = async (client, interaction) => {
          })
      } else if(interaction.values[0] === "report_bam"){
          await interaction.reply({
-					          ephemeral: true,
-					          content: `🔃| Process Loading...`,
-					          ephemeral: true
+                   components: [new MessageActionRow()
+                  .addComponents([new MessageButton()
+         .setDisabled(true)
+                      .setStyle("PRIMARY")
+                      .setCustomId("loading")
+                      .setEmoji("🔃")
+                      .setLabel("Process Is Loading...")
+                  ])
+                    ],
+					          embeds: [new MessageEmbed()
+                        .setColor(client.colors.none)
+                        .setTitle(`🔃| Process Is Loading...`)
+                    ],
+                ephemeral: true
 				        })
          interaction.editReply({
               	content: `  `,
@@ -103,9 +125,20 @@ module.exports = async (client, interaction) => {
          })
      } else if(interaction.values[0] === "exchange"){
          await interaction.reply({
-					          ephemeral: true,
-					          content: `🔃| Process Loading...`,
-					          ephemeral: true
+                   components: [new MessageActionRow()
+                  .addComponents([new MessageButton()
+         .setDisabled(true)
+                      .setStyle("PRIMARY")
+                      .setCustomId("loading")
+                      .setEmoji("🔃")
+                      .setLabel("Process Is Loading...")
+                  ])
+                    ],
+					          embeds: [new MessageEmbed()
+                        .setColor(client.colors.none)
+                        .setTitle(`🔃| Process Is Loading...`)
+                    ],
+                ephemeral: true
 				        })
          interaction.editReply({
               	content: `  `,
@@ -131,20 +164,13 @@ module.exports = async (client, interaction) => {
                 ephemeral: true
          })
      } else if(interaction.values[0] === "admin"){
-         await interaction.reply({
-					          ephemeral: true,
-					          content: `🔃| Process Loading...`,
-					          ephemeral: true
-				        })
-         interaction.editReply({
-              	content: `  `,
-                embeds: [new MessageEmbed()
+            let embed = new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.tickets}| Create Ticket`)
                         .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت یک تیکت برای **ثبت نام برای ادمینی** را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به دکمه سبز رنگ کلیک کنید و در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
                         .addField(`Language: EN:flag_us:`,`Dear friend, you have requested to make a ticket for **register for admin**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
-                      ],
-                components: [new MessageActionRow()
+                     
+            let buttons = new MessageActionRow()
                   .addComponents([new MessageButton()
                       .setStyle("DANGER")
                       .setCustomId("dont_do")
@@ -156,9 +182,31 @@ module.exports = async (client, interaction) => {
                       .setEmoji(client.emotes.ticket)
                       .setLabel("Create It")
                   ])
-                ],
+      interaction.reply({
+                   components: [new MessageActionRow()
+                  .addComponents([new MessageButton()
+         .setDisabled(true)
+                      .setStyle("PRIMARY")
+                      .setCustomId("loading")
+                      .setEmoji("🔃")
+                      .setLabel("Process Is Loading...")
+                  ])
+                    ],
+					          embeds: [new MessageEmbed()
+                        .setColor(client.colors.none)
+                        .setTitle(`🔃| Process Is Loading...`)
+                    ],
                 ephemeral: true
+				        }).then((m)=>{
+
+           setTimeout(()=>{
+        interaction.editReply({
+          embeds: [embed],
+          components: [buttons]
          })
+          },1000)
+      })
+
      }
  }
 }

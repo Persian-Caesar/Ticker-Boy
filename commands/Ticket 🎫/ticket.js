@@ -18,17 +18,16 @@ module.exports = {
       .setTitle(`${bot.emotes.ticket}| **Request To Create Ticket**`)
       .setColor(bot.colors.none)
       .setTimestamp()
-      .setDescription('**your ticket channel will be created but are you sure to do this??\nif your ticket created please wait the moderators or admins to speek there.**')    
-      .setThumbnail('https://cdn.discordapp.com/attachments/902034619791196221/905040476355330068/8b7193b2110a034a2fe037437afc80b3.gif')
+      .setDescription('**your ticket channel will be created but are you sure to do this??\nif your ticket created please wait the moderators or admins to speek there.**')
       .addField(bot.emotes.reason+'| INFOS','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+bot.emotes.ticket+'"` or else click to `"'+bot.emotes.x+'"`.')
       .setURL(bot.config.discord.server_support)
       .setFooter({
-        text: "Request To Create Ticket" + " | created by Mr.SIN RE#1528",
+        text: `Request To Create Ticket • ${bot.embed.footerText}`,
         iconURL: message.guild.iconURL({ dynamic: true })
       })
       .setAuthor({
-        name: `Requested by ` + message.member.username,
-        iconURL: message.member.displayAvatarURL({ dynamic: true })
+        name: `Requested by ` + message.author.tag,
+        iconURL: message.author.displayAvatarURL({ dynamic: true })
       })
   
   message.reply({
@@ -48,7 +47,30 @@ module.exports = {
           ])
       ]
   }).then(msg=>{
-    db.set(`CreateTicketMSG_${message.guild.id}_${message.member.id}`, msg.id)
+    db.set(`CreateTicketMSG_${message.guild.id}_${message.author.id}`, msg.id)
+    setTimeout(()=>{
+      embed.setFooter({
+        text: `The Time Is Up • for use again: ${prefix}ticket`,
+        iconURL: message.guild.iconURL({ dynamic: true })
+      })
+      msg.edit({
+      components: [new MessageActionRow()
+          .addComponents(
+            [new MessageButton()
+            .setCustomId('create')
+            .setEmoji(bot.emotes.ticket)
+            .setLabel("Create Ticket")
+            .setStyle('SUCCESS')
+            .setDisabled(true)],
+            [new MessageButton()
+              .setCustomId('dont_do')
+              .setEmoji(bot.emotes.x)
+              .setLabel('Cancel Process')
+              .setStyle("DANGER")
+              .setDisabled(true)])
+      ]       
+      })
+    },60*1000)
   })
   }
 }

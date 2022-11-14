@@ -1,22 +1,15 @@
 const moment = require("moment");
 const Discord = require("discord.js");
 const os = require("os");
-const {
-    NeedHelpButtons,
-    NeedHelpMenu,
-    epochDateNow,
-    epochDateCustom,
-    HelpCategoryEmbed
-  } = require('../../functions/functions.js');
 const cpuStat = require("cpu-stat");
 module.exports = {
     name: 'about',
     aliases: ['info'],
     category: 'Infos 📊',
-    usage: '[none]',
+    usage: '',
     description: 'send info of bot for know about bot.',
    run: async function(bot, message, args, prefix){
-    try{ 
+    try{
    const statuses = {
       "online" : "🟢",
       "idle"   : "🟠",
@@ -53,47 +46,36 @@ module.exports = {
       if (connectedchannelsamount > bot.guilds.cache.size) connectedchannelsamount = bot.guilds.cache.size;
 let infoEmbed = new Discord.MessageEmbed()
       .setColor(bot.colors.none)
-      .setTitle(`Stats from \`${bot.user.tag}\``)
-      .addField(`🆔| ID:`,`<:reply_desgine:950701730675445790>** User Id: ${bot.user.id}**`,true)
-      .addField(`🥋| Tag:`, `<:reply_desgine:950701730675445790>**${bot.user.tag}**`,true) 
-      .addField(":ping_pong:| Ping",`**<:reply_desgine:950701730675445790> User Ping Is: \`${Math.round(bot.ws.ping)}MS\`**`,true)
-      .addField(":clock1:| Uptime", `<:reply_desgine:950701730675445790>** Time Of Bot Online: \`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\`** || ** _<t:${Math.floor(new Date().getTime() - Math.floor(bot.uptime)/1000)}:F> / <t:${Math.floor(new Date().getTime() - Math.floor(bot.uptime)/1000)}:D> / <t:${Math.floor(new Date().getTime() - Math.floor(bot.uptime)/1000)}:R>_**`,true)
-      .addField(`✨| Status:`,`<:reply_desgine:950701730675445790>** Bot Status Is: ${statuses[bot.user.presence.status]} ${bot.user.presence.status}**`,true)
-      .addField('🎬| Activity:',`<:reply_desgine:950701730675445790>** Bot Activity Is: ${userstatus}**`,true)
-      .addField(`📅| Date of Join Discord:`,`<:reply_desgine:950701730675445790>** Time Of Bot Created: <t:${Date.parse(bot.user.createdAt) / 1000}:R>**`,true) 
-      .addField(`📈| Date of Join Server:`, `<:reply_desgine:950701730675445790>** Time Of Bot Join Server: <t:${Date.parse(message.guild.members.cache.get(bot.user.id).joinedAt) / 1000}:R>**`,true) 
-      .addField(":file_cabinet:| Memory Usage",`<:reply_desgine:950701730675445790>** Bot Usage Memory Is: \`\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}/ ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB\`\`**`,true)
-      .addField(":busts_in_silhouette:| Usage Users",`<:reply_desgine:950701730675445790>** Count Of Usage Users Is: \`${bot.users.cache.size}\`**`,true)
-      .addField(":homes:| Servers",`<:reply_desgine:950701730675445790>** Count Of Bot Servers Is: \`${bot.guilds.cache.size}\`**`, true)
-      .addField("🎙️| Voice Channels", `<:reply_desgine:950701730675445790>** Count Of Bot Voice Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_VOICE").size}\`**`,true)
-      .addField("💬| Text Channels", `<:reply_desgine:950701730675445790>** Count Of Bot Text Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_TEXT").size}\`**`,true)
-      .addField("🎤| Connected Channels", `<:reply_desgine:950701730675445790>** Count Of Bot Joined Voices Is: \`${connectedchannelsamount}\`**`,true)
-      .addField(":control_knobs: API Latency",`<:reply_desgine:950701730675445790>** Bot API Latency Is: \`${bot.ws.ping}MS\`**`,true)
-      .addField(":robot: Version",`<:reply_desgine:950701730675445790>** Bot Version Is: \`Omega 5.2.1\`**`,true)
-      .addField(":blue_book: Discord.js",`<:reply_desgine:950701730675445790>** Bot Usage Discord.js Version Is: \`Version ${Discord.version}\`**`,true)
-      .addField(":green_book: Node.js",`<:reply_desgine:950701730675445790>** Bot Usage Node.js Version Is: \`Version ${process.version}\`**`,true)
-      .addField("📡| CPU", `<:reply_desgine:950701730675445790>** Bot Usage CPU Model Is: \`\`\`Model\n${os.cpus().map((i) => `${i.model}`)[0]}\`\`\`**`,true)
-      .addField("🖥| CPU Usage", `<:reply_desgine:950701730675445790>** Bot Percent Of Usage CPU Is: \`\`\`${percent.toFixed(2)}%\`\`\`**`,true)
-      .addField("🧵| Shards", `<:reply_desgine:950701730675445790>** Bot Shards Percent Is: \`${bot.ws.shards.size}%\`**`,true)
-      .addField("👔| Cores", `<:reply_desgine:950701730675445790>** Bot Cores Percent Is: \`${os.cpus().length}%\`**`,true)
-      .addField("🧥| Architecture", `<:reply_desgine:950701730675445790>** Bot Architecture Is: \`${os.arch()}\`**`,true)
-      .addField("🕹| Platform", `<:reply_desgine:950701730675445790>** Bot Usage Platform Is: \`${os.platform()}\`**`,true)
-      .addField("🧰| Commands Count", `<:reply_desgine:950701730675445790>** Bot Commands Count Is: \`${bot.commands.size}\`**`,true)
-      .addField(`📚| Category Count:`, `<:reply_desgine:950701730675445790>** Bot Category Count Is: \`${(bot.categories.size)}\`**`,true)
+      .setTitle(`Stats from \`${bot.user.username}\``)
+      .addField(`${bot.emotes.id}| ID:`,`${bot.emotes.reply}** User Id: ${bot.user.id}**`,true)
+      .addField(`${bot.emotes.tag}| Tag:`, `${bot.emotes.reply}**${bot.user.tag}**`,true) 
+      .addField(bot.emotes.ping+"| Ping",`**${bot.emotes.reply} User Ping Is: \`${Math.round(bot.ws.ping)}MS\`**`,true)
+      .addField(bot.emotes.uptime+"| Uptime", `${bot.emotes.reply}** Time Of Bot Online: \`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\`** || ** _<t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:F> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:D> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:R>_**`,true)
+      .addField(`${bot.emotes.status}| Status:`,`${bot.emotes.reply}** Bot Status Is: ${statuses[bot.user.presence.status]} ${bot.user.presence.status}**`,true)
+      .addField(bot.emotes.activity+'| Activity:',`${bot.emotes.reply}** Bot Activity Is: ${userstatus}**`,true)
+      .addField(`${bot.emotes.date}| Date of Join Discord:`,`${bot.emotes.reply}** Time Of Bot Created: <t:${Date.parse(bot.user.createdAt) / 1000}:R>**`,true) 
+      .addField(`${bot.emotes.join}| Date of Join Server:`, `${bot.emotes.reply}** Time Of Bot Join Server: <t:${Date.parse(message.guild.members.cache.get(bot.user.id).joinedAt) / 1000}:R>**`,true) 
+      .addField(bot.emotes.memory+"| Memory Usage",`${bot.emotes.reply}** Bot Usage Memory Is: \`\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}/ ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB\`\`**`,true)
+      .addField(bot.emotes.usage+"| Usage Users",`${bot.emotes.reply}** Count Of Usage Users Is: \`${bot.users.cache.size}\`**`,true)
+      .addField(bot.emotes.guild+"| Servers",`${bot.emotes.reply}** Count Of Bot Servers Is: \`${bot.guilds.cache.size}\`**`, true)
+      .addField(bot.emotes.voice_channel+"| Voice Channels", `${bot.emotes.reply}** Count Of Bot Voice Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_VOICE").size}\`**`,true)
+      .addField(bot.emotes.text_channel+"| Text Channels", `${bot.emotes.reply}** Count Of Bot Text Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_TEXT").size}\`**`,true)
+      .addField(bot.emotes.connect+"| Connected Channels", `${bot.emotes.reply}** Count Of Bot Joined Voices Is: \`${connectedchannelsamount}\`**`,true)
+      .addField(bot.emotes.version+"Version",`${bot.emotes.reply}** Bot Version Is: \`${require("../../package.json").version}\`**`,true)
+      .addField(bot.emotes.disJS+"Discord.js",`${bot.emotes.reply}** Bot Usage Discord.js Version Is: \`Version ${Discord.version}\`**`,true)
+      .addField(bot.emotes.node+"Node.js",`${bot.emotes.reply}** Bot Usage Node.js Version Is: \`Version ${process.version}\`**`,true)
+      .addField(bot.emotes.cpu+"| CPU", `${bot.emotes.reply}** Bot Usage CPU Model Is: \`\`\`js\nModel:  ${os.cpus().map((i) => `${i.model}`)[0]}\`\`\`\n CPU Usages: \`${percent.toFixed(2)}%\`**`,true)
+      .addField(bot.emotes.shard+"| Shards", `${bot.emotes.reply}>** Bot Shards Percent Is: \`${bot.ws.shards.size}%\`**`,true)
+      .addField(bot.emotes.cros+"| Cores", `${bot.emotes.reply}** Bot Cores Percent Is: \`${os.cpus().length}%\`**`,true)
+      .addField(bot.emotes.arch+"| Architecture", `${bot.emotes.reply}** Bot Architecture Is: \`${os.arch()}\`**`,true)
+      .addField(bot.emotes.platform+"| Platform", `${bot.emotes.reply}** Bot Usage Platform Is: \`${os.platform()}\`**`,true)
+      .addField(`${bot.emotes.commands}| Commands Count`, `${bot.emotes.reply}** Bot Commands Count Is: \`${bot.commands.size}\`**`,true)
+      .addField(`${bot.emotes.category}| Category Count:`, `${bot.emotes.reply}** Bot Category Count Is: \`${(bot.categories.size)}\`**`,true)
       .setTimestamp()
-        message.channel.send({embeds:[infoEmbed]})
+        message.reply({embeds:[infoEmbed]})
     })
-      
   }catch(e) {
     console.log(e)
-    return message.reply({
-            content: `${bot.emotes.error} **| Error, \`\`\`js\n${e}\`\`\`**`,
-            components: '',
-        }).then(message.member.send({
-                content: `Salam aziz👋🏻\n agar man iradi dashtam mitoni to dm moshkelam ro begi ta sazandeganam checkesh bokonannd😉\n vaya be server support biayid:\n ${bot.config.discord.server_support||"https://discord.gg/5GYNec4urW"}`,
-                components: [NeedHelpButtons(bot)] 
-            })
-        );
     }
     }
 }

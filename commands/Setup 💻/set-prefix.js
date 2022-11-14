@@ -16,13 +16,13 @@ module.exports = {
         try {
           let error_embed = new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + message.author.name,
+              name: `Requested by ` + message.author.tag,
               iconURL: message.author.displayAvatarURL({ dynamic: true })
             })
-            .setTitle('⛔️| **We Got An Error**')
+            .setTitle(bot.emotes.entry+'| **We Got An Error**')
             .setColor(bot.colors.none)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: `Error | ${bot.embed.footerText}`,
               iconURL: message.guild.iconURL({ dynamic: true })
             })
             
@@ -40,7 +40,7 @@ module.exports = {
                           ]
               });
             }
-            var newPrefix = args.join(' ')
+            var newPrefix = args.slice().join(' ')
             if (!newPrefix) {
                 db.set(`prefix_${message.guild.id}`, bot.prefix);
                 message.reply({
@@ -113,7 +113,7 @@ module.exports = {
                             .setDisabled(true))
                         ]
                     })
-                }else{
+                }
                 db.set(`prefix_${message.guild.id}`, newPrefix);
                 message.reply({
                     embeds: [new MessageEmbed()
@@ -128,9 +128,8 @@ module.exports = {
                         .setDescription("**bot prefix in this guild `"+message.guild.name+"` changed to this prefix: `"+newPrefix+"help`**")
                     ]
                 })
-              if(logsChannel) 
-                logsChannel.send({
-                   embeds: [new MessageEmbed()
+              if(logsChannel) logsChannel.send({
+                 embeds: [new MessageEmbed()
                         .setAuthor({
                           name: `Requested Guild Name` + message.guild.name,
                           iconURL: message.guild.iconURL({ dynamic: true })
@@ -170,10 +169,8 @@ module.exports = {
                         .setFooter({
                           text: "Logs Information | created by Mr.SIN RE#1528",
                           iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
-                        })
-                   ]
-                });
-              }
+                        })]
+              });
         }
        } catch (error) {
        return;

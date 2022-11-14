@@ -20,20 +20,20 @@ module.exports = {
    .setTitle(`${client.user.username} Help Commands :)`)
    .setURL(client.config.discord.server_support)
    .setFooter({ 
-      text: `Message Guild ${message.guild.name} | Made by Mr.SIN RE#1528 |`, 
-      iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+      text: `Message Guild ${message.guild.name} • ${client.embed.footerText}`, 
+      iconURL: client.embed.footerIcon
    })
    .setAuthor({ 
-      name: `Requested by ${message.author.username}`, 
+      name: `Requested by ${message.author.tag}`, 
       iconURL: message.member.displayAvatarURL({ dynamic: true }) 
-   })
-   .setColor("#2F3136")
+    })
+   .setColor(client.colors.none)
    .setDescription(`**this embed show you bot commands and categorys.**`)
    .addField(`Commands[\`${client.commands.size}\`] & SlashCommands[\`${client.slashCommands.size}\`] Categories `,`${'**' + client.categories.map(i => '`' + i + '`').join(' , ') + '**'}`,false)
    .addField(`Help 🆘 [${client.commands.filter(c => c.category === 'Help 🆘').size}]`,`This category of commands is to request help from bot founders and see all bot commands.`,false)
    .addField(`Infos 📊 [${client.commands.filter(c => c.category === 'Infos 📊').size}]`,`Using these commands, you can get the information you want about the bot.`,false)
    .addField(`Setup 💻 [${client.commands.filter(c => c.category === 'Setup 💻').size}]`,`Using these bot commands, you can configure the bot on your server.\nThese commands are for server admins only.`,false)
-   .addField(`Ticket 🎫 [${client.commands.filter(c => c.category === 'Ticket 🎫').size}]`,`With these bot commands, you can create private channels to communicate with admins and other important people, which we call these channels, channel tickets.پدThese commands are all related to ticket channels.`,false)
+   .addField(`Ticket 🎫 [${client.commands.filter(c => c.category === 'Ticket 🎫').size}]`,`With these bot commands, you can create private channels to communicate with admins and other important people, which we call these channels, channel tickets. These commands are all related to ticket channels.`,false)
    .addField(`VIP 💎 [${client.commands.filter(c => c.category === 'VIP 💎').size}]`,`This batch of bot commands is for important people who have purchased bot premium.\nIn order to use these commands, you need to buy the bot insurance premium to become one of the special people.\n(These commands are locked for others)`,false)
    .addField(`Owner 👑 [${client.commands.filter(c => c.category === 'Owner 👑').size}]`,`This category of bot commands is only for founders and cannot be used by other people.\nThese commands are for editing the bot and setting it up.`,false)
    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
@@ -51,14 +51,14 @@ module.exports = {
       .addField('Description', cmd.description || 'No Description provided!')
       .addField('Aliase(s)', cmd.aliases.map((a) => `**\`${a}\`**`).join(", ") || 'No Aliases provided!')
       .setFooter({ 
-         text: `${client.user.username} Help || more info ${prefix}help || Made by Mr.SIN RE#1528 |`, 
-         iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+         text: `${client.user.tag} Help • more info ${prefix}help • ${client.embed.footerText}`, 
+         iconURL: client.embed.footerIcon
       })
       .setAuthor({ 
-         name: `Requested by ${message.member.username}`, 
-         iconURL: message.member.displayAvatarURL({ dynamic: true }),
+         name: `Requested by ${message.author.tag}`, 
+         iconURL: message.author.displayAvatarURL({ dynamic: true }),
       })
-      .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support}||https://discord.gg/5GYNec4urW)**`)
+      .addField('Important Links', `**[Invite Me](${client.config.discord.invite}) | [Support Server](${client.config.discord.server_support})**`)
      if (cmd.usage) {
       var usages = cmd.usage.split('\n').map(i => { return client.prefix + i})
        if (cmd.cooldown) embed.addField('Cooldown', `**\`${cmd.cooldown} Seconds\`**`)
@@ -70,12 +70,12 @@ module.exports = {
                .addComponents([new MessageButton()
                  .setStyle('LINK')
                  .setLabel('Invite Me')
-                 .setEmoji('🤖')
+                 .setEmoji(client.emotes.invite)
                  .setURL(client.config.discord.invite)
                ],[new MessageButton()
                    .setStyle('LINK')
                    .setLabel('Support Server!')
-                   .setEmoji('🧰')
+                   .setEmoji(client.emotes.help)
                    .setURL(`${client.config.discord.server_support}`)
                ]) 
              ]
@@ -85,7 +85,7 @@ module.exports = {
     .setCustomId("help_menu")
     .setMaxValues(1)
     .setMinValues(1)
-    .setPlaceholder("🆘| Click me to show bot commands !!")
+    .setPlaceholder(`${client.emotes.help}| Click me to show bot commands !!`)
     .addOptions([
           {
               label: 'Infos Help',
@@ -138,12 +138,12 @@ module.exports = {
                         .addComponents([new MessageButton()
                           .setStyle('LINK')
                           .setLabel('Invite Me')
-                          .setEmoji('🤖')
+                          .setEmoji(client.emotes.invite)
                           .setURL(client.config.discord.invite)
                         ],[new MessageButton()
                             .setStyle('LINK')
                             .setLabel('Support Server!')
-                            .setEmoji('🧰')
+                            .setEmoji(client.emotes.help)
                             .setURL(`${client.config.discord.server_support}`)
                         ])
                      ]
@@ -158,12 +158,12 @@ module.exports = {
             .addComponents([new MessageButton()
               .setStyle('LINK')
               .setLabel('Invite Me')
-              .setEmoji('🤖')
+              .setEmoji(client.emotes.invite)
               .setURL(client.config.discord.invite)
             ],[new MessageButton()
                 .setStyle('LINK')
                 .setLabel('Support Server!')
-                .setEmoji('🧰')
+                .setEmoji(client.emotes.help)
                 .setURL(`${client.config.discord.server_support}`)
             ])
          ]

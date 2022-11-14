@@ -67,7 +67,7 @@ let Sub = interaction.options.getSubcommand();
           let newPrefix = interaction.options.getString('prefix_text')  
           let error_embed = new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -146,7 +146,7 @@ let Sub = interaction.options.getSubcommand();
                         )
                         .setFooter({
                           text: "Logs Information | created by Mr.SIN RE#1528",
-                          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+                          iconURL: `https://media.discordapp.net/attachments/880347850666545182/915858409738350602/image0-1_1.gif`
                         })
                  ]
               });
@@ -234,7 +234,7 @@ let Sub = interaction.options.getSubcommand();
   return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -256,7 +256,7 @@ let Sub = interaction.options.getSubcommand();
   interaction.reply({
     embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.name,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.success + '| **Menu Is Successfuly Setuped**')
@@ -319,7 +319,7 @@ let Sub = interaction.options.getSubcommand();
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -344,7 +344,7 @@ if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${intera
            ephemeral: true,
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -371,7 +371,7 @@ if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${intera
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')

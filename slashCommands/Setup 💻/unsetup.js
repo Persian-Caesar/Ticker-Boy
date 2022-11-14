@@ -30,7 +30,7 @@ let Sub = interaction.options.getSubcommand();
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -83,7 +83,7 @@ return interaction.reply({
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.name,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
