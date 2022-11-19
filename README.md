@@ -6,13 +6,18 @@
   </a>
 
 Hi👋🏻
+
 I'm **[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)🎟**
+
 With my help, you can create a completely professional ticket system in your Discord server⚙️
+
 My capabilities and features include fast and strong support, support for slash commands, support for text commands, having a beautiful and professional dashboard for setting bots on the server, working with the ticket system using buttons and menus and other things🎓
+
 By adding me to your server, experience a better and new ticket system 🫂❤️‍🔥
-this source bot writes with and Coded With Love❤️ with much works❤️‍🔥
-with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.
-please give **"star ⭐️"** to this project❤️   
+
+this source bot writes with and Coded With Love❤️ with much works❤️‍🔥, so please give **"star ⭐️"** to this project❤️
+
+with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.   
 
 
 some example images about the bot👇🏻
