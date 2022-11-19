@@ -1,13 +1,17 @@
 
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
-  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975">
-    <img align="right" src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcO-KIvAdSuiLeM3uHfR1Lp2i27Sqiib8-w&usqp=CAU" width=20% >
+  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975">
+    <img align="right" src = https://cdn.discordapp.com/avatars/905297556836343849/0b1cd53d9c7d499861a5c138b6e80403.webp?size=4096" width=25% >
   </a>
 
-Hi there👋🏻
-this source bot writes with love and much works❤️‍🔥
-with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975)"** you can help us to make so many bots in future🫂.
+Hi👋🏻
+I'm **[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)🎟**
+With my help, you can create a completely professional ticket system in your Discord server⚙️
+My capabilities and features include fast and strong support, support for slash commands, support for text commands, having a beautiful and professional dashboard for setting bots on the server, working with the ticket system using buttons and menus and other things🎓
+By adding me to your server, experience a better and new ticket system 🫂❤️‍🔥
+this source bot writes with and Coded With Love❤️ with much works❤️‍🔥
+with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.
 please give **"star ⭐️"** to this project❤️   
 
 
@@ -18,7 +22,7 @@ some example images about the bot👇🏻
 **👌🏻Perfect Help Menu For Members:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041798984676683876/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_05_20_..png?width=411&height=559" width = 30% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041798984676683876/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_05_20_..png?width=411&height=559" width = 40% />
   </a>
 
 ---
@@ -26,8 +30,8 @@ some example images about the bot👇🏻
 **⚒️Worked With Advanced Button Systems:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799572005064704/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_57_..png" width = 30% />
-    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799783402184797/Captures_23_08_1401_11_09_40_..png" width = 30% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799572005064704/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_57_..png" width = 40% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799783402184797/Captures_23_08_1401_11_09_40_..png" width = 40% />
   </a>
 
 ---
@@ -35,7 +39,7 @@ some example images about the bot👇🏻
 **💻Easy To Setup:**
 
   <a href="http://sobhan.epizy.com">
-    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1041799572797796422/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_38_..png?width=589&height=559" width = 30% />
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1041799572797796422/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_38_..png?width=589&height=559" width = 40% />
   </a>
 
 ---
@@ -90,12 +94,12 @@ Packages  |  Version  |  Install
 
 - if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
-- if you want run your source you need for run your bot open that👉🏻 `start.bat`
+- if you install all packages and want run your source you have to open that👉🏻 `start.bat`
 
 - EZPZ your ticket sytem are installed and running around 🕺
 
 - How run bot in replit or heroco?
-that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓
+that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓 and after that with installing bot packages, and place bot some important objects run your bot.
 
 <p align="center">
 
