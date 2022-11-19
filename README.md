@@ -19,8 +19,8 @@ this source bot writes with and Coded With Love❤️ with much works❤️‍�
 
 with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.   
 
+<details><summary> some example images about the bot📌 </summary>
 
-some example images about the bot👇🏻
 
 ---
 
@@ -46,6 +46,8 @@ some example images about the bot👇🏻
   <a href="http://sobhan.epizy.com">
     <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1041799572797796422/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_38_..png?width=589&height=559" width = 40% />
   </a>
+
+</details>
 
 ---
 
@@ -108,8 +110,12 @@ Packages  |  Version  |  Install
 
 - EZPZ your ticket sytem are installed and running around 🕺
 
-- How run bot in replit or heroco?
+<details><summary> How run bot in replit or heroco? </summary>
+
 that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓 and after that with installing bot packages, and place bot some important objects run your bot.
+
+</details>
+
 
 <p align="center">
 
