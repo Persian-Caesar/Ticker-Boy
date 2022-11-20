@@ -15,7 +15,7 @@ My capabilities and features include fast and strong support, support for slash 
 
 By adding me to your server, experience a better and new ticket system 🫂❤️‍🔥
 
-this source bot writes with and Coded With Love❤️ with much works❤️‍🔥, so please give **"star ⭐️"** to this project❤️
+Ticker Boy writes and Coded With Love❤️ and so much works❤️‍🔥
 
 with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.   
 
