@@ -2,7 +2,7 @@
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
   <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975">
-    <img align="right" src = https://cdn.discordapp.com/avatars/905297556836343849/0b1cd53d9c7d499861a5c138b6e80403.webp?size=4096" width=25% >
+    <img align="right" src = "https://cdn.discordapp.com/avatars/905297556836343849/0b1cd53d9c7d499861a5c138b6e80403.webp?size=4096" width=25% >
   </a>
 
 Hi👋🏻
