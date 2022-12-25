@@ -7,11 +7,11 @@ const {
 } = require("discord.js");
 const db = require('quick.db');
 module.exports = async (client, message) => {
-      if(message.channel.type === "DM"){//a direct message between users
+      if(message.channel.type === "DM" || message.channel.type === "GROUP_DM"){//a direct message between users
         if(message.author.bot) return;
-        if(message.content.includes('@'))return message.channel.send(client.emotes.entry+"| **you can't mention someone.**")
-      const server = client.guilds.cache.get(client.config.discord.server_id);
-      const channelbug = server.channels.cache.get(client.config.discord.server_channel_report);
+        if(message.content.includes('@'))return message.reply(client.emotes.entry+"| **you can't mention someone.**")
+        const server = client.guilds.cache.get(client.config.discord.server_id);
+        const channelbug = server.channels.cache.get(client.config.discord.server_channel_report);
         const embed = new MessageEmbed()
           .setColor(client.colors.none)
           .setAuthor({
@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
           .setTitle(`This Guy Have Report, User ID "${message.author.id}"`)
           .setDescription(`> ${message.content}`)
 
-             message.reply({
+         message.reply({
               content: ` \`\`\`js\n ${client.emotes.success}| Successfuly your report or bug${client.emotes.report} message send to My Developers ${client.emotes.hurt} \`\`\`**thank's for sending your message to us.\nFor helping you my develpoers or admins send a \`Friend-Request\` for you or just join to server and fix your problem. :)**`,
               components: [new MessageActionRow()
                 .addComponents([new MessageButton()
@@ -38,15 +38,15 @@ module.exports = async (client, message) => {
                 ]) 
               ] 
              })
-        channelbug.send(embed).then((msg)=> {
+        channelbug.send({ embeds: [embed] }).then((msg)=> {
           msg.react(client.emotes.report)
          })
     };
 
 //======== Command for shows the prefix ========
-    if (message.author.bot || message.channel.type === 1) return;//a direct message between users
-    let logsChannel = message.guild.channels.cache.find(c => c.id === db.get(`modlog_${message.guild.id}`));
-      if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>` || message.content === `${client.prefix}prefix`) {
+    if (message.author.bot || message.channel.type === "DM" || message.channel.type === "GROUP_DM") return;//a direct message between users
+    let logsChannel = message.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${message.guild.id}`));
+    if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>` || message.content === `${client.prefix}prefix`) {
       let errorprefixEmbed = new MessageEmbed()
             .setColor(client.colors.none)
             .setThumbnail(client.user.displayAvatarURL())
@@ -57,7 +57,7 @@ module.exports = async (client, message) => {
               iconURL: client.user.displayAvatarURL()
             })
             .setFooter({
-              text: `prefix shows to ${message.author.tag} |`,
+              text: `prefix shows to ${message.author.tag}`,
               iconURL: message.author.displayAvatarURL({ dynamic: true })
             })
      message.reply({
