@@ -113,10 +113,6 @@ Packages  |  Version  |  Install
 <details><summary> How run bot in replit or heroco? </summary>
 
 that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓 and after that with installing bot packages, and place bot some important objects run your bot.
-
-</details>
-
-
 <p align="center">
 
   <a href="https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/">
@@ -131,6 +127,7 @@ that was so easy, after you click that buttons👇🏻 you will create some proj
     <img align="center" alt="Use on Replit" src ="https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/" >
   </a>
 </p>
+</details>
 
 ---
 
