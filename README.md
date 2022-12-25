@@ -44,7 +44,7 @@ with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905
 **💻Easy To Setup:**
 
   <a href="http://sobhan.epizy.com">
-    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1041799572797796422/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_38_..png?width=589&height=559" width = 40% />
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1056493508929798154/Discord___cmd___Ticker_Boy_Support_-_Google_Chrome_12_25_2022_12_08_39_PM.png?width=411&height=390" width = 40% />
   </a>
 
 </details>
