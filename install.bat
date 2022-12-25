@@ -1,6 +1,6 @@
 echo off
 color 1
 cls
-:a
-npm install dotenv discord.js@^13 cli-color cpu-stat moment os quick.db@^7 fs express
+:a 
+npm install passport-discord axios body-parser quick.db@^7 cli-color cpu-stat discord.js@^13 dotenv ejs express express-session fs memorystore moment ms os passport	
 goto a
