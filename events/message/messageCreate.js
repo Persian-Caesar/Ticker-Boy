@@ -3,15 +3,15 @@ const {
   MessageActionRow,
   MessageButton,
   Collection,
-  
+  Permissions
 } = require("discord.js");
 const db = require('quick.db');
 module.exports = async (client, message) => {
-      if(message.channel.type === 'DM'){
+      if(message.channel.type === "DM"){//a direct message between users
         if(message.author.bot) return;
         if(message.content.includes('@'))return message.channel.send(client.emotes.entry+"| **you can't mention someone.**")
-      const sizarTMserver = client.guilds.cache.get(client.config.discord.server_id);
-      const channelbug = sizarTMserver.channels.cache.get(client.config.discord.server_channel_report);
+      const server = client.guilds.cache.get(client.config.discord.server_id);
+      const channelbug = server.channels.cache.get(client.config.discord.server_channel_report);
         const embed = new MessageEmbed()
           .setColor(client.colors.none)
           .setAuthor({
@@ -44,8 +44,8 @@ module.exports = async (client, message) => {
     };
 
 //======== Command for shows the prefix ========
-    if (message.author.bot || message.channel.type === 'DM') return;
-    let logsChannel = message.guild.channels.cache.find(c => c.id === db.get(`logs_${message.guild.id}`));
+    if (message.author.bot || message.channel.type === 1) return;//a direct message between users
+    let logsChannel = message.guild.channels.cache.find(c => c.id === db.get(`modlog_${message.guild.id}`));
       if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>` || message.content === `${client.prefix}prefix`) {
       let errorprefixEmbed = new MessageEmbed()
             .setColor(client.colors.none)
@@ -81,7 +81,14 @@ if(commandName.length > 0){
         return //message.reply(`**${client.emotes.error}| It seems like \`${commandName}\` is not a valid command! Please try Again!**`)
       }
 }
-      
+
+//======== Check Perms =========
+    if(!message.guild.me.permissions.has(Permissions.FLAGS.SEND_MESSAGES)) return message.author.send({content: `${client.emotes.off}| I am missing the Permission to \`SEND_MESSAGES\` in ${message.channel}`,})
+    if(!message.guild.me.permissions.has(Permissions.FLAGS.USE_EXTERNAL_EMOJIS)) 
+    return message.reply({content: `${client.emotes.off}| I am missing the Permission to \`USE_EXTERNAL_EMOJIS\``})
+    if(!message.guild.me.permissions.has(Permissions.FLAGS.EMBED_LINKS)) 
+    return message.reply({content: `${client.emotes.error}| I am missing the Permission to \`EMBED_LINKS\``})
+  
 //======== Command Cooldown ========
    if (!client.cooldowns.has(command.name)) {
     client.cooldowns.set(command.name, new Collection());
@@ -110,16 +117,16 @@ if(commandName.length > 0){
 try{
   if (command) command.run(client, message, args, prefix, logsChannel);
  } catch (error) {
-    console.error(error);
+    //console.error(error);
     //message.reply(`${client.emotes.error}| There was an error executing that command.`).catch(console.error);
   }
 };
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

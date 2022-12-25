@@ -1,17 +1,17 @@
 {
   "name": "ticker-boy",
   "main": "index.js",
-  "author": "Mr.SIN RE#1528 | Persian Carsar",
-  "version": "1.1.0",
-  "description": "this is wonderful ticket bot with slash commands & buttons. | Build by Persian Carsar",
-  "license": "ISC",
+  "author": "Mr.SIN RE#1528 | Persian Caesar",
+  "version": "1.1.2",
+  "description": "this is wonderful ticket bot with slash commands & buttons. | Build by Persian Caesar",
+  "license": "BSD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sobhan-SRZA/Discord-Reaction-Ticket-Bot.git"
+    "url": "git+https://github.com/Persian-Caesar/Ticker-Boy.git"
   },
   "bugs": {
-    "server": "https://dsc.gg/Persian-Caesar",
-    "url": "https://github.com/Persian-Caesar/Ticker-Boy/ issues"
+    "server": "https://dsc.gg/persian-caesar",
+    "url": "https://github.com/Persian-Caesar/Ticker-Boy/issues"
   },
   "homepage": "https://github.com/Persian-Caesar/Ticker-Boy#readme",
   "keywords": [
@@ -20,7 +20,8 @@
     "advanced ticket bot",
     "advanced ticket system",
     "buttons ticket system",
-    "ticker boy"
+    "ticker boy",
+    "persian caesar"
   ],
   "scripts": {
     "start": "node index.js",

@@ -7,14 +7,14 @@ const {
 const db = require("quick.db");
 const { 
   HelpCategoryEmbed
-} = require('../../functions/functions.js');
+} = require(`${process.cwd()}/functions/functions.js`);
 module.exports = {
     name: 'help',
   description: 'this shows you bot commands and categorys to help you.',
   category: 'Help 🆘',
   cooldown: 1,
-  userPermissions: [""],
-  botPermissions: [""],
+  botPermissions: ["SEND_MESSAGES"],
+  botPermissions: ["EMBED_LINKS","SEND_MESSAGES"],
   options: [{
     name: "report_message",
     description: "for report bot bugs to developers. | please provide the report message.",
@@ -44,7 +44,7 @@ let help = new MessageEmbed()
      name: `Requested by ${interaction.user.tag}`, 
      iconURL: interaction.member.displayAvatarURL({ dynamic: true }) 
   })
-  .setColor(clienr.colors.none)
+  .setColor(client.colors.none)
   .setDescription(`**this embed show you bot commands and categorys.**`)
   .addField(`Commands[\`${client.commands.size}\`] & SlashCommands[\`${client.slashCommands.size}\`] Categories `,`${'**' + client.categories.map(i => '`' + i + '`').join(' , ') + '**'}`,false)
   .addField(`Help 🆘 [${client.commands.filter(c => c.category === 'Help 🆘').size}]`,`This category of commands is to request help from bot founders and see all bot commands.`,true)
@@ -225,11 +225,11 @@ if (!interaction.options.getString("report_message"||"command_name")){
    }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

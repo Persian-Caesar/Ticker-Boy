@@ -27,7 +27,7 @@ module.exports = {
 let Sub = interaction.options.getSubcommand();
   switch (Sub) {
   case "logs": {
-                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
+                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -37,7 +37,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error •"+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -60,7 +60,7 @@ return interaction.reply({
             .setColor(client.colors.none)
             .setDescription("```js\nin this guild admin role dose not setuped. I can't delete it befor setup\n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error •"+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -80,7 +80,7 @@ return interaction.reply({
   db.delete(`modlog_${interaction.guild.id}`)
   }break;
   case "admin": {
-                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)||!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({           
+                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) return interaction.reply({           
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -90,7 +90,7 @@ return interaction.reply({
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_ROLES\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error •"+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -112,7 +112,7 @@ if(!interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_$
             .setColor(client.colors.none)
             .setDescription("```js\nin this guild admin role dose not setuped. I can't delete it befor setup\n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error •"+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -135,11 +135,11 @@ if(!interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_$
 }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

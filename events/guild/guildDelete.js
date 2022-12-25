@@ -3,10 +3,11 @@ const {
 } = require('discord.js');
 module.exports = async (client, guild) => {
     let channel = client.channels.cache.get(client.config.discord.server_channel_status);
-        let invite = await guild.channels?.cache.filter(x => x.type === 'GUILD_TEXT')?.random(1)[0]?.createInvite({
+ /*       let invite = await guild.channels?.cache.filter(x => x.type === 'GUILD_TEXT')?.random(1)[0]?.createInvite({
             maxAge: 0, 
             maxUses: 5
         })
+  */
     const owner = await guild.members.cache.get(guild.ownerId);
     const embed = new MessageEmbed()
     .setAuthor({
@@ -28,11 +29,11 @@ module.exports = async (client, guild) => {
     })
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

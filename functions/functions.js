@@ -87,7 +87,7 @@ module.exports = {
                 ],[new MessageButton()
                     .setStyle('LINK')
                     .setLabel('Support Server!')
-                    .setEmoji(clinet.emotes.help)
+                    .setEmoji(client.emotes.help)
                     .setURL(`${client.config.discord.server_support}`)
                 ])
              ]
@@ -115,36 +115,13 @@ module.exports = {
   randomRange: async function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
-  slashCommandsCoolDown: async function (client, interaction, command) {
-      if (!client.cooldowns.has(client.slashCommands.cooldown)) {
-        client.cooldowns.set(client.slashCommands.name, client.slashCommands);
-      }
-      const now = Date.now();
-      const timestamps = client.cooldowns.get(client.slashCommands.name);
-      const cooldownAmount = (client.slashCommands.cooldown || 5) * 1000;
-      if (timestamps.has(interaction.member.id)) {
-        const expirationTime = timestamps.get(interaction.member.id) + cooldownAmount;
-        if (now < expirationTime) {
-          const timeLeft = (expirationTime - now) / 1000;
-          return await interaction.reply({
-              embeds: [new MessageEmbed()
-                  .setColor(client.colors.none)
-                  .setDescription(`**${client.emotes.alert}| Please wait \`${Math.round(timeLeft)}\` more second(s) before reusing the \`${command.name}\` command!**`)
-              ],
-              ephemeral: true
-          });
-        }
-      }
-      timestamps.set(interaction.member.id, now);
-      setTimeout(() => timestamps.delete(interaction.member.id), cooldownAmount);
-  },
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

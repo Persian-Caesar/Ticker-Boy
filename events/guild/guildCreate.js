@@ -26,17 +26,17 @@ module.exports = async (client, guild) => {
     channel.send({
         embeds: [embed]
     })
-  if(!guild.id==="901877002926174279"&&guild.memberCount < 90){
+/*  if(!guild.id==="901877002926174279"&&guild.memberCount < 90){
    owner.send("Hi I left on your server because the number of members of your server is less than 100")
   guild.leave()
- }
+ }*/
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

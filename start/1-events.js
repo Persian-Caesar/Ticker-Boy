@@ -4,17 +4,17 @@ module.exports = async (bot) => {
   try{
     bot.events = new Map();
     const stringlength = 69;
-    fs.readdirSync('./events').forEach(dirs => {
-      const events = fs.readdirSync(`./events/${dirs}`).filter(files => files.endsWith('.js'));
+    fs.readdirSync(`${process.cwd()}/events`).forEach(dirs => {
+      const events = fs.readdirSync(`${process.cwd()}/events/${dirs}`).filter(files => files.endsWith('.js'));
       for (const file of events) {
-          const event = require(`./../events/${dirs}/${file}`);
+          const event = require(`${process.cwd()}/events/${dirs}/${file}`);
           bot.events.set(event);
           bot.on(file.split(".")[0], event.bind(null, bot));
       };
   });
-    /*const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+    /*const events = fs.readdirSync(`${process.cwd()}/events`).filter(file => file.endsWith('.js'));
       for (const file of events) {
-        const event = require(`./../events/${file}`);
+        const event = require(`${process.cwd()}/events/${file}`);
           bot.events.set(event);
           bot.on(file.split(".")[0], event.bind(null, bot));
       };*/
@@ -55,11 +55,11 @@ try {
 }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

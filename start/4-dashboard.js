@@ -1,11 +1,11 @@
 var clc = require("cli-color");
 module.exports = async (client) => {
 //======== Loading Dashboard =========
-let Files = [ client.config.source.dashboard ?  "../dashboard/index.js" : null ]
+let Files = [ client.config.source.dashboard ?  `${process.cwd()}/dashboard/index.js` : null ]
 Files
   .filter(Boolean)
   .forEach((dashboard) => {
-    require(`./../dashboard/${dashboard}`)(client);
+    require(`${process.cwd()}/dashboard/${dashboard}`)(client);
 try {
     const stringlength = 69;
     console.log("\n")
@@ -19,11 +19,11 @@ try {
 });  
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

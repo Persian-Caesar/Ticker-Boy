@@ -51,7 +51,8 @@ module.exports = {
     
    interaction.reply({ 
      embeds: [pingingEmbed],
-     components: [new MessageActionRow().addComponents([pingButton])]
+     components: [new MessageActionRow().addComponents([pingButton])],
+     ephemeral: true
     }).then((m)=>{
          wait(50)
              pingingEmbed.setDescription('**Pinging.**')
@@ -84,3 +85,12 @@ module.exports = {
       })
   }
 }
+/**
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
+ */

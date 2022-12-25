@@ -43,8 +43,9 @@ module.exports = async (client, interaction) => {
   }
   }
   if(interaction.customId === "ticket_menu"){
+    let time = 3*1000;//this is for timeout t
       if(interaction.values[0] === 'need_help'){
-         await interaction.reply({
+       interaction.update({
                    components: [new MessageActionRow()
                   .addComponents([new MessageButton()
          .setDisabled(true)
@@ -58,15 +59,13 @@ module.exports = async (client, interaction) => {
                         .setColor(client.colors.none)
                         .setTitle(`🔃| Process Is Loading...`)
                     ],
-                ephemeral: true
-				        })
-         interaction.editReply({
-              	content: `  `,
+				        }).then((m)=>{
+      setTimeout(()=>{
+     interaction.editReply({
                 embeds: [new MessageEmbed()
                     .setColor(client.colors.none)
                     .setTitle(`${client.emotes.tickets}| Create Ticket`)
-                    .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت یک تیکت برای **ساپورت و کمک** را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به دکمه سبز رنگ کلیک کنید و در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
-                    .addField(`Language: EN:flag_us:`,`Dear friend, you have requested to make a ticket for **support and help**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
+                    .addField(`${client.emotes.reason}Description:`,`Dear friend, you have requested to make a ticket for **support and help**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
                       ],
                 components: [new MessageActionRow()
                   .addComponents([new MessageButton()
@@ -81,10 +80,11 @@ module.exports = async (client, interaction) => {
                     .setLabel("Create It")
                   ])
                 ],
-                ephemeral: true
          })
+      },time)
+       })
      } else if(interaction.values[0] === "report_bam"){
-         await interaction.reply({
+       interaction.update({
                    components: [new MessageActionRow()
                   .addComponents([new MessageButton()
          .setDisabled(true)
@@ -98,15 +98,13 @@ module.exports = async (client, interaction) => {
                         .setColor(client.colors.none)
                         .setTitle(`🔃| Process Is Loading...`)
                     ],
-                ephemeral: true
-				        })
+				        }).then((m)=>{
+        setTimeout(()=>{
          interaction.editReply({
-              	content: `  `,
                 embeds: [new MessageEmbed()
                   .setColor(client.colors.none)
                   .setTitle(`${client.emotes.tickets}| Create Ticket`)
-                  .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت یک تیکت برای **گزارش ادمین ، بات یا ممبر ها** را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به دکمه سبز رنگ کلیک کنید و در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
-                  .addField(`Language: EN:flag_us:`,`Dear friend, you have requested to make a ticket for **report admins, bots or members**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
+                  .addField(`${client.emotes.reason}Description:`,`Dear friend, you have requested to make a ticket for **report admins, bots or members**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
                 ],
                 components: [new MessageActionRow()
                   .addComponents([new MessageButton()
@@ -121,10 +119,11 @@ module.exports = async (client, interaction) => {
                       .setLabel("Create It")
                   ])
                 ],
-                ephemeral: true
          })
+        },time)
+       })
      } else if(interaction.values[0] === "exchange"){
-         await interaction.reply({
+       interaction.update({
                    components: [new MessageActionRow()
                   .addComponents([new MessageButton()
          .setDisabled(true)
@@ -138,15 +137,13 @@ module.exports = async (client, interaction) => {
                         .setColor(client.colors.none)
                         .setTitle(`🔃| Process Is Loading...`)
                     ],
-                ephemeral: true
-				        })
-         interaction.editReply({
-              	content: `  `,
+				        }).then((m)=>{
+      setTimeout(()=>{
+        interaction.editReply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.tickets}| Create Ticket`)
-                        .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت یک تیکت برای **اکسچنج و تبادل** را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به دکمه سبز رنگ کلیک کنید و در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
-                        .addField(`Language: EN:flag_us:`,`Dear friend, you have requested to make a ticket for **exchange**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
+                        .addField(`${client.emotes.reason}Description:`,`Dear friend, you have requested to make a ticket for **exchange**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
                 ],
                 components: [new MessageActionRow()
                   .addComponents([new MessageButton()
@@ -161,14 +158,14 @@ module.exports = async (client, interaction) => {
                     .setLabel("Create It")
                   ])
                 ],
-                ephemeral: true
          })
+      },time)
+       })
      } else if(interaction.values[0] === "admin"){
             let embed = new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.tickets}| Create Ticket`)
-                        .addField(`Language: PER:flag_ir:`,`دوست عزیز شما درخواستی برای ساخت یک تیکت برای **ثبت نام برای ادمینی** را داده اید. اگر موافق ساخت تیکت خود هستید در زیر پیام به دکمه سبز رنگ کلیک کنید و در صورت مخالف بودن به دکمه قرمز رنگ کلیک کنید، موفق و پیروز باشید.😎`)
-                        .addField(`Language: EN:flag_us:`,`Dear friend, you have requested to make a ticket for **register for admin**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
+                        .addField(`${client.emotes.reason}Description:`,`Dear friend, you have requested to make a ticket for **register for admin**. If you agree to make your ticket, click on the green button below the message, and if you disagree, click on the red button, good luck. 😎`)
                      
             let buttons = new MessageActionRow()
                   .addComponents([new MessageButton()
@@ -182,7 +179,7 @@ module.exports = async (client, interaction) => {
                       .setEmoji(client.emotes.ticket)
                       .setLabel("Create It")
                   ])
-      interaction.reply({
+      interaction.update({
                    components: [new MessageActionRow()
                   .addComponents([new MessageButton()
          .setDisabled(true)
@@ -196,26 +193,24 @@ module.exports = async (client, interaction) => {
                         .setColor(client.colors.none)
                         .setTitle(`🔃| Process Is Loading...`)
                     ],
-                ephemeral: true
 				        }).then((m)=>{
 
-           setTimeout(()=>{
+      setTimeout(()=>{
         interaction.editReply({
           embeds: [embed],
           components: [buttons]
          })
-          },1000)
+          },time)
       })
-
      }
  }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

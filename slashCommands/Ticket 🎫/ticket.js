@@ -57,56 +57,48 @@ module.exports = {
 let Sub = interaction.options.getSubcommand();
   switch (Sub) {
         case "create": {
-                          
-      interaction.reply({
-          ephemeral: true,
-          embeds: [new MessageEmbed()
-            .setTitle(`${client.emotes.ticket}| Ticket System`)
-            .addField(`Language: PER:flag_ir:`,`نیاز به کمک دارید؟؟ ما اینجا هستیم!! این چنل برای ساخت تیکت و ارتباط با تیم ادمینی میباشد برای ساخت تیکت از منوی زیر دلیل خودتون رو انتخاب کنید تا به مشکل شما رسیدگی شود  جهت گرفتن راهنمایی، پرسش سوال، ریپورت کردن ممبر ها و... میتونید با باز کردن یک تیکت با تیم ادمینی در ارتباط باشید همچنین پس از زدن روی دکمه زیر دلیل باز کردن تیکتتون رو به درستی انتخاب کنید وگرنه به تیکت شما رسیدگی نمی شود  تمامی تیکت ها ذخیره می شوند پس لطفا از باز کردن تیکت های بی دلیل و الکی و نقض قوانین سرور در تیکت ها خودداری کنید وگرنه از ساخت تیکت محروم می شوید`)
-            .addField(`Language: EN:flag_us:`,`Do you need help ?? we are here!! This channel is for making tickets and communicating with the admin team. To make a ticket, select your reason from the menu below to address your problem. For guidance, asking questions, reporting members, etc., you can open a ticket by Be in touch with the admin team. Also, after clicking the button below, select the reason for opening your ticket correctly, otherwise your ticket will not be processed. All tickets will be saved, so please stop opening tickets without any reason and in violation of server rules. Avoid tickets, otherwise you will be banned from making tickets`)
-            .setColor(client.colors.none)
-          ],
-          components: [new MessageActionRow()
-            .addComponents([new MessageSelectMenu()
-             .setPlaceholder(`${client.emotes.ticket}| Select Your Ticket Reason`)
-             .setOptions([
-               {
-                 label: 'Need Help',
-                 value: 'need_help',
-                 emoji: client.emotes.help,
-               },
-               {
-                 label: 'Report Bot/Admin/Member',
-                 value: 'report_bam',
-                 emoji: client.emotes.report
-               },
-               {
-                 label: 'Exchange',
-                 value: 'exchange',
-                 emoji: client.emotes.exchange
-               },
-               {
-                 label: 'Admin Program',
-                 value: 'admin',
-                 emoji: client.emotes.admin
-               }
-             ])
-             .setMinValues(1)
-             .setMaxValues(1)
-             .setCustomId("ticket_menu")  
-            ]),new MessageActionRow()
-             .addComponents([new MessageButton()
-               .setStyle("LINK")
-               .setEmoji(client.emotes.support)
-               .setLabel("Support")
-               .setURL("https://dsc.gg/sizar-team")
-             ])
-       ]
+    let embed = new MessageEmbed()
+      .setTitle(`${client.emotes.ticket}| **Request To Create Ticket**`)
+      .setColor(client.colors.none)
+      .setTimestamp()
+      .setDescription('**your ticket channel will be created but are you sure to do this??\nif your ticket created please wait the moderators or admins to speek there.**')
+      .addField(client.emotes.reason+'| INFOS','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+client.emotes.ticket+'"` or else click to `"'+client.emotes.x+'"`.')
+      .setURL(client.config.discord.server_support)
+      .setFooter({
+        text: `Request To Create Ticket • ${client.embed.footerText}`,
+        iconURL: interaction.guild.iconURL({ dynamic: true })
       })
+      .setAuthor({
+        name: `Requested by ` + interaction.user.tag,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+      })
+  
+  interaction.reply({
+      ephemeral: true,
+      embeds: [embed],
+      components: [new MessageActionRow()
+          .addComponents(
+            [new MessageButton()
+            .setCustomId('create')
+            .setEmoji(client.emotes.ticket)
+            .setLabel("Create Ticket")
+            .setStyle('SUCCESS')],
+            [new MessageButton()
+              .setCustomId('dont_do')
+              .setEmoji(client.emotes.x)
+              .setLabel('Cancel Process')
+              .setStyle("DANGER")
+          ])
+      ]
+  }).then(msg=>{
+    db.set(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`, msg.id)
+  })
+                        
         }break;
         case "close": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-       interaction.reply({
+
+                let msg = await interaction.channel.send({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.close}| Close Ticket`)
@@ -124,7 +116,35 @@ let Sub = interaction.options.getSubcommand();
               .setEmoji(client.emotes.close)
               .setLabel("Close It")
               ])]
+           }) 
+            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+
+
+        setTimeout(() => {
+if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
+          msg.edit({
+             embeds: [new MessageEmbed()
+            .setAuthor({
+              name: `Requested by ` + interaction.user.tag,
+              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+            })
+            .setTitle('⚠️| **We Got An Error**')
+            .setColor(client.colors.none)
+            .setDescription("```js\nyour time for close the ticket channel is ended.⏰\n```")
+            .setFooter({
+              text: "Error • "+client.embed.footerText,
+              iconURL: interaction.guild.iconURL({ dynamic: true })
+            })],
+            components: [new MessageActionRow()
+                   .addComponents(new MessageButton()
+                   .setStyle("DANGER")
+                   .setLabel("Error")
+                   .setEmoji(client.emotes.error)
+                   .setCustomId("error")
+                   .setDisabled(true))]
            })
+}
+        }, 1000 * 50)
     }else{
            interaction.reply({           
              embeds: [new MessageEmbed()
@@ -134,9 +154,9 @@ let Sub = interaction.options.getSubcommand();
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription(`️**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -151,7 +171,8 @@ let Sub = interaction.options.getSubcommand();
         }break;
         case "open": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
+        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
+          ephemeral: true,
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -161,7 +182,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -172,7 +193,7 @@ let Sub = interaction.options.getSubcommand();
                    .setCustomId("error")
                    .setDisabled(true))]       
           })
-          interaction.reply({
+        let msg = await interaction.channel.send({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.open}| Open Ticket`)
@@ -187,12 +208,16 @@ let Sub = interaction.options.getSubcommand();
               ],[new MessageButton()
               .setStyle("SUCCESS")
               .setCustomId("reopenTicket")
-              .setEmoji(client.emotes.open)
+            .setEmoji(client.emotes.open)
               .setLabel("Open It")
               ])]
-           })
-          }else {
-           interaction.reply({           
+           }) 
+            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+
+
+        setTimeout(() => {
+if(msg.embeds[0].title === `${client.emotes.open}| Open Ticket`){
+          msg.edit({
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -200,9 +225,34 @@ let Sub = interaction.options.getSubcommand();
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription(`️**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setDescription("```js\nyour time for delete the ticket channel is ended.⏰\n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
+              iconURL: interaction.guild.iconURL({ dynamic: true })
+            })],
+            components: [new MessageActionRow()
+                   .addComponents(new MessageButton()
+                   .setStyle("DANGER")
+                   .setLabel("Error")
+                   .setEmoji(client.emotes.error)
+                   .setCustomId("error")
+                   .setDisabled(true))]
+           })
+}
+        }, 1000 * 50)
+          }else {
+           interaction.reply({           
+             ephemeral: true,
+             embeds: [new MessageEmbed()
+            .setAuthor({
+              name: `Requested by ` + interaction.user.tag,
+              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+            })
+            .setTitle('⚠️| **We Got An Error**')
+            .setColor(client.colors.none)
+            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setFooter({
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -217,7 +267,7 @@ let Sub = interaction.options.getSubcommand();
         }break;
         case "delete": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
+        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -227,7 +277,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -239,7 +289,7 @@ let Sub = interaction.options.getSubcommand();
                    .setDisabled(true))]       
           })
 
-          interaction.reply({
+               let msg = await interaction.channel.send({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.trash}| Delete Ticket`)
@@ -257,7 +307,35 @@ let Sub = interaction.options.getSubcommand();
               .setEmoji(client.emotes.trash)
               .setLabel("Delete It")
               ])]
-           })  
+           }) 
+            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+
+
+        setTimeout(() => {
+if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
+          msg.edit({
+             embeds: [new MessageEmbed()
+            .setAuthor({
+              name: `Requested by ` + interaction.user.tag,
+              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+            })
+            .setTitle('⚠️| **We Got An Error**')
+            .setColor(client.colors.none)
+            .setDescription("```js\nyour time for delete the ticket channel is ended.⏰\n```")
+            .setFooter({
+              text: "Error • "+client.embed.footerText,
+              iconURL: interaction.guild.iconURL({ dynamic: true })
+            })],
+            components: [new MessageActionRow()
+                   .addComponents(new MessageButton()
+                   .setStyle("DANGER")
+                   .setLabel("Error")
+                   .setEmoji(client.emotes.error)
+                   .setCustomId("error")
+                   .setDisabled(true))]
+           })
+}
+        }, 1000 * 50)
         }else {
            interaction.reply({           
              embeds: [new MessageEmbed()
@@ -267,9 +345,9 @@ let Sub = interaction.options.getSubcommand();
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription(`️**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -285,7 +363,7 @@ let Sub = interaction.options.getSubcommand();
         case "rename": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
       let ticketName = interaction.options.getString("name");
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
+        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -295,7 +373,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -317,7 +395,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("are you sure to change your ticket channel name??")
             .setFooter({
-              text: "Change Name | created by Mr.SIN RE#1528",
+              text: "Change Name • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
          components: [
@@ -338,8 +416,16 @@ let Sub = interaction.options.getSubcommand();
          )]
      })
        db.set(`RenameTicket_${interaction.channel.id}`, ticketName)
+    interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+     let msg = await interaction.channel.send({
+          content: `${interaction.user}`,
+          embeds: [embed],
+          components: [button]
+      })
+
         setTimeout(() => {
-           interaction.editReply({
+if(msg.embeds[0].title === client.emotes.rename+'| **Request To Change Ticket Name**'){
+          msg.edit({
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -349,7 +435,7 @@ let Sub = interaction.options.getSubcommand();
             .setColor(client.colors.none)
             .setDescription("```js\nyour time for changing the ticket channel name is ended.⏰\n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -361,6 +447,7 @@ let Sub = interaction.options.getSubcommand();
                    .setDisabled(true))]
            })
 db.delete(`RenameTicket_${interaction.channel.id}`)
+}
         }, 1000 * 50)
         }else{
 return interaction.reply({           
@@ -371,9 +458,9 @@ return interaction.reply({
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription(`️**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -382,14 +469,15 @@ return interaction.reply({
                    .setLabel("Error")
                    .setEmoji(client.emotes.error)
                    .setCustomId("error")
-                   .setDisabled(true))]       
+                   .setDisabled(true))],
+  ephemeral: true,
           })
         }
         }break;    
         case "invite": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
       let member = interaction.options.getMember('member');
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
+        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -399,7 +487,7 @@ return interaction.reply({
             .setColor(client.colors.none)
             .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -408,41 +496,45 @@ return interaction.reply({
                    .setLabel("Error")
                    .setEmoji(client.emotes.error)
                    .setCustomId("error")
-                   .setDisabled(true))]       
+                   .setDisabled(true))],
+        ephemeral: true,
           })
-        interaction.reply({
-                   embeds: [new MessageEmbed()
+let embed = new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
-            .setTitle('📇| **Request To Adding People To Ticket**')
+            .setTitle(client.emotes.print+'| **Request To Adding People To Ticket**')
             .setColor(client.colors.none)
-            .setDescription("are you sure to change your ticket channel name??")
+            .setDescription("are you sure to add some one in to this ticket channel??")
             .setFooter({
-              text: "Change Name | created by Mr.SIN RE#1528",
+              text: "Adding People • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-         components: [
-          new MessageActionRow()
-         .addComponents(
-          [new MessageButton()
+            })
+
+let button = new MessageActionRow()
+         .addComponents([new MessageButton()
            .setStyle("SUCCESS")
            .setEmoji(client.emotes.plus)
            .setLabel("Add Member")
            .setCustomId("addmemberTicket")
-         ],
-         [new MessageButton()
+         ],[new MessageButton()
            .setStyle("DANGER")
            .setEmoji(client.emotes.x)
            .setLabel("Cancel")
            .setCustomId("canceladdmemberTicket")
-         ]
-         )]
-        })
+         ])
+    interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+     let msg = await interaction.channel.send({
+          content: `${interaction.user}`,
+          embeds: [embed],
+          components: [button]
+      })
+
         db.set(`TicketControlNewMember_${interaction.channel.id}`, member.id)
         setTimeout(() => {
-           interaction.editReply({
+if(msg.embeds[0].title === client.emotes.print+'| **Request To Adding People To Ticket**'){
+          msg.edit({
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -450,9 +542,9 @@ return interaction.reply({
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription("```js\nyour time for changing the ticket channel name is ended.⏰\n```")
+            .setDescription("```js\nyour time for adding people in to the ticket channel is ended.⏰\n```")
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -464,9 +556,11 @@ return interaction.reply({
                    .setDisabled(true))]
            })
              db.delete(`TicketControlNewMember_${interaction.channel.id}`)
+        }
         }, 1000 * 50)
+        
         }else {
-           interaction.reply({           
+           interaction.reply({           ephemeral: true,
              embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -474,9 +568,9 @@ return interaction.reply({
             })
             .setTitle('⚠️| **We Got An Error**')
             .setColor(client.colors.none)
-            .setDescription(`️**My Friend, here is not a ticket channel please use this command in other channel**`)
+            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
             .setFooter({
-              text: "Error | created by Mr.SIN RE#1528",
+              text: "Error • "+client.embed.footerText,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })],
             components: [new MessageActionRow()
@@ -493,11 +587,11 @@ return interaction.reply({
  }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

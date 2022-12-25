@@ -2,8 +2,10 @@ var clc = require("cli-color");
 var Discord = require('discord.js')
 module.exports = async (client) => {
    setInterval(function Activitys() {
-      let totalUsers = client.guilds.cache.reduce((acc, value) => acc + value.memberCount, 0)
-      
+      let totalUsers = client.guilds.cache.map(guild => guild.memberCount).reduce((a, b) => a + b, 0);
+      if(totalUsers > 5000){
+        totalUsers = (client.guilds.cache.map(guild => guild.memberCount).reduce((a, b) => a + b, 0) / 1000).toString().slice(0, -2)+"k";
+      }
       let Presence = [ "dnd", "idle", "online" ]; //can be: online | dnd | idle | offline
       let PresencePower = Presence[Math.floor(Math.random() * Presence.length)]
       let Activity = [`${client.prefix}help`, `${client.prefix}ticket` , `${client.guilds.cache.size} Servers`, `${totalUsers} Users`];
@@ -13,23 +15,7 @@ module.exports = async (client) => {
       let URL = [ `https://www.twitch.tv/sobhan_srza` ];
       let URLPower = URL[Math.floor(Math.random() * URL.length)];
      client.user.setPresence({ status: PresencePower })
-     client.user.setActivity({ type: DisplayPower, name: ActivityPower, url: URLPower });      
-      /*
-     client.user.setPresence({ status: "online" })
-     client.user.setActivity({ type: "WATCHING", name: `${totalUsers} Users` });
-     setTimeout(()=>{
-     client.user.setPresence({ status: "idle" })
-     client.user.setActivity({ type: "PLAYING", name: `${client.guilds.cache.size} Servers` });
-     },5000)     
-     setTimeout(()=>{
-     client.user.setPresence({ status: "dnd" })
-     client.user.setActivity({ type: "COMPETING", name: `${client.prefix}help` });
-     },10000)
-     setTimeout(()=>{
-     client.user.setPresence({ status: "dnd" })
-     client.user.setActivity({ type: "COMPETING", name: `${client.prefix}ticket` });
-     },15000)
-     */
+     client.user.setActivity({ type: DisplayPower, name: ActivityPower, url: URLPower });
    }, 10000)
    
 try{
@@ -44,7 +30,7 @@ try{
    console.log("\n")
    client.logger(
       clc.blueBright(`Working Guilds: `) + clc.greenBright(`${client.guilds.cache.size} Servers`) + `\n` +
-      clc.blueBright(`Watching Members: `) + clc.greenBright(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} Members`) + `\n` +
+      clc.blueBright(`Watching Users: `) + clc.greenBright(`${client.guilds.cache.map(guild => guild.memberCount).reduce((a, b) => a + b, 0)} Users`) + `\n` +
       clc.blueBright(`Commands: `) + clc.greenBright(`${client.commands.size}`) + `\n` +
       clc.blueBright(`Slash Commands: `) + clc.greenBright(`${client.slashCommands.size}`) + `\n` +
       clc.blueBright(`Discord.js: `) + clc.greenBright(`v${Discord.version}`) + `\n` +
@@ -55,11 +41,11 @@ try{
 }catch{ /* */ }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

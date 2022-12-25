@@ -22,11 +22,11 @@ module.exports = {
             .setTitle(bot.emotes.entry+'| **We Got An Error**')
             .setColor(bot.colors.none)
             .setFooter({
-              text: `Error | ${bot.embed.footerText}`,
+              text: `Error • ${bot.embed.footerText}`,
               iconURL: message.guild.iconURL({ dynamic: true })
             })
             
-            if(!message.author.permissions.has(Permissions.FLAGS.MANAGE_GUILD)||!message.author.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+            if(!message.author.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
             error_embed.setDescription("my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
               return message.reply({
                           embeds: [error_embed],
@@ -42,7 +42,7 @@ module.exports = {
             }
             var newPrefix = args.slice().join(' ')
             if (!newPrefix) {
-                db.set(`prefix_${message.guild.id}`, bot.prefix);
+                db.set(`prefix_${message.guild.id}`, `${bot.prefix}`);
                 message.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
@@ -95,9 +95,10 @@ module.exports = {
                           }
                         )
                         .setFooter({
-                          text: "Logs Information | created by Mr.SIN RE#1528",
-                          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
-                        })]
+                          text: "Logs Information • "+client.embed.footerText,
+                          iconURL: client.embed.footerIcon
+                        })
+                         ]
               });
             } else if (newPrefix) {
                 if (newPrefix.length > 7) { 
@@ -114,7 +115,7 @@ module.exports = {
                         ]
                     })
                 }
-                db.set(`prefix_${message.guild.id}`, newPrefix);
+                db.set(`prefix_${message.guild.id}`, `${newPrefix}`);
                 message.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
@@ -178,11 +179,11 @@ module.exports = {
     }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

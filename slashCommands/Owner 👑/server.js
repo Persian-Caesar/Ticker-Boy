@@ -18,8 +18,7 @@ module.exports = {
   options: [],
  }],
  run: async (client, interaction) => {
-  switch (interaction.options.getSubcommand()) {
-   case "list": {
+try{
     if (!client.config.owner.some(r => r.includes(interaction.user.id)))
     return interaction.reply({
                     embeds: [new MessageEmbed()
@@ -31,7 +30,7 @@ module.exports = {
                       .setTitle('⛔️| **We Got An Error**')
                       .setColor(client.colors.none)
                       .setFooter({
-                        text: "Error | created by Mr.SIN RE#1528",
+                        text: "Error •"+client.embed.footerText,
                         iconURL: interaction.guild.iconURL({ dynamic: true })
                       })],
                     components: [new MessageActionRow()
@@ -42,8 +41,9 @@ module.exports = {
                         .setCustomId("error")
                         .setDisabled(true))
                     ]
-                })
-   
+                })  
+  switch (interaction.options.getSubcommand()) {
+   case "list": {
     let i0 = 0;
     let i1 = 10;
     let page = 1;
@@ -162,14 +162,33 @@ module.exports = {
     });
    }
   }
+   }catch (e){
+         interaction.reply({
+        embeds: [new MessageEmbed()
+               .setAuthor({
+                 name: `Requested by ` + interaction.user.tag,
+                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+               })
+               .setTitle('⛔️| **We Got An Error**')
+               .setColor("RED")
+               .setDescription(`\`\`\`js\n${e}\n\`\`\``)
+               .setFooter({
+                 text: "Error • "+client.embed.footerText,
+                 iconURL: interaction.guild.iconURL({ dynamic: true })
+               })
+        ],
+        components: [new MessageActionRow().addComponents(new MessageButton().setStyle("DANGER").setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
+        ephemeral: true,
+    })
+   }  
  }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/sizar-team
- * @INFO
- * Work for SIZAR Team | https://dsc.gg/sizar-team
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

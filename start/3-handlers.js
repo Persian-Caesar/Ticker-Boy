@@ -7,7 +7,7 @@ var Files = [ "slashCommandHandler.js",client.config.source.keep_alive ?  "keepA
 Files
   .filter(Boolean)
   .forEach((handler) => {
-    require(`./../handlers/${handler}`)(client);
+    require(`${process.cwd()}/handlers/${handler}`)(client);
     handlers.set(handler);
 });  
 try {
@@ -22,11 +22,11 @@ try {
   } catch { /* */ }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

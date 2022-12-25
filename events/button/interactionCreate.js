@@ -126,14 +126,14 @@ if (interaction.customId == 'create') {
           ])
          ]
     })
-      setTimeout(()=>{
+/*      setTimeout(()=>{
         embed.setFooter({
         text: `The Time Is Up • for use again: ${prefix}ticket`,
         iconURL: interaction.guild.iconURL({ dynamic: true })
         })
         menu.setDisabled(true)
         cancel.setDisabled(true)
-        interaction.update({
+        interaction.editReply({
           embeds: [embed],
           components: [new MessageActionRow()
           .addComponents([menu]),new MessageActionRow()
@@ -146,7 +146,72 @@ if (interaction.customId == 'create') {
          ]
         })
     },61*1000)
+        */
 }
+  
+if(interaction.customId == "create_ticket"){
+    let embed = new MessageEmbed()
+                    .setAuthor({
+                      name: `Requested by ` + interaction.user.tag,
+                      iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+                    })
+                    .setTitle(client.emotes.ticket + '| **Create Ticket**')
+                    .setColor(client.colors.none)
+                    .addField(`${client.emotes.reason}Description:`,`Dear friend, you have made a request to make a ticket. If you agree to make your ticket, click on the menu below the message and specify the reason for making your ticket, but if you disagree, click on the red button, be successful and victorious.😎`)                    
+                    .setFooter({
+                      text: "Create Ticket • "+client.embed.footerText,
+                      iconURL: interaction.guild.iconURL({ dynamic: true })
+                    })
+
+   let menu = new MessageSelectMenu()
+            .setPlaceholder(`${client.emotes.ticket}| Select Your Ticket Reason`)
+            .setOptions([
+              {
+                label: 'Need Help',
+                value: 'need_help',
+                emoji: client.emotes.help,
+              },
+              {
+                label: 'Report Bot/Admin/Member',
+                value: 'report_bam',
+                emoji: client.emotes.report
+              },
+              {
+                label: 'Exchange',
+                value: 'exchange',
+                emoji: client.emotes.exchange
+              },
+              {
+                label: 'Admin Program',
+                value: 'admin',
+                emoji: client.emotes.admin
+              }
+            ])
+            .setMinValues(1)
+            .setMaxValues(1)
+            .setCustomId("ticket_menu")  
+
+  let cancel = new MessageButton()
+              .setStyle("DANGER")
+              .setLabel("Canceled")
+              .setCustomId("dont_do")
+             .setEmoji(client.emotes.x)
+  
+    return interaction.reply({
+          ephemeral: true,
+          embeds: [embed],
+          components: [new MessageActionRow()
+          .addComponents([menu]),new MessageActionRow()
+            .addComponents([cancel],[new MessageButton()
+              .setStyle("LINK")
+              .setEmoji(client.emotes.support)
+              .setLabel("Support")
+              .setURL(client.config.discord.server_support)
+          ])
+         ]
+    })
+}
+  
        if (interaction.customId == 'create_need_help_ticket') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
            interaction.guild.channels.create(`${client.emotes.help}︱ticket-${interaction.user.tag}`, {
@@ -1099,7 +1164,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
              embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⛔️| **We Got An Error**')
@@ -1399,7 +1464,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     interaction.update({
                embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.name,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.x + '| **Canceling The Adding People To Ticket**')

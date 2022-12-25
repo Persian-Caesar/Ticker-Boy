@@ -6,12 +6,12 @@ const {
   Intents, 
   Collection 
 } = require('discord.js');
-const config = require('./storage/config.js');
-const status = require("./storage/status.json");
+const config = require(`${process.cwd()}/storage/config.js`);
+const status = require(`${process.cwd()}/storage/status.json`);
 const clc = require("cli-color");
 const fs = require('fs');
 const client = new Client({
-    intents: new Intents(32767), // 32767 == full intents, calculated from intent calculator 
+    intents: [new Intents(32767)], // 32767 == full intents, calculated from intent calculator 
     shards: 'auto',
     allowedMentions: {
     parse: ["roles", "users", "everyone"],//mentions disable
@@ -36,20 +36,20 @@ const client = new Client({
 client.config = config;
 client.prefix = client.config.discord.prefix;
 client.token = client.config.discord.token;
-client.emotes = require("./storage/emotes.json");
-client.colors = require("./storage/colors.json");
-client.embed = require("./storage/embed.json");
-client.categories = fs.readdirSync(`./commands`);
+client.emotes = require(`${process.cwd()}/storage/emotes.json`);
+client.colors = require(`${process.cwd()}/storage/colors.json`);
+client.embed = require(`${process.cwd()}/storage/embed.json`);
+client.categories = fs.readdirSync(`${process.cwd()}/commands`);
 client.commands = new Collection();
 client.slashCommands = new Collection();
 client.cooldowns = new Collection();
 
 //===========================================================================================================//
 //======== Loading Starts =========
-var starts = fs.readdirSync('./start').filter(file => file.endsWith('.js'));
+var starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
 start = new Map();
 starts.forEach((file) => {
-  require(`./start/${file}`)(client);
+  require(`${process.cwd()}/start/${file}`)(client);
   start.set(file);
 });
 try {
@@ -76,18 +76,17 @@ if(client.token){
 //========== Replit Alive
 setInterval(() => {
      if(!client || !client.user) {
-    console.log("The Client Didn't Login Proccesing Kill 1")
+      console.log("The Client Didn't Login Proccesing Kill 1")
         process.kill(1);
     } else {
    }
 }, 10000); 
-
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */

@@ -50,7 +50,7 @@ let infoEmbed = new Discord.MessageEmbed()
       .addField(`${bot.emotes.id}| ID:`,`${bot.emotes.reply}** User Id: ${bot.user.id}**`,true)
       .addField(`${bot.emotes.tag}| Tag:`, `${bot.emotes.reply}**${bot.user.tag}**`,true) 
       .addField(bot.emotes.ping+"| Ping",`**${bot.emotes.reply} User Ping Is: \`${Math.round(bot.ws.ping)}MS\`**`,true)
-      .addField(bot.emotes.uptime+"| Uptime", `${bot.emotes.reply}** Time Of Bot Online: \`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\`** || ** _<t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:F> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:D> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:R>_**`,true)
+      .addField(bot.emotes.uptime+"| Uptime", `${bot.emotes.reply}** Time Of Bot Online: <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:D> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:R>_**`,true)
       .addField(`${bot.emotes.status}| Status:`,`${bot.emotes.reply}** Bot Status Is: ${statuses[bot.user.presence.status]} ${bot.user.presence.status}**`,true)
       .addField(bot.emotes.activity+'| Activity:',`${bot.emotes.reply}** Bot Activity Is: ${userstatus}**`,true)
       .addField(`${bot.emotes.date}| Date of Join Discord:`,`${bot.emotes.reply}** Time Of Bot Created: <t:${Date.parse(bot.user.createdAt) / 1000}:R>**`,true) 
@@ -60,17 +60,16 @@ let infoEmbed = new Discord.MessageEmbed()
       .addField(bot.emotes.guild+"| Servers",`${bot.emotes.reply}** Count Of Bot Servers Is: \`${bot.guilds.cache.size}\`**`, true)
       .addField(bot.emotes.voice_channel+"| Voice Channels", `${bot.emotes.reply}** Count Of Bot Voice Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_VOICE").size}\`**`,true)
       .addField(bot.emotes.text_channel+"| Text Channels", `${bot.emotes.reply}** Count Of Bot Text Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_TEXT").size}\`**`,true)
-      .addField(bot.emotes.connect+"| Connected Channels", `${bot.emotes.reply}** Count Of Bot Joined Voices Is: \`${connectedchannelsamount}\`**`,true)
-      .addField(bot.emotes.version+"Version",`${bot.emotes.reply}** Bot Version Is: \`${require("../../package.json").version}\`**`,true)
+      .addField(bot.emotes.version+"Version",`${bot.emotes.reply}** Bot Version Is: \`${require(`${process.cwd()}/package.json`).version}\`**`,true)
       .addField(bot.emotes.disJS+"Discord.js",`${bot.emotes.reply}** Bot Usage Discord.js Version Is: \`Version ${Discord.version}\`**`,true)
       .addField(bot.emotes.node+"Node.js",`${bot.emotes.reply}** Bot Usage Node.js Version Is: \`Version ${process.version}\`**`,true)
       .addField(bot.emotes.cpu+"| CPU", `${bot.emotes.reply}** Bot Usage CPU Model Is: \`\`\`js\nModel:  ${os.cpus().map((i) => `${i.model}`)[0]}\`\`\`\n CPU Usages: \`${percent.toFixed(2)}%\`**`,true)
-      .addField(bot.emotes.shard+"| Shards", `${bot.emotes.reply}>** Bot Shards Percent Is: \`${bot.ws.shards.size}%\`**`,true)
+      .addField(bot.emotes.shard+"| Shards", `${bot.emotes.reply}** Bot Shards Percent Is: \`${bot.ws.shards.size}%\`**`,true)
       .addField(bot.emotes.cros+"| Cores", `${bot.emotes.reply}** Bot Cores Percent Is: \`${os.cpus().length}%\`**`,true)
       .addField(bot.emotes.arch+"| Architecture", `${bot.emotes.reply}** Bot Architecture Is: \`${os.arch()}\`**`,true)
       .addField(bot.emotes.platform+"| Platform", `${bot.emotes.reply}** Bot Usage Platform Is: \`${os.platform()}\`**`,true)
-      .addField(`${bot.emotes.commands}| Commands Count`, `${bot.emotes.reply}** Bot Commands Count Is: \`${bot.commands.size}\`**`,true)
-      .addField(`${bot.emotes.category}| Category Count:`, `${bot.emotes.reply}** Bot Category Count Is: \`${(bot.categories.size)}\`**`,true)
+.addField(`${bot.emotes.commands}| Commands Count`, `${bot.emotes.reply}** Bot Commands Count Is: Commands[\`${bot.commands.size}\`] & SlashCommands[\`${bot.slashCommands.size}\`]**`,true)
+      .addField(`${bot.emotes.category}| Category Count:`, `${bot.emotes.reply}** Bot Category Count Is: \`${(bot.categories.length)}\`**`,true)
       .setTimestamp()
         message.reply({embeds:[infoEmbed]})
     })
@@ -80,11 +79,11 @@ let infoEmbed = new Discord.MessageEmbed()
     }
 }
 /**
- * @INFO
- * Bot Coded by Mr.SIN RE#1528 :) | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Work for SIZAR Team | https://discord.gg/rsQGcSfyJs
- * @INFO
- * Please Mention Us SIZAR Team, When Using This Code!
- * @INFO
+ * @Info
+ * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
+ * @Info
+ * Work for Persian Caesar | https://dsc.gg/persian-caesar
+ * @Info
+ * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
+ * @Info
  */
