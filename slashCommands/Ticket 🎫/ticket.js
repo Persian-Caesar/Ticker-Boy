@@ -99,6 +99,7 @@ let Sub = interaction.options.getSubcommand();
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
 
                 let msg = await interaction.channel.send({
+                content: `${interaction.user}`,
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.close}| Close Ticket`)
@@ -194,6 +195,7 @@ if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
                    .setDisabled(true))]       
           })
         let msg = await interaction.channel.send({
+                content: `${interaction.user}`,
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.open}| Open Ticket`)
@@ -290,6 +292,7 @@ if(msg.embeds[0].title === `${client.emotes.open}| Open Ticket`){
           })
 
                let msg = await interaction.channel.send({
+                content: `${interaction.user}`,
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.trash}| Delete Ticket`)
@@ -385,7 +388,7 @@ if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
                    .setDisabled(true))]       
           })
 
-     interaction.reply({
+     interaction.channel.send({
          embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
