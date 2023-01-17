@@ -1,4 +1,3 @@
-//===========================================================================================================//
 //======== Packages ========
 require('dotenv').config()
 const { 
@@ -44,7 +43,6 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.cooldowns = new Collection();
 
-//===========================================================================================================//
 //======== Loading Starts =========
 var starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
 start = new Map();
@@ -63,8 +61,6 @@ try {
   console.log("\n")
 } catch { /* */ }
 
-
-//===========================================================================================================//
 //======== Consol ========
 if(client.token){
     client.login(client.token).catch(e => {
@@ -73,6 +69,7 @@ if(client.token){
   } else {
    console.log(clc.red("Please Write Your Bot Token Opposite The Token In The config.js File In Your Project!"))   
   }
+
 //========== Replit Alive
 setInterval(() => {
      if(!client || !client.user) {

@@ -6,6 +6,9 @@ const {
   Permissions
 } = require('discord.js');
 const db = require('quick.db');
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
   name: 'ticket',
   description: "working with ticket system.",
@@ -98,8 +101,7 @@ let Sub = interaction.options.getSubcommand();
         case "close": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
 
-                let msg = await interaction.channel.send({
-                content: `${interaction.user}`,
+              interaction.reply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.close}| Close Ticket`)
@@ -118,8 +120,7 @@ let Sub = interaction.options.getSubcommand();
               .setLabel("Close It")
               ])]
            }) 
-            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
-
+           let msg = await interaction.fetchReply()
 
         setTimeout(() => {
 if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
@@ -147,55 +148,14 @@ if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
 }
         }, 1000 * 50)
     }else{
-           interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+           errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
          }
         }break;
         case "open": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
-          ephemeral: true,
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
-        let msg = await interaction.channel.send({
-                content: `${interaction.user}`,
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+
+        interaction.reply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.open}| Open Ticket`)
@@ -214,7 +174,7 @@ if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
               .setLabel("Open It")
               ])]
            }) 
-            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+           let msg = await interaction.fetchReply()
 
 
         setTimeout(() => {
@@ -243,56 +203,15 @@ if(msg.embeds[0].title === `${client.emotes.open}| Open Ticket`){
 }
         }, 1000 * 50)
           }else {
-           interaction.reply({           
-             ephemeral: true,
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+           errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
          }
         }break;
         case "delete": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
-               let msg = await interaction.channel.send({
-                content: `${interaction.user}`,
+
+               interaction.reply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.trash}| Delete Ticket`)
@@ -311,7 +230,7 @@ if(msg.embeds[0].title === `${client.emotes.open}| Open Ticket`){
               .setLabel("Delete It")
               ])]
            }) 
-            interaction.reply({ content: `done👌🏻`, ephemeral: true, })
+           let msg = await interaction.fetchReply()
 
 
         setTimeout(() => {
@@ -340,55 +259,15 @@ if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
 }
         }, 1000 * 50)
         }else {
-           interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+           errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
          }
         }break;
         case "rename": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
       let ticketName = interaction.options.getString("name");
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
-     interaction.channel.send({
+     interaction.reply({
          embeds: [new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -419,12 +298,11 @@ if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
          )]
      })
        db.set(`RenameTicket_${interaction.channel.id}`, ticketName)
-    interaction.reply({ content: `done👌🏻`, ephemeral: true, })
-     let msg = await interaction.channel.send({
-          content: `${interaction.user}`,
-          embeds: [embed],
-          components: [button]
-      })
+     interaction.reply({ 
+      embeds: [embed],
+      components: [button] 
+     })
+     let msg = await interaction.fetchReply()
 
         setTimeout(() => {
 if(msg.embeds[0].title === client.emotes.rename+'| **Request To Change Ticket Name**'){
@@ -453,55 +331,14 @@ db.delete(`RenameTicket_${interaction.channel.id}`)
 }
         }, 1000 * 50)
         }else{
-return interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))],
-  ephemeral: true,
-          })
+return errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
         }
         }break;    
         case "invite": {
       if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
       let member = interaction.options.getMember('member');
-        if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))||!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({        
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))],
-        ephemeral: true,
-          })
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+
 let embed = new MessageEmbed()
             .setAuthor({
               name: `Requested by ` + interaction.user.tag,
@@ -527,14 +364,12 @@ let button = new MessageActionRow()
            .setLabel("Cancel")
            .setCustomId("canceladdmemberTicket")
          ])
-    interaction.reply({ content: `done👌🏻`, ephemeral: true, })
-     let msg = await interaction.channel.send({
-          content: `${interaction.user}`,
-          embeds: [embed],
-          components: [button]
-      })
-
-        db.set(`TicketControlNewMember_${interaction.channel.id}`, member.id)
+     interaction.reply({ 
+       embeds: [embed],
+       components: [button]
+     })
+     let msg = await interaction.fetchReply()
+       db.set(`TicketControlNewMember_${interaction.channel.id}`, member.id)
         setTimeout(() => {
 if(msg.embeds[0].title === client.emotes.print+'| **Request To Adding People To Ticket**'){
           msg.edit({
@@ -563,27 +398,7 @@ if(msg.embeds[0].title === client.emotes.print+'| **Request To Adding People To 
         }, 1000 * 50)
         
         }else {
-           interaction.reply({           ephemeral: true,
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, here is not a ticket channel please use this command in other channel**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+           errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
          }
         }break;
  }

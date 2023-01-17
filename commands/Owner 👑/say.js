@@ -5,8 +5,8 @@ const {
   Permissions
 } = require("discord.js");
 const {
-   errorEmbed 
-} = require("../../functions/functions");
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
   name: 'say',
   aliases: ['post','send'],
@@ -16,28 +16,7 @@ module.exports = {
   cooldown: 6,
 run: async function(bot, message, args, prefix){
   if (!bot.config.owner.some(r => r.includes(message.author.id)))
-  return message.reply({
-                  embeds: [new MessageEmbed()
-                    .setAuthor({
-                      name: `Requested by ` + message.author.username,
-                      iconURL: message.author.displayAvatarURL({ dynamic: true })
-                    })
-                    .setDescription(`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${bot.config.owner.map(id => `<@${id}>`)}**`)
-                    .setTitle('⛔️| **We Got An Error**')
-                    .setColor(bot.colors.none)
-                    .setFooter({
-                      text: `Error | ${bot.embed.footerText}` ,
-                      iconURL: message.guild.iconURL({ dynamic: true })
-                    })],
-                  components: [new MessageActionRow()
-                    .addComponents(new MessageButton()
-                      .setStyle("DANGER")
-                      .setLabel("Error")
-                      .setEmoji("⚠️")
-                      .setCustomId("error")
-                      .setDisabled(true))
-                  ]
-              })
+  return errorMessage(bot, message, `> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${bot.config.owner.map(id => `<@${id}>`)}**`)
 
      try{
        let text = message.content.split(' ').slice(1).join(' ');

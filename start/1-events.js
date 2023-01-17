@@ -24,7 +24,7 @@ try {
     console.log(clc.greenBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.greenBright("┃"))
     console.log(clc.greenBright(`     ┃ `) + clc.cyanBright(`                   Welcome to Ticker Boy!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   Welcome to Ticker Boy!`.length) + clc.greenBright("┃"))
     console.log(clc.greenBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.greenBright("┃"))
-    console.log(clc.greenBright(`     ┃ `) + clc.cyanBright(`             /-/ By Mr.SINRE AND Persian Czar /-/`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `             /-/ By Mr.SINRE AND Persian Czar /-/`.length) + clc.greenBright("┃"))
+    console.log(clc.greenBright(`     ┃ `) + clc.cyanBright(`             /-/ By Sobhan-SRZA and Persian Caesar /-/`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `             /-/ By Sobhan-SRZA and Persian Caesar /-/`.length) + clc.greenBright("┃"))
     console.log(clc.greenBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.greenBright("┃"))
     console.log(clc.greenBright(`     ┃ `) + clc.yellowBright(`               /-/ Discord: Mr.SIN RE#1528  /-/`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `               /-/ Discord: Mr.SIN RE#1528  /-/`.length) + clc.greenBright("┃"))
     console.log(clc.greenBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.greenBright("┃"))

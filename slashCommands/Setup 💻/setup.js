@@ -3,8 +3,13 @@ const {
   MessageActionRow,
   MessageSelectMenu,
   MessageEmbed,
-  Permissions
+  Permissions,
+  Modal,
+  TextInputComponent
 } = require('discord.js');
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 const db = require('quick.db');
 module.exports = {
   name: 'setup',
@@ -65,38 +70,16 @@ let Sub = interaction.options.getSubcommand();
     try {
           let logsChannel = interaction.guild.channels.cache.find(c => c.id === db.get(`modlog_${interaction.guild.id}`));
           let newPrefix = interaction.options.getString('prefix_text')  
-          let error_embed = new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })
             
-            if(!interaction.user.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
-            error_embed.setDescription("my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
-              return interaction.reply({
-                          embeds: [error_embed],
-                          components: [new MessageActionRow()
-                            .addComponents(new MessageButton()
-                              .setStyle("DANGER")
-                              .setLabel("Error")
-                              .setEmoji("⚠️")
-                              .setCustomId("error")
-                              .setDisabled(true))
-                          ]
-              });
+            if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
+              errorMessage(client, interaction, "my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
             }
             if (newPrefix === client.prefix) {
                 db.set(`prefix_${interaction.guild.id}`, `${client.prefix}`);
                 interaction.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + interaction.guild.name,
+                          name: interaction.guild.name,
                           iconURL: interaction.guild.iconURL({ dynamic: true })
                         })
                         .setColor(client.colors.none)
@@ -104,12 +87,13 @@ let Sub = interaction.options.getSubcommand();
                         .setTimestamp()
                         .setTitle(client.emotes.setup + '| **Setup Prefix To Default**')
                         .setDescription("**bot prefix in this guild `"+interaction.guild.name+"` changed to default prefix: `"+client.prefix+"help`**")
-                    ]
+                    ],
+                    ephemeral: true
                 })
               if(logsChannel) logsChannel.send({
                  embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + interaction.guild.name,
+                          name: interaction.guild.name,
                           iconURL: interaction.guild.iconURL({ dynamic: true })
                         })
                         .setTitle(client.emotes.setup + '| **Setup Prefix To Default**')
@@ -152,24 +136,14 @@ let Sub = interaction.options.getSubcommand();
               });
             } else {
                 if (newPrefix.length > 7) { 
-                    error_embed.setDescription("this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
-                    interaction.reply({
-                        embeds: [error_embed],
-                        components: [new MessageActionRow()
-                          .addComponents(new MessageButton()
-                            .setStyle("DANGER")
-                            .setLabel("Error")
-                            .setEmoji("⚠️")
-                            .setCustomId("error")
-                            .setDisabled(true))
-                        ]
-                    })
+                    errorMessage(client, interaction, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
                 }
                 db.set(`prefix_${interaction.guild.id}`, `${newPrefix}`);
                 interaction.reply({
+                    ephemeral: true,
                     embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + interaction.guild.name,
+                          name: interaction.guild.name,
                           iconURL: interaction.guild.iconURL({ dynamic: true })
                         })
                         .setColor(client.colors.none)
@@ -182,7 +156,7 @@ let Sub = interaction.options.getSubcommand();
               if(logsChannel) logsChannel.send({
                  embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + interaction.guild.name,
+                          name: interaction.guild.name,
                           iconURL: interaction.guild.iconURL({ dynamic: true })
                         })
                         .setTitle(client.emotes.setup + '| **Setup Prefix**')
@@ -224,113 +198,145 @@ let Sub = interaction.options.getSubcommand();
               });
         }
        } catch (error) {
-       return;
+           errorMessage(client, interaction, error)
+           console.log(error)
       }
   }break;
   case "ticket": {
-
   let channel =  interaction.options.getChannel("channel")||interaction.channel;
   if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) 
-  return interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))], 
-            ephemeral: true,
-         })      
-  interaction.reply({
-    embeds: [new MessageEmbed()
+return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+        let embed = new MessageEmbed()
+                  .setColor(client.colors.none)
+      
+        interaction.reply({
+          ephemeral: true,
+          embeds: [new MessageEmbed()
                     .setAuthor({
                       name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
-                    .setTitle(client.emotes.success + '| **Menu Is Successfuly Setuped**')
+                    .setTitle(client.emotes.setup + '| **Setup Ticket System**')
                     .setColor(client.colors.none)
-                    .setDescription(`**setup server ticket menu in ${channel} is successfully setuped.**`)
+                    .setDescription(`**setup your guild ticket system in ${channel} with default or customize.**`)
+                    .setFooter({
+                      text: "Setting • "+client.embed.footerText,
+                      iconURL: interaction.guild.iconURL({ dynamic: true })
+                    })
+            ],
+          components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Setup Ticket To Default").setStyle('PRIMARY')],[new MessageButton().setCustomId('ticket_setup_custom').setEmoji(client.emotes.hamer).setLabel("Setup Ticket To Customize").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+        }).then(async (msg)=>{
+
+        //use buttons and modals function
+        let collector = await interaction.channel.createMessageComponentCollector({ time: 30000 })
+        collector.on('collect', async (collect)=>{
+          if(!collect.user.id === interaction.user.id){
+            collect.reply({
+              ephemeral: true,
+              content: `**${client.emotes.error}| This component only for ${interaction.user} and you can't use it.\nuse "\`${prefix}setup\`" for setup the ticket system**`
+            })
+          }
+          if(collect.isButton()){
+            if(collect.customId === "ticket_setup_custom"){
+        const ticket_modal = new Modal()
+          .setCustomId("ticket_modal")
+          .setTitle("Setup Ticket")
+                    
+        ticket_modal.addComponents(new MessageActionRow().addComponents([new TextInputComponent().setCustomId("ticket_title").setLabel("Embed Title").setStyle("SHORT").setPlaceholder("Place Ticket Embed Title Here ...").setRequired(false)]),new MessageActionRow().addComponents([new TextInputComponent().setCustomId("ticket_description").setLabel("Embed Description").setStyle("PARAGRAPH").setPlaceholder("Place Ticket Embed Description Here ...").setRequired(true)]))
+        await collect.showModal(ticket_modal)
+            }
+            else if(collect.customId === "ticket_default"){
+              embed.setTitle(`${client.emotes.ticket}| Ticket System`)
+              embed.addField(`${client.emotes.reason}Description:`,`Do you need help ?? we are here!! This channel is for making tickets and communicating with the admin team. To make a ticket, select your reason from the menu below to address your problem. For guidance, asking questions, reporting members, etc., you can open a ticket by Be in touch with the admin team. Also, after clicking the button below, select the reason for opening your ticket correctly, otherwise your ticket will not be processed. All tickets will be saved, so please stop opening tickets without any reason and in violation of server rules. Avoid tickets, otherwise you will be banned from making tickets`)
+              collect.update({
+                embeds: [new MessageEmbed()
+                    .setAuthor({
+                      name: `Requested by ` + interaction.user.tag,
+                      iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+                    })
+                    .setTitle(client.emotes.success + '| **Ticket Is Successfuly Setuped To Default**')
+                    .setColor(client.colors.none)
+                    .setDescription(`**setup server ticket system in ${channel} to default type is successfully.**`)
                     .setFooter({
                       text: "Successfuly • "+client.embed.footerText,
                       iconURL: interaction.guild.iconURL({ dynamic: true })
                     })
             ],
-    ephemeral: true,
-  })
-    
-  channel.send({
-        embeds: [new MessageEmbed()
-                   .setTitle(`${client.emotes.ticket}| Ticket System`)
-                   .addField(`${client.emotes.reason}Description:`,`Do you need help ?? we are here!! This channel is for making tickets and communicating with the admin team. To make a ticket, select your reason from the menu below to address your problem. For guidance, asking questions, reporting members, etc., you can open a ticket by Be in touch with the admin team. Also, after clicking the button below, select the reason for opening your ticket correctly, otherwise your ticket will not be processed. All tickets will be saved, so please stop opening tickets without any reason and in violation of server rules. Avoid tickets, otherwise you will be banned from making tickets`)
-                   .setColor(client.colors.none)
-          ],
-         components: [new MessageActionRow()
-          .addComponents([new MessageButton()
-            .setCustomId('create_ticket')
-            .setEmoji(client.emotes.ticket)
-            .setLabel("Create Ticket")
-            .setStyle('SUCCESS')]),new MessageActionRow()
-            .addComponents([new MessageButton()
-              .setStyle("LINK")
-              .setEmoji(client.emotes.support)
-              .setLabel("Support")
-              .setURL(client.config.discord.server_support)
-          ])
-         ] 
-  })
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Ticket Setup To Default").setStyle('PRIMARY').setDisabled(true)]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+              })
+              await channel.send({
+                embeds: [embed],
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+              })
+              embed = new MessageEmbed()
+            }
+          }
+        })
+        client.on('interactionCreate', async (collect)=>{
+      if(collect.isModalSubmit()){
+        if(collect.customId === 'ticket_modal'){
+          let title = collect.fields.getTextInputValue('ticket_title')
+          let description = collect.fields.getTextInputValue('ticket_description')
+          if(description){
+            embed.setDescription(description)
+          }
+          if(title){
+            embed.setTitle(title)
+          }
+          collect.update({
+                embeds: [new MessageEmbed()
+                    .setAuthor({
+                      name: `Requested by ` + interaction.user.tag,
+                      iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+                    })
+                    .setTitle(client.emotes.success + '| **Ticket Is Successfuly Setuped To Customize**')
+                    .setColor(client.colors.none)
+                    .setDescription(`**setup server ticket system in ${channel} to custom type is successfully.**`)
+                    .setFooter({
+                      text: "Successfuly • "+client.embed.footerText,
+                      iconURL: interaction.guild.iconURL({ dynamic: true })
+                    })
+            ],
+            components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_setup_custom').setEmoji(client.emotes.system).setLabel("Ticket Setup To Customize").setStyle('SUCCESS').setDisabled(true)]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+          })
+          collect.reply({
+            ephemeral: true,
+            content: '👌🏻 done'
+          })
+          await channel.send({
+                embeds: [embed],
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+              })
+          embed = new MessageEmbed()
+         }
+        }
+        })
+        collector.on('end', (collect)=>{
+          interaction.editReply({
+                      embeds: [new MessageEmbed()
+                    .setAuthor({
+                      name: `Requested by ` + interaction.user.tag,
+                      iconURL: interaction.user.displayAvatarURL({ dynamic: true })
+                    })
+                    .setTitle(client.emotes.alert + '| **Time For Setup Ticket System Is Up**')
+                    .setColor(client.colors.none)
+                    .setDescription(`**your time for setup guild ticket system is ended.**`)
+                    .setFooter({
+                      text: "Timesup • "+client.embed.footerText,
+                      iconURL: interaction.guild.iconURL({ dynamic: true })
+                    })
+            ],
+            components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Setup Ticket To Default").setStyle('PRIMARY').setDisabled(true)],[new MessageButton().setCustomId('ticket_setup_custom').setEmoji(client.emotes.hamer).setLabel("Setup Ticket To Customize").setStyle('SUCCESS').setDisabled(true)]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+          })
+          
+        })
+        })
   }break;
   case "logs": {
-                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))], 
-    ephemeral: true,
-          })      
+                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
   let channel =  interaction.options.getChannel("channel")
 if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))){
-     return interaction.reply({
-           ephemeral: true,
-           embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, you just have a logs channel befor it to ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))}.**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })]
-       })
+     return errorMessage(client, interaction, `**My Friend, you just have a logs channel befor it to ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))}.**`)
 }else {
     interaction.reply({
     embeds: [new MessageEmbed().setTitle('✅| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`process is successfuly.\n I just setup your ticket logs channel to ${channel}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
@@ -344,43 +350,9 @@ if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${intera
   }break;
   case "admin": {
   let role = interaction.options.getRole("role")
-                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) return interaction.reply({           
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_ROLES\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))], 
-    ephemeral: true,
-          })      
-if(interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))) return interaction.reply({
-           ephemeral: true,
-           embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⚠️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription(`**My Friend, you just have a setup your ticket mod roles befor it to ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))}.**`)
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })]
-       })
+                if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_ROLES\" \n```")
+      
+if(interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))) return errorMessage(client, interaction, `**My Friend, you just have a setup your ticket mod roles befor it to ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))}.**`)
 
     interaction.reply({
     embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just setup your ticket admin role to ${role}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],

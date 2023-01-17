@@ -5,6 +5,9 @@ const {
     Permissions
  } = require("discord.js");
 const db = require('quick.db');
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
     name: "setprefix",
     cooldown: 5,
@@ -14,31 +17,9 @@ module.exports = {
     description: "Change bot prefix in server",
    run: async function(bot, message, args, prefix, logsChannel){
         try {
-          let error_embed = new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + message.author.tag,
-              iconURL: message.author.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle(bot.emotes.entry+'| **We Got An Error**')
-            .setColor(bot.colors.none)
-            .setFooter({
-              text: `Error • ${bot.embed.footerText}`,
-              iconURL: message.guild.iconURL({ dynamic: true })
-            })
             
-            if(!message.author.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
-            error_embed.setDescription("my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
-              return message.reply({
-                          embeds: [error_embed],
-                          components: [new MessageActionRow()
-                            .addComponents(new MessageButton()
-                              .setStyle("DANGER")
-                              .setLabel("Error")
-                              .setEmoji("⚠️")
-                              .setCustomId("error")
-                              .setDisabled(true))
-                          ]
-              });
+            if(!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
+            errorMessage(client, message, "my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
             }
             var newPrefix = args.slice().join(' ')
             if (!newPrefix) {
@@ -46,7 +27,7 @@ module.exports = {
                 message.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + message.guild.name,
+                          name: message.guild.name,
                           iconURL: message.guild.iconURL({ dynamic: true })
                         })
                         .setColor(bot.colors.none)
@@ -59,7 +40,7 @@ module.exports = {
               if(logsChannel) logsChannel.send({
                  embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + message.guild.name,
+                          name: message.guild.name,
                           iconURL: message.guild.iconURL({ dynamic: true })
                         })
                         .setTitle(bot.emotes.setup + '| **Setup Prefix To Default**')
@@ -95,25 +76,14 @@ module.exports = {
                           }
                         )
                         .setFooter({
-                          text: "Logs Information • "+client.embed.footerText,
-                          iconURL: client.embed.footerIcon
+                          text: "Logs Information • "+bot.embed.footerText,
+                          iconURL: bot.embed.footerIcon
                         })
                          ]
               });
             } else if (newPrefix) {
                 if (newPrefix.length > 7) { 
-                    error_embed.setDescription("this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
-                    message.reply({
-                        embeds: [error_embed],
-                        components: [new MessageActionRow()
-                          .addComponents(new MessageButton()
-                            .setStyle("DANGER")
-                            .setLabel("Error")
-                            .setEmoji("⚠️")
-                            .setCustomId("error")
-                            .setDisabled(true))
-                        ]
-                    })
+                    errorMessage(client, message, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
                 }
                 db.set(`prefix_${message.guild.id}`, `${newPrefix}`);
                 message.reply({
@@ -132,7 +102,7 @@ module.exports = {
               if(logsChannel) logsChannel.send({
                  embeds: [new MessageEmbed()
                         .setAuthor({
-                          name: `Requested Guild Name` + message.guild.name,
+                          name: message.guild.name,
                           iconURL: message.guild.iconURL({ dynamic: true })
                         })
                         .setTitle(bot.emotes.setup + '| **Setup Prefix**')
@@ -168,13 +138,13 @@ module.exports = {
                           }
                         )
                         .setFooter({
-                          text: "Logs Information | created by Mr.SIN RE#1528",
-                          iconURL: `https://cdn.discordapp.com/attachments/902034619791196221/905054458793312327/2GU.gif`
+                          text: "Logs Information • "+bot.embed.footerText,
+                          iconURL: bot.embed.footerIcon
                         })]
               });
         }
        } catch (error) {
-       return;
+       return console.log(error)
       }
     }
 }

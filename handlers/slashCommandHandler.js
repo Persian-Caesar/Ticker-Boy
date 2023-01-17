@@ -18,7 +18,8 @@ module.exports = async (bot) => {
         } else {
           try {
             console.log(clc.redBright(`Slash Command Not Loaded: ${file}`))
-          } catch {
+          } catch (e){
+            console.log(e)
           }
           continue;
         }
@@ -32,7 +33,9 @@ module.exports = async (bot) => {
       console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.cyanBright(amount)} Slash Commands Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${amount} Slash Commands Is Loaded!!`.length) + clc.yellowBright("┃"))
       console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
       console.log(clc.yellowBright(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`)) + '\n'
-    } catch { /* */ }
+    } catch (e){
+      console.log(e)
+    }
   
     bot.on("ready", async () => {
         try {
@@ -45,7 +48,7 @@ module.exports = async (bot) => {
         }
       })
   } catch (e) {
-    console.log(e.message);
+    console.log(e);
   }
 }
 /**

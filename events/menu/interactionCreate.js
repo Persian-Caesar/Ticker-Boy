@@ -6,8 +6,9 @@ const {
   MessageActionRow 
 } = require("discord.js");
 const {
-    HelpCategoryEmbed
-} = require('./../../functions/functions')
+    HelpCategoryEmbed,
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = async (client, interaction) => {
   if(!interaction.isSelectMenu())return;
   if(interaction.customId === "help_menu"){
@@ -43,25 +44,8 @@ module.exports = async (client, interaction) => {
   }
   }
   if(interaction.customId === "ticket_menu"){
-    let time = 3*1000;//this is for timeout t
       if(interaction.values[0] === 'need_help'){
        interaction.update({
-                   components: [new MessageActionRow()
-                  .addComponents([new MessageButton()
-         .setDisabled(true)
-                      .setStyle("PRIMARY")
-                      .setCustomId("loading")
-                      .setEmoji("🔃")
-                      .setLabel("Process Is Loading...")
-                  ])
-                    ],
-					          embeds: [new MessageEmbed()
-                        .setColor(client.colors.none)
-                        .setTitle(`🔃| Process Is Loading...`)
-                    ],
-				        }).then((m)=>{
-      setTimeout(()=>{
-     interaction.editReply({
                 embeds: [new MessageEmbed()
                     .setColor(client.colors.none)
                     .setTitle(`${client.emotes.tickets}| Create Ticket`)
@@ -71,7 +55,7 @@ module.exports = async (client, interaction) => {
                   .addComponents([new MessageButton()
                     .setStyle("DANGER")
                     .setCustomId("dont_do")
-                    .setEmoji(client.emotes.no)
+                    .setEmoji(client.emotes.x)
                     .setLabel("Don't Create")
                   ],[new MessageButton()
                     .setStyle("SUCCESS")
@@ -81,26 +65,9 @@ module.exports = async (client, interaction) => {
                   ])
                 ],
          })
-      },time)
-       })
-     } else if(interaction.values[0] === "report_bam"){
+     } 
+     else if(interaction.values[0] === "report_bam"){
        interaction.update({
-                   components: [new MessageActionRow()
-                  .addComponents([new MessageButton()
-         .setDisabled(true)
-                      .setStyle("PRIMARY")
-                      .setCustomId("loading")
-                      .setEmoji("🔃")
-                      .setLabel("Process Is Loading...")
-                  ])
-                    ],
-					          embeds: [new MessageEmbed()
-                        .setColor(client.colors.none)
-                        .setTitle(`🔃| Process Is Loading...`)
-                    ],
-				        }).then((m)=>{
-        setTimeout(()=>{
-         interaction.editReply({
                 embeds: [new MessageEmbed()
                   .setColor(client.colors.none)
                   .setTitle(`${client.emotes.tickets}| Create Ticket`)
@@ -110,7 +77,7 @@ module.exports = async (client, interaction) => {
                   .addComponents([new MessageButton()
                       .setStyle("DANGER")
                       .setCustomId("dont_do")
-                      .setEmoji(client.emotes.no)
+                      .setEmoji(client.emotes.x)
                       .setLabel("Don't Create")
                   ],[new MessageButton()
                       .setStyle("SUCCESS")
@@ -120,26 +87,9 @@ module.exports = async (client, interaction) => {
                   ])
                 ],
          })
-        },time)
-       })
-     } else if(interaction.values[0] === "exchange"){
+     } 
+     else if(interaction.values[0] === "exchange"){
        interaction.update({
-                   components: [new MessageActionRow()
-                  .addComponents([new MessageButton()
-         .setDisabled(true)
-                      .setStyle("PRIMARY")
-                      .setCustomId("loading")
-                      .setEmoji("🔃")
-                      .setLabel("Process Is Loading...")
-                  ])
-                    ],
-					          embeds: [new MessageEmbed()
-                        .setColor(client.colors.none)
-                        .setTitle(`🔃| Process Is Loading...`)
-                    ],
-				        }).then((m)=>{
-      setTimeout(()=>{
-        interaction.editReply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.tickets}| Create Ticket`)
@@ -149,7 +99,7 @@ module.exports = async (client, interaction) => {
                   .addComponents([new MessageButton()
                     .setStyle("DANGER")
                     .setCustomId("dont_do")
-                    .setEmoji(client.emotes.no)
+                    .setEmoji(client.emotes.x)
                     .setLabel("Don't Create")
                   ],[new MessageButton()
                     .setStyle("SUCCESS")
@@ -159,9 +109,8 @@ module.exports = async (client, interaction) => {
                   ])
                 ],
          })
-      },time)
-       })
-     } else if(interaction.values[0] === "admin"){
+     } 
+     else if(interaction.values[0] === "admin"){
             let embed = new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.tickets}| Create Ticket`)
@@ -171,7 +120,7 @@ module.exports = async (client, interaction) => {
                   .addComponents([new MessageButton()
                       .setStyle("DANGER")
                       .setCustomId("dont_do")
-                      .setEmoji(client.emotes.no)
+                      .setEmoji(client.emotes.x)
                       .setLabel("Don't Create")
                   ],[new MessageButton()
                       .setStyle("SUCCESS")
@@ -180,27 +129,8 @@ module.exports = async (client, interaction) => {
                       .setLabel("Create It")
                   ])
       interaction.update({
-                   components: [new MessageActionRow()
-                  .addComponents([new MessageButton()
-         .setDisabled(true)
-                      .setStyle("PRIMARY")
-                      .setCustomId("loading")
-                      .setEmoji("🔃")
-                      .setLabel("Process Is Loading...")
-                  ])
-                    ],
-					          embeds: [new MessageEmbed()
-                        .setColor(client.colors.none)
-                        .setTitle(`🔃| Process Is Loading...`)
-                    ],
-				        }).then((m)=>{
-
-      setTimeout(()=>{
-        interaction.editReply({
           embeds: [embed],
           components: [buttons]
-         })
-          },time)
       })
      }
  }

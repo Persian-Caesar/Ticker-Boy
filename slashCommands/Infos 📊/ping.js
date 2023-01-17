@@ -6,7 +6,7 @@ const {
  } = require('discord.js');
 const {
    wait
-} = require('../../functions/functions.js');
+} = require(`${process.cwd()}/functions/functions.js`);
 module.exports = {
   name: 'ping',
   description: 'get bot ms requestes and bot ping.',

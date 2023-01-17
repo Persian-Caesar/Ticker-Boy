@@ -9,6 +9,14 @@ const {
   MessageSelectMenu  
 } = require("discord.js");
 module.exports = {
+  errorMessage: async function(client, interaction, error){
+    let member = interaction.guild.members.cache.find(m=> m.id === interaction.member.id);
+    return interaction.reply({
+        embeds: [new MessageEmbed().setAuthor({ name: `Requested by ` + member.user.tag, iconURL: member.user.displayAvatarURL({ dynamic: true }) }).setTitle('⛔️| **We Got An Error**').setColor(client.colors.red).setDescription(`${error}`).setFooter({ text: "Error • "+client.embed.footerText, iconURL: interaction.guild.iconURL({ dynamic: true }) })],
+        components: [new MessageActionRow().addComponents(new MessageButton().setStyle("DANGER").setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
+        ephemeral: true,
+    })
+  },
   HelpCategoryEmbed: async function(commands, CategoryName, client, message, prefix){
   let embed = new MessageEmbed()
       .setThumbnail(client.user.displayAvatarURL({ format: "png" }))

@@ -9,18 +9,76 @@ const {
 } = require("discord.js");
 const db = require('quick.db');
 const clc = require("cli-color");
-const ms = require('ms')
+const ms = require('ms');
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = async (client, interaction) => {
-    if(!interaction.isButton())return;    
-  //ticket
+try{
+  if(!interaction.isButton())return;    
+//ticket system
+let cmd = client.application.commands.cache.find(c => c.name === "ticket");
 let logsChannel = interaction.guild.channels.cache.find(c => c.id === db.get(`modlog_${interaction.guild.id}`));
 let prefix = db.get(`prefix_${interaction.guild.id}`) || client.prefix;
 let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`);
-  if(interaction.customId === "cancel"){
+let check_admin_role = await db.fetch(`TicketAdminRole_${interaction.guild.id}`);
+let admin_role = await db.fetch(`TicketAdminRole_${interaction.guild.id}`);
+let channel_perm = {
+  create: [{
+     id: interaction.user.id,
+     allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  },{
+     id: interaction.guild.roles.everyone,
+      deny: ["VIEW_CHANNEL"]
+  }],
+  close: [{
+    id: db.fetch(`TicketControl_${interaction.channel.id}`),
+    deny: ['SEND_MESSAGES','VIEW_CHANNEL'],
+  },{
+    id: interaction.guild.roles.everyone,
+    deny: ["VIEW_CHANNEL"]
+  }],
+  open: [{
+    id: db.fetch(`TicketControl_${interaction.channel.id}`),
+    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  },{
+    id: interaction.guild.roles.everyone,
+    deny: ["VIEW_CHANNEL"]
+  }],
+  invite: [{
+    id: db.fetch(`TicketControl_${interaction.channel.id}`),
+    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  },{
+    id: db.get(`TicketControlNewMember_${interaction.channel.id}`),
+    allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
+  },{
+    id: interaction.guild.roles.everyone,
+    deny: ["VIEW_CHANNEL"]
+  }]
+};
+if(check_admin_role){
+  channel_perm.create.push({
+     id: admin_role,
+     allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  })
+  channel_perm.close.push({
+    id: admin_role,
+    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  })
+  channel_perm.open.push({
+    id: admin_role,
+    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  })
+  channel_perm.invite.push({
+    id: admin_role,
+    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
+  })
+}
+if(interaction.customId === "cancel"){
         interaction.update({
                          embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.x + '| **Canceled The Process**')
@@ -41,7 +99,7 @@ let ticketName = db.get(`ticketName_${interaction.user.id}_${interaction.guild.i
       
     })
   }
-  if(interaction.customId === "dont_do"){
+if(interaction.customId === "dont_do"){
     interaction.update({
           embeds: [new MessageEmbed()
                     .setAuthor({
@@ -89,7 +147,7 @@ if (interaction.customId == 'create') {
                 emoji: client.emotes.help,
               },
               {
-                label: 'Report Bot/Admin/Member',
+                label: 'Report',
                 value: 'report_bam',
                 emoji: client.emotes.report
               },
@@ -126,27 +184,6 @@ if (interaction.customId == 'create') {
           ])
          ]
     })
-/*      setTimeout(()=>{
-        embed.setFooter({
-        text: `The Time Is Up • for use again: ${prefix}ticket`,
-        iconURL: interaction.guild.iconURL({ dynamic: true })
-        })
-        menu.setDisabled(true)
-        cancel.setDisabled(true)
-        interaction.editReply({
-          embeds: [embed],
-          components: [new MessageActionRow()
-          .addComponents([menu]),new MessageActionRow()
-            .addComponents([cancel],[new MessageButton()
-              .setStyle("LINK")
-              .setEmoji(client.emotes.support)
-              .setLabel("Support")
-              .setURL(client.config.discord.server_support)
-          ])
-         ]
-        })
-    },61*1000)
-        */
 }
   
 if(interaction.customId == "create_ticket"){
@@ -172,7 +209,7 @@ if(interaction.customId == "create_ticket"){
                 emoji: client.emotes.help,
               },
               {
-                label: 'Report Bot/Admin/Member',
+                label: 'Report',
                 value: 'report_bam',
                 emoji: client.emotes.report
               },
@@ -212,25 +249,13 @@ if(interaction.customId == "create_ticket"){
     })
 }
   
-       if (interaction.customId == 'create_need_help_ticket') {
+if (interaction.customId == 'create_need_help_ticket') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
            interaction.guild.channels.create(`${client.emotes.help}︱ticket-${interaction.user.tag}`, {
-               permissionOverwrites: [{
-                       id: interaction.user.id,
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   },
-                   {
-                       id: db.get(`TicketAdminRole_${interaction.guild.id}`),
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   }, 
-                   {
-                       id: interaction.guild.roles.everyone,
-                       deny: ["VIEW_CHANNEL"]
-                   }
-               ],
+               permissionOverwrites: channel_perm.create,
                type: 'GUILD_TEXT',
                reason: `create a Support And Help ticket`,
-               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** \`Support And Help\`\n**Use It For Close Ticket:** \`/ticket close\``
+               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** __Support And Help__\n**Use It For Close Ticket:** __</${cmd.name + " close"}:${cmd.id}>__`
 
            }).then(async(channel)=> {
            db.set(`ticketName_${interaction.user.id}_${interaction.guild.id}`, channel.name);
@@ -239,7 +264,7 @@ if(interaction.customId == "create_ticket"){
                    content:  `<@${interaction.user.id}>`,
                    embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
@@ -271,7 +296,7 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
              )],
      embeds: [new MessageEmbed()
       .setAuthor({
-        name: `Requested Guild Name` + interaction.guild.name,
+        name: interaction.guild.name,
         iconURL: interaction.guild.iconURL({ dynamic: true })
       })
       .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
@@ -320,7 +345,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    if(logsChannel) return logsChannel.send({
        embeds: [new MessageEmbed()
         .setAuthor({
-          name: `Requested Guild Name` + interaction.guild.name,
+          name: interaction.guild.name,
           iconURL: interaction.guild.iconURL({ dynamic: true })
         })
         .setTitle(client.emotes.help + '| **Request To Create Need Help Ticket**')
@@ -365,7 +390,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    return interaction.update({
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -385,25 +410,14 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })
        }
       
-       }else if (interaction.customId == 'create_exchange') {
+       }
+if (interaction.customId == 'create_exchange') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
            interaction.guild.channels.create(`${client.emotes.exchange}︱ticket-${interaction.user.tag}`, {
-               permissionOverwrites: [{
-                       id: interaction.user.id,
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   },
-                   {
-                       id: db.get(`TicketAdminRole_${interaction.guild.id}`),
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   }, 
-                   {
-                       id: interaction.guild.roles.everyone,
-                       deny: ["VIEW_CHANNEL"]
-                   }
-               ],
+               permissionOverwrites: channel_perm.create,
                type: 'GUILD_TEXT',
                reason: `create a Exchange ticket`,
-               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** \`Exchange\`\n**Use It For Close Ticket:** \`/ticket close\``
+               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** __Exchange__\n**Use It For Close Ticket:** __</${cmd.name + " close"}:${cmd.id}>__`
 
            }).then(async(channel)=> {
            db.set(`ticketName_${interaction.user.id}_${interaction.guild.id}`, channel.name);
@@ -444,15 +458,14 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
                  )],
          embeds: [new MessageEmbed()
           .setAuthor({
-            name: `Requested Guild Name` + interaction.guild.name,
+            name: interaction.guild.name,
             iconURL: interaction.guild.iconURL({ dynamic: true })
           })
           .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
           .setColor(client.colors.none)
           .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
 
-                  .addField(`${client.emotes.reason}Description:`,`
-your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
+                  .addField(`${client.emotes.reason}Description:`,`your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
           .setTimestamp()
           .addFields(
             {      
@@ -493,7 +506,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    if(logsChannel) return logsChannel.send({
        embeds: [new MessageEmbed()
         .setAuthor({
-          name: `Requested Guild Name` + interaction.guild.name,
+          name: interaction.guild.name,
           iconURL: interaction.guild.iconURL({ dynamic: true })
         })
         .setTitle(client.emotes.exchange + '| **Request To Create Exchange Ticket**')
@@ -538,7 +551,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    return interaction.update({
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -558,25 +571,14 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })
        }
       
-       } if (interaction.customId == 'create_report_bam') {
+       }
+if (interaction.customId == 'create_report_bam') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
            interaction.guild.channels.create(`${client.emotes.report}︱ticket-${interaction.user.tag}`, {
-               permissionOverwrites: [{
-                       id: interaction.user.id,
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   },
-                   {
-                       id: db.get(`TicketAdminRole_${interaction.guild.id}`),
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   }, 
-                   {
-                       id: interaction.guild.roles.everyone,
-                       deny: ["VIEW_CHANNEL"]
-                   }
-               ],
+               permissionOverwrites: channel_perm.create,
                type: 'GUILD_TEXT',
                reason: `create a Report ticket`,
-               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** \`Report\`\n**Use It For Close Ticket:** \`/ticket close\``
+               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** __Report__\n**Use It For Close Ticket:** __</${cmd.name + " close"}:${cmd.id}>__`
 
            }).then(async(channel)=> {
            db.set(`ticketName_${interaction.user.id}_${interaction.guild.id}`, channel.name);
@@ -585,14 +587,13 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                    content:  `<@${interaction.user.id}>`,
                    embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
 
-                    .addField(`${client.emotes.reason}Description:`,`
-Hello to the **report admins, bots or members** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
+                    .addField(`${client.emotes.reason}Description:`,`Hello to the **report admins, bots or members** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Report\`\`\``)
                     .setFooter({
                       text: "Successfuly • "+client.embed.footerText,
@@ -618,15 +619,14 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
                  )],
          embeds: [new MessageEmbed()
           .setAuthor({
-            name: `Requested Guild Name` + interaction.guild.name,
+            name: interaction.guild.name,
             iconURL: interaction.guild.iconURL({ dynamic: true })
           })
           .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
           .setColor(client.colors.none)
           .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
 
-                  .addField(`${client.emotes.reason}Description:`,`
-your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
+                  .addField(`${client.emotes.reason}Description:`,`your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
           .setTimestamp()
           .addFields(
             {      
@@ -667,7 +667,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    if(logsChannel) return logsChannel.send({
        embeds: [new MessageEmbed()
         .setAuthor({
-          name: `Requested Guild Name` + interaction.guild.name,
+          name: nteraction.guild.name,
           iconURL: interaction.guild.iconURL({ dynamic: true })
         })
         .setTitle(client.emotes.report + '| **Request To Create Report Ticket**')
@@ -712,7 +712,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    return interaction.update({
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -732,25 +732,14 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })
        }
       
-       } else if (interaction.customId == 'create_admin') {
+       }
+if (interaction.customId == 'create_admin') {
  if (!interaction.guild.channels.cache.find(x => x.name === ticketName)) {
            interaction.guild.channels.create(`${client.emotes.admin}︱ticket-${interaction.user.tag}`, {
-               permissionOverwrites: [{
-                       id: interaction.user.id,
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   },
-                   {
-                       id: db.get(`TicketAdminRole_${interaction.guild.id}`),
-                       allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                   }, 
-                   {
-                       id: interaction.guild.roles.everyone,
-                       deny: ["VIEW_CHANNEL"]
-                   }
-               ],
+               permissionOverwrites: channel_perm.create,
                type: 'GUILD_TEXT',
                reason: `create a Admin Program ticket`,
-               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** \`Admin Program\`\n**Use It For Close Ticket:** \`/ticket close\``
+               topic: `\n**ID:** ${interaction.user.id} \n**Tag:** ${interaction.user.tag} \n**Reason:** __Admin Program__\n**Use It For Close Ticket:** __</${cmd.name + " close"}:${cmd.id}>__`
 
            }).then(async(channel)=> {
            db.set(`ticketName_${interaction.user.id}_${interaction.guild.id}`, channel.name);
@@ -759,13 +748,12 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                    content:  `<@${interaction.user.id}>`,
                    embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.success + '| **Process Is Successfuly**')
                     .setColor(client.colors.none)
-                     .addField(`${client.emotes.reason}Description:`,`
-Hello to the **register for admin** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
+                     .addField(`${client.emotes.reason}Description:`,`Hello to the **register for admin** channel (ticket), please explain briefly the reason for opening your ticket so that the server admins can handle your ticket as soon as possible (please refrain from mentioning admins)`)                    
                     .addField(`**Reason:**`, `\`\`\`js\n Admin Program\`\`\``)
                     .setFooter({
                       text: "Successfuly • "+client.embed.footerText,
@@ -791,15 +779,14 @@ db.set(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`, msg.id)})
                    )],
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested Guild Name` + interaction.guild.name,
+              name: interaction.guild.name,
               iconURL: interaction.guild.iconURL({ dynamic: true })
             })
             .setTitle(client.emotes.success + '| **Your Ticket Is Ready**')
             .setColor(client.colors.none)
             .setThumbnail(interaction.user.displayAvatarURL({ format: "png", dynamic: true }))
                    
-                    .addField(`${client.emotes.reason}Description:`,`
-your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
+                    .addField(`${client.emotes.reason}Description:`,`your ticket channel created and ready.\nplease wait the moderators or admins to speek there.`)                    
             .setTimestamp()
             .addFields(
               {      
@@ -840,7 +827,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    if(logsChannel) return logsChannel.send({
        embeds: [new MessageEmbed()
         .setAuthor({
-          name: `Requested Guild Name` + interaction.guild.name,
+          name: interaction.guild.name,
           iconURL: interaction.guild.iconURL({ dynamic: true })
         })
         .setTitle(client.emotes.admin + '| **Request To Create Admin Program Ticket**')
@@ -885,7 +872,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
    return interaction.update({
            embeds: [new MessageEmbed()
             .setAuthor({
-              name: `Requested by ` + interaction.user.username,
+              name: `Requested by ` + interaction.user.tag,
               iconURL: interaction.user.displayAvatarURL({ dynamic: true })
             })
             .setTitle('⚠️| **We Got An Error**')
@@ -905,7 +892,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })
        }
       
-       } else if (interaction.customId == 'configTicket') {
+       }
+if (interaction.customId == 'configTicket') {
           let message = {
             components: [new MessageActionRow()
                  .addComponents(new MessageButton()
@@ -945,13 +933,13 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           let ticket_message = db.get(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`);
           interaction.update(message)
           if(ticket_message)
-          interaction.channel.messages.fetch(ticket_message).then(msg =>{
+          interaction.channel.messages.cache.fetch(ticket_message).then(msg =>{
             msg.edit(message)
           })
           interaction.channel.send({
            embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.close + '| **Ticket Is Successfuly Closed**')
@@ -972,19 +960,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                    .setDisabled(true))
                  ]
           })
-          interaction.channel.permissionOverwrites.set([{
-                   id: db.fetch(`TicketControl_${interaction.channel.id}`),
-                   deny: ['SEND_MESSAGES'],
-                   deny: ['VIEW_CHANNEL']
-               },
-               {
-                   id: db.fetch(`TicketAdminRole_${interaction.guild.id}`),
-                   allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-               }, {
-                   id: interaction.guild.roles.everyone,
-                   deny: ["VIEW_CHANNEL"]
-               }
-          ]);
+          interaction.channel.permissionOverwrites.set(channel_perm.close);
        if(logsChannel) logsChannel.send({
                        embeds: [new MessageEmbed()
         .setAuthor({
@@ -1029,7 +1005,8 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })]
        });
          
-       } else if (interaction.customId == "deleteTicket") {
+       } 
+if (interaction.customId == "deleteTicket") {
           let message = {
           components: [
                 new MessageActionRow()
@@ -1044,39 +1021,20 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
               ],
               embeds: [new MessageEmbed()
                  .setAuthor({
-                   name: `Requested by ` + interaction.user.username,
+                   name: `Requested by ` + interaction.user.tag,
                    iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                  })
                  .setTitle(client.emotes.trash + '| **Ticket Is Successfuly Deleted**')
                  .setColor(client.colors.none)
-                 .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${(Date.parse(new Date()) / 1000)}:R>**.\nplease wait.`)
+                 .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${Math.floor((new Date().getTime() + Math.floor(ms("5s")))/1000)}:R>**.\nplease wait.`)
                  .addField(`**Reason:**`, `\`\`\`js\n delete the ticket\`\`\``)
                  .setFooter({
                    text: "Successfuly • "+client.embed.footerText,
                    iconURL: interaction.guild.iconURL({ dynamic: true })
                  })],
           }
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.name,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji("⚠️")
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+          if(!interaction.member.roles.cache.has(admin_role)&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+  
           interaction.channel.send({
                embeds: [new MessageEmbed()
                     .setAuthor({
@@ -1085,7 +1043,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                     })
                     .setTitle(client.emotes.trash + '| **Ticket Is Successfuly Deleted**')
                     .setColor(client.colors.none)
-                    .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${(Date.parse(new Date()) / 1000)}:R>**.\nplease wait.`)
+                    .setDescription(`this user ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket have bin deleted by ${interaction.user} in **<t:${Math.floor((new Date().getTime() + Math.floor(ms("5s")))/1000)}:R>**.\nplease wait.`)
                     .addField(`**Reason:**`, `\`\`\`js\n delete the ticket\`\`\``)
                     .setFooter({
                       text: "Successfuly • "+client.embed.footerText,
@@ -1107,15 +1065,16 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           let ticket_message = db.get(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`);
 
           if(ticket_message)
-           interaction.channel.messages.fetch(ticket_message).then(msg =>{
+           interaction.channel.messages.cache.fetch(ticket_message).then(msg =>{
              msg.edit(message)
            })
        setTimeout(() => {
                interaction.channel.delete();
-           }, 1000 * 5);
-       db.delete(`ticketName_${interaction.user.id}_${interaction.guild.id}`);
+         db.delete(`ticketName_${interaction.user.id}_${interaction.guild.id}`);
        db.delete(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`)
        db.delete(`TicketMSG_${interaction.channel.id}_${interaction.guild.id}`)
+           }, 1000 * 5);
+       
    if(logsChannel) logsChannel.send({
                        embeds: [new MessageEmbed()
         .setAuthor({
@@ -1160,32 +1119,14 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })]
                    });
            db.delete(`TicketControl_${interaction.channel.id}`);
-       } else if (interaction.customId == "reopenTicket") {
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return interaction.reply({        
-             embeds: [new MessageEmbed()
-            .setAuthor({
-              name: `Requested by ` + interaction.user.tag,
-              iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-            })
-            .setTitle('⛔️| **We Got An Error**')
-            .setColor(client.colors.none)
-            .setDescription("```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
-            .setFooter({
-              text: "Error • "+client.embed.footerText,
-              iconURL: interaction.guild.iconURL({ dynamic: true })
-            })],
-            components: [new MessageActionRow()
-                   .addComponents(new MessageButton()
-                   .setStyle("DANGER")
-                   .setLabel("Error")
-                   .setEmoji(client.emotes.error)
-                   .setCustomId("error")
-                   .setDisabled(true))]       
-          })
+       }
+if (interaction.customId == "reopenTicket") {
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+
            interaction.update({
                embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.open + '| **Ticket Is Successfuly Open**')
@@ -1223,7 +1164,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
              interaction.channel.send({
                embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.username,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.open + '| **Ticket Is Successfuly Open**')
@@ -1245,18 +1186,7 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                      )
                  ]
            });
-           interaction.channel.permissionOverwrites.set([{
-                   id: db.fetch(`TicketControl_${interaction.channel.id}`),
-                   allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-               },
-               {
-                   id: db.fetch(`TicketAdminRole_${interaction.guild.id}`),
-                   allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-               }, {
-                   id: interaction.guild.roles.everyone,
-                   deny: ["VIEW_CHANNEL"]
-               }
-           ]);
+           interaction.channel.permissionOverwrites.set(channel_perm.open);
          if(logsChannel) logsChannel.send({  
                        embeds: [new MessageEmbed()
         .setAuthor({
@@ -1300,13 +1230,15 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           iconURL: client.embed.footerIcon
         })]
                    });
-       } else if (interaction.customId == 'renameTicketTrue') {
+       }
+if (interaction.customId == 'renameTicketTrue') {
+            if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
                 interaction.channel.setName(db.fetch(`RenameTicket_${interaction.channel.id}`));
   db.set(`ticketName_${interaction.user.id}_${interaction.guild.id}`, db.fetch(`RenameTicket_${interaction.channel.id}`))
                 interaction.update({
                embeds: [new MessageEmbed()
                     .setAuthor({
-                      name: `Requested by ` + interaction.user.name,
+                      name: `Requested by ` + interaction.user.tag,
                       iconURL: interaction.user.displayAvatarURL({ dynamic: true })
                     })
                     .setTitle(client.emotes.rename + '| **Ticket Is Successfuly Reanmed**')
@@ -1372,23 +1304,11 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
           iconURL: client.embed.footerIcon
         })]
                    });
-       } else if(interaction.customId == "addmemberTicket"){
-
-                    txt = '<@' + db.get(`TicketControlNewMember_${interaction.channel.id}`) + '>'
-           interaction.channel.permissionOverwrites.set([{
-                   id: db.fetch(`TicketControl_${interaction.channel.id}`),
-                   allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-               },
-               {
-                   id: db.fetch(`TicketAdminRole_${interaction.guild.id}`),
-                   allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-               }, {
-                    id: db.get(`TicketControlNewMember_${interaction.channel.id}`),
-                    allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
-                }, {
-                    id: interaction.guild.roles.everyone,
-                    deny: ["VIEW_CHANNEL"]
-                }]).then(() => {
+       }
+if(interaction.customId == "addmemberTicket"){
+          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      txt = '<@' + db.get(`TicketControlNewMember_${interaction.channel.id}`) + '>'
+           interaction.channel.permissionOverwrites.set(channel_perm.invite).then(() => {
                     interaction.update({
                embeds: [new MessageEmbed()
                     .setAuthor({
@@ -1459,9 +1379,10 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
         })]
                    });
 
-       }else if(interaction.customId == "canceladdmemberTicket"){
-  db.delete(`TicketControlNewMember_${interaction.channel.id}`)
-                    interaction.update({
+       }
+if(interaction.customId == "canceladdmemberTicket"){
+           db.delete(`TicketControlNewMember_${interaction.channel.id}`)
+           interaction.update({
                embeds: [new MessageEmbed()
                     .setAuthor({
                       name: `Requested by ` + interaction.user.tag,
@@ -1484,6 +1405,10 @@ your ticket channel created and ready.\nplease wait the moderators or admins to 
                    )]
                 })
        }
+}catch(e){
+  console.log(e)
+  errorMessage(client, interaction, '```js\n'+e+'```')
+}
 }
 /**
  * @Info

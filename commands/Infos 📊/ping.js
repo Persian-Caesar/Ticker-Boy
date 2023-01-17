@@ -5,8 +5,8 @@ const {
   Permissions
 } = require("discord.js");
 const {
-   wait
-} = require('../../functions/functions.js');
+  wait
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
   name: "ping", //the command name for execution & for helpcmd [OPTIONAL]
   aliases: [ "pong" ], //the command aliases for helpcmd [OPTIONAL]
@@ -48,26 +48,26 @@ module.exports = {
      embeds: [pingingEmbed],
      components: [new MessageActionRow().addComponents([pingButton])]
               }).then((m)=>{
-         wait(50)
+          wait(1000)
              pingingEmbed.setDescription('**Pinging.**')
              m.edit({ embeds: [pingingEmbed] })
-         wait(50)
+          wait(1000)
              pingingEmbed.setDescription('**Pinging..**')
              m.edit({ embeds: [pingingEmbed] })
-         wait(50)
+          wait(1000)
              pingingEmbed.setDescription('**Pinging...**')
              m.edit({ embeds: [pingingEmbed] })
-          wait(50)
+          wait(1000)
              pingingEmbed.setDescription('**Pinging.**')
              m.edit({ embeds: [pingingEmbed] })
-           wait(50)
+           wait(1000)
              pingingEmbed.setDescription('**Pinging..**')
              m.edit({ embeds: [pingingEmbed] })
-           wait(50)
+           wait(1000)
              pingingEmbed.setDescription('**Pinging...**')
              m.edit({ embeds: [pingingEmbed] })
      
-           wait(50)
+           wait(2000)
         pingButton
           .setDisabled(true)
           .setStyle("SUCCESS")

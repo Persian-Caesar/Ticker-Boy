@@ -5,6 +5,9 @@ const {
  MessageEmbed,
  Permissions
 } = require('discord.js');
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
  name: 'post',
  category: 'Owner 👑',
@@ -137,29 +140,7 @@ module.exports = {
 
  run: async (client, interaction) => {
   try{
-     if (!client.config.owner.some(r => r.includes(interaction.user.id)))
-    return interaction.reply({
-                    embeds: [new MessageEmbed()
-                      .setAuthor({
-                        name: `Requested by ` + interaction.user.username,
-                        iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-                      })
-                      .setDescription(`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
-                      .setTitle('⛔️| **We Got An Error**')
-                      .setColor(client.colors.none)
-                      .setFooter({
-                        text: "Error •"+client.embed.footerText,
-                        iconURL: interaction.guild.iconURL({ dynamic: true })
-                      })],
-                    components: [new MessageActionRow()
-                      .addComponents(new MessageButton()
-                        .setStyle("DANGER")
-                        .setLabel("Error")
-                        .setEmoji("⚠️")
-                        .setCustomId("error")
-                        .setDisabled(true))
-                    ]
-                })   
+     if (!client.config.owner.some(r => r.includes(interaction.user.id))) return errorMessage(client, interac`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
  switch (interaction.options.getSubcommand()) {
   case "channel": {
    let text = interaction.options.getString("text");
@@ -397,23 +378,7 @@ module.exports = {
   }break;
  }
  }catch (e){
-         interaction.reply({
-        embeds: [new MessageEmbed()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription(`\`\`\`js\n${e}\n\`\`\``)
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new MessageActionRow().addComponents(new MessageButton().setStyle("DANGER").setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+         errorMessage(client, interaction, `\`\`\`js\n${e}\n\`\`\``)
    } 
  }
 }

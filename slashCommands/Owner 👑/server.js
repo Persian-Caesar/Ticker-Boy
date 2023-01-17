@@ -4,6 +4,9 @@ const {
  MessageEmbed,
  Permissions
 } = require("discord.js");
+const {
+    errorMessage
+} = require(`${process.cwd()}/functions/functions`);
 module.exports = {
  name: 'server',
  category: 'Owner 👑',
@@ -19,29 +22,7 @@ module.exports = {
  }],
  run: async (client, interaction) => {
 try{
-    if (!client.config.owner.some(r => r.includes(interaction.user.id)))
-    return interaction.reply({
-                    embeds: [new MessageEmbed()
-                      .setAuthor({
-                        name: `Requested by ` + interaction.user.username,
-                        iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-                      })
-                      .setDescription(`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
-                      .setTitle('⛔️| **We Got An Error**')
-                      .setColor(client.colors.none)
-                      .setFooter({
-                        text: "Error •"+client.embed.footerText,
-                        iconURL: interaction.guild.iconURL({ dynamic: true })
-                      })],
-                    components: [new MessageActionRow()
-                      .addComponents(new MessageButton()
-                        .setStyle("DANGER")
-                        .setLabel("Error")
-                        .setEmoji("⚠️")
-                        .setCustomId("error")
-                        .setDisabled(true))
-                    ]
-                })  
+    if (!client.config.owner.some(r => r.includes(interaction.user.id))) return errorMessage(client, interac`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
   switch (interaction.options.getSubcommand()) {
    case "list": {
     let i0 = 0;
@@ -67,20 +48,16 @@ try{
       .setTitle(`Page - ${page}/${Math.ceil(client.guilds.cache.size / 10)}`)
       .setDescription(description);
    
-    let msg = await interaction.reply({ 
-                                embeds:[embed],
-                                fetchReply: true
-                            });
-    await msg.react("⬅");
-    await msg.react("➡");
-    await msg.react("❌");
+    interaction.reply({ 
+      embeds:[embed],
+      components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('before').setEmoji("⬅️").setLabel("Before").setStyle('SUCCESS'),new MessageButton().setCustomId('del').setEmoji("❌").setLabel("Before").setStyle('SUCCESS'),new MessageButton().setCustomId('next').setEmoji("➡️").setLabel("Next").setStyle('SUCCESS')])],
+      ephemeral: true
+    });
+    let collector = await interaction.channel.createMessageComponentCollector({ time: 60000 });
    
-    let collector = msg.createReactionCollector(
-      (reaction, user) => user.id === interaction.user.id
-    );
-   
-    collector.on("collect", async (reaction, user) => {
-      if (reaction.emoji.name === "⬅") {
+    collector.on("collect", async (collect) => {
+      if(!collect.isButton()) return;
+      if (collect.customId === "before") {
         // Updates variables
         i0 = i0 - 10;
         i1 = i1 - 10;
@@ -89,10 +66,10 @@ try{
         // if there is no guild to display, delete the message
         if (i0 + 1 < 0) {
           console.log(i0)
-          return msg.delete();
+          return interaction.deleteReply();
         }
         if (!i0 || !i1) {
-          return msg.delete();
+          return interaction.deleteReply();
         }
    
         description =
@@ -114,10 +91,10 @@ try{
           .setDescription(description);
    
         // Edit the message
-        msg.edit(embed);
+        interaction.editReply({embeds: embed});
       }
    
-      if (reaction.emoji.name === "➡") {
+      if (collect.customId === "next") {
         // Updates variables
         i0 = i0 + 10;
         i1 = i1 + 10;
@@ -125,10 +102,10 @@ try{
    
         // if there is no guild to display, delete the message
         if (i1 > client.guilds.cache.size + 10) {
-          return msg.delete();
+          return interaction.deleteReply();
         }
         if (!i0 || !i1) {
-          return msg.delete();
+          return interaction.deleteReply();
         }
    
         description =
@@ -150,36 +127,17 @@ try{
           .setDescription(description);
    
         // Edit the message
-        msg.edit(embed);
+        interaction.editReply({embeds: embed});
       }
    
-      if (reaction.emoji.name === "❌") {
-        return msg.delete();
+      if (collect.customId === "del") {
+        return interaction.deleteReply();
       }
-   
-      // Remove the reaction when the user react to the message
-      await reaction.users.remove(interaction.user.id);
     });
    }
   }
-   }catch (e){
-         interaction.reply({
-        embeds: [new MessageEmbed()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription(`\`\`\`js\n${e}\n\`\`\``)
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new MessageActionRow().addComponents(new MessageButton().setStyle("DANGER").setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+   }catch(e){
+         errorMessage(client, interaction, `\`\`\`js\n${e}\n\`\`\``)
    }  
  }
 }

@@ -3,7 +3,7 @@ var Discord = require('discord.js')
 module.exports = async (client) => {
    setInterval(function Activitys() {
       let totalUsers = client.guilds.cache.map(guild => guild.memberCount).reduce((a, b) => a + b, 0);
-      if(totalUsers > 5000){
+      if(totalUsers > 1000){
         totalUsers = (client.guilds.cache.map(guild => guild.memberCount).reduce((a, b) => a + b, 0) / 1000).toString().slice(0, -2)+"k";
       }
       let Presence = [ "dnd", "idle", "online" ]; //can be: online | dnd | idle | offline
@@ -14,9 +14,15 @@ module.exports = async (client) => {
       let DisplayPower = Display[Math.floor(Math.random() * Display.length)];
       let URL = [ `https://www.twitch.tv/sobhan_srza` ];
       let URLPower = URL[Math.floor(Math.random() * URL.length)];
-     client.user.setPresence({ status: PresencePower })
-     client.user.setActivity({ type: DisplayPower, name: ActivityPower, url: URLPower });
-   }, 10000)
+      client.user.setPresence({ 
+        activities: [{ 
+          name: ActivityPower, 
+          type: DisplayPower, 
+          url: URLPower 
+        }], 
+        status: PresencePower 
+      })
+   }, 60000)
    
 try{
    const stringlength = 69;

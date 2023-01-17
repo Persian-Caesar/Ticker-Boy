@@ -11,7 +11,7 @@ module.exports = {
     usage: '[report-text]',
     description: 'for report bot bugs to developers :)',
     cooldown: 6,
-   run: async function(client, message, args, prefix, logsChannel){
+   run: async function(client, message, args, prefix){
 const choice = args.slice().join(" ");
         if (!choice){
  return message.reply({

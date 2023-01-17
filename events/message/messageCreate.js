@@ -5,6 +5,7 @@ const {
   Collection,
   Permissions
 } = require("discord.js");
+const ms = require('ms');
 const db = require('quick.db');
 module.exports = async (client, message) => {
       if(message.channel.type === "DM" || message.channel.type === "GROUP_DM"){//a direct message between users
@@ -105,7 +106,7 @@ if(commandName.length > 0){
           return message.reply({
               embeds: [new MessageEmbed()
                   .setColor(client.colors.none)
-                  .setDescription(`**${client.emotes.alert}| Please wait \`${Math.round(timeLeft)}\` more second(s) before reusing the \`${command.name}\` command!**`)
+                  .setDescription(`**${client.emotes.alert}| Please wait <t:${Math.floor((new Date().getTime() + Math.floor(ms(timeLeft+'s')))/1000)}:R> before reusing the \`${command.name}\` command!**`)
               ]
           })
     }
