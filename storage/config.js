@@ -2,7 +2,7 @@ require('dotenv').config()
 module.exports = {
     source: {
         website : {
-            support: "https://discord.gg/pfZJUD9A",
+            support: "https://discord.gg/P4XxUmebDa",
             domain: ""//you need get your repl.co link in replit with keepAlive code, then replace the link
         },   
         anti_crash: true,//turn on or off the antiCrash file
@@ -17,7 +17,7 @@ module.exports = {
         token: process.env.TOKEN,
         prefix: process.env.PREFIX,
         invite: `https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=bot+applications.commands&permissions=2080374975`,
-        server_support: "https://discord.gg/pfZJUD9A",
+        server_support: "https://discord.gg/P4XxUmebDa",
         server_id: "1054814674979409940",
         server_channel_report: "1054814677806370927",
         server_channel_status: "1054814677806370928",      

@@ -38,19 +38,13 @@ module.exports = {
       if (e) {
           return console.log(String(e.stack).red);
       }
-      let connectedchannelsamount = 0;
-      let guilds = bot.guilds.cache.map((guild) => guild);
-      for (let i = 0; i < guilds.length; i++) {
-          if (guilds[i].me.voice.channel) connectedchannelsamount += 1;
-      }
-      if (connectedchannelsamount > bot.guilds.cache.size) connectedchannelsamount = bot.guilds.cache.size;
 let infoEmbed = new Discord.MessageEmbed()
       .setColor(bot.colors.none)
       .setTitle(`Stats from \`${bot.user.username}\``)
       .addField(`${bot.emotes.id}| ID:`,`${bot.emotes.reply}** User Id: ${bot.user.id}**`,true)
       .addField(`${bot.emotes.tag}| Tag:`, `${bot.emotes.reply}**${bot.user.tag}**`,true) 
       .addField(bot.emotes.ping+"| Ping",`**${bot.emotes.reply} User Ping Is: \`${Math.round(bot.ws.ping)}MS\`**`,true)
-      .addField(bot.emotes.uptime+"| Uptime", `${bot.emotes.reply}** Time Of Bot Online: <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:D> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:R>_**`,true)
+      .addField(bot.emotes.uptime+"| Uptime", `${bot.emotes.reply}** Time Of Bot Online: <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:D> / <t:${Math.floor((new Date().getTime() - Math.floor(bot.uptime))/1000)}:R>**`,true)
       .addField(`${bot.emotes.status}| Status:`,`${bot.emotes.reply}** Bot Status Is: ${statuses[bot.user.presence.status]} ${bot.user.presence.status}**`,true)
       .addField(bot.emotes.activity+'| Activity:',`${bot.emotes.reply}** Bot Activity Is: ${userstatus}**`,true)
       .addField(`${bot.emotes.date}| Date of Join Discord:`,`${bot.emotes.reply}** Time Of Bot Created: <t:${Date.parse(bot.user.createdAt) / 1000}:R>**`,true) 
@@ -60,9 +54,9 @@ let infoEmbed = new Discord.MessageEmbed()
       .addField(bot.emotes.guild+"| Servers",`${bot.emotes.reply}** Count Of Bot Servers Is: \`${bot.guilds.cache.size}\`**`, true)
       .addField(bot.emotes.voice_channel+"| Voice Channels", `${bot.emotes.reply}** Count Of Bot Voice Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_VOICE").size}\`**`,true)
       .addField(bot.emotes.text_channel+"| Text Channels", `${bot.emotes.reply}** Count Of Bot Text Channel Is: \`${bot.channels.cache.filter((ch) => ch.type === "GUILD_TEXT").size}\`**`,true)
-      .addField(bot.emotes.version+"Version",`${bot.emotes.reply}** Bot Version Is: \`${require(`${process.cwd()}/package.json`).version}\`**`,true)
-      .addField(bot.emotes.disJS+"Discord.js",`${bot.emotes.reply}** Bot Usage Discord.js Version Is: \`Version ${Discord.version}\`**`,true)
-      .addField(bot.emotes.node+"Node.js",`${bot.emotes.reply}** Bot Usage Node.js Version Is: \`Version ${process.version}\`**`,true)
+      .addField(bot.emotes.version+"Version",`${bot.emotes.reply}** Bot Version Is: \`v${require(`${process.cwd()}/package.json`).version}\`**`,true)
+      .addField(bot.emotes.disJS+"Discord.js",`${bot.emotes.reply}** Bot Usage Discord.js Version Is: \`v${Discord.version}\`**`,true)
+      .addField(bot.emotes.node+"Node.js",`${bot.emotes.reply}** Bot Usage Node.js Version Is: \`${process.version}\`**`,true)
       .addField(bot.emotes.cpu+"| CPU", `${bot.emotes.reply}** Bot Usage CPU Model Is: \`\`\`js\nModel:  ${os.cpus().map((i) => `${i.model}`)[0]}\`\`\`\n CPU Usages: \`${percent.toFixed(2)}%\`**`,true)
       .addField(bot.emotes.shard+"| Shards", `${bot.emotes.reply}** Bot Shards Percent Is: \`${bot.ws.shards.size}%\`**`,true)
       .addField(bot.emotes.cros+"| Cores", `${bot.emotes.reply}** Bot Cores Percent Is: \`${os.cpus().length}%\`**`,true)

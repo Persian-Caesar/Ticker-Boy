@@ -24,7 +24,7 @@ module.exports = {
       .setDescription(`**See the text below to use the commands.\n\n${(client.commands.filter(c => c.category === CategoryName)).map(i => '`' + prefix + i.name + '`').join(' , ')}**`)
       .setURL(client.config.discord.server_support)
         .setFooter({ 
-      text: `Message Guild ${message.guild.name} • ${client.embed.footerText}`, 
+      text: `${message.guild.name} • ${client.embed.footerText}`, 
       iconURL: client.embed.footerIcon
    })
       .setAuthor({ name: `Requested by ${message.user.tag}`, iconURL: message.member.displayAvatarURL({ dynamic: true }) })      
@@ -38,68 +38,6 @@ module.exports = {
     })
     return message.update({
               embeds: [embed],
-              components: [new MessageActionRow()
-                .addComponents(new MessageSelectMenu()
-                   .setCustomId("help_menu")
-                   .setMaxValues(1)
-                   .setMinValues(1)
-                   .setPlaceholder(`${client.emotes.help}| Click me to show bot commands !!`)
-                   .addOptions([
-                         {
-                             label: 'Infos Help',
-                             value: 'inf',
-                             description: 'send commands of Infos📊 Category',
-                             emoji: {
-                               name: '📊',
-                             },
-                         },
-                         {
-                             label: 'Setup Help',
-                             value: 'stp',
-                             description: 'send commands of Setup💻 Category',
-                             emoji: {
-                               name: '💻',
-                             },
-                         },
-                         {
-                             label: 'Ticket Help',
-                             value: 'tic',
-                             description: 'send commands of Ticket🎫 Category',
-                             emoji: {
-                               name: '🎫',
-                             },
-                         },
-                         {
-                             label: 'VIP Help',
-                             value: 'vip',
-                             description: 'send commands of VIP💎 Category',
-                             emoji: {
-                               name: '💎',
-                             },
-                         },
-                           {
-                             label: 'Owner Help',
-                             value: 'owr',
-                             description: 'send commands of Owner👑 Category',
-                             emoji: {
-                               name: '👑',
-                             },
-                         },
-                   ])
-                ),new MessageActionRow()
-                .addComponents([new MessageButton()
-                  .setStyle('LINK')
-                  .setLabel('Invite Me')
-                  .setEmoji(client.emotes.invite)
-                  .setURL(client.config.discord.invite)
-                ],[new MessageButton()
-                    .setStyle('LINK')
-                    .setLabel('Support Server!')
-                    .setEmoji(client.emotes.help)
-                    .setURL(`${client.config.discord.server_support}`)
-                ])
-             ]
-             //ephemeral: true
     });
   },
   wait: async function(ms){

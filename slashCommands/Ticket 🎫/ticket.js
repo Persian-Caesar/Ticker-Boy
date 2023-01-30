@@ -57,7 +57,8 @@ module.exports = {
 
   run: async (client, interaction) => {
 
-let Sub = interaction.options.getSubcommand();
+  let Sub = interaction.options.getSubcommand();
+  let admin_role = await db.fetch(`guild_${interaction.guild.id}.ticket.admin_role`);
   switch (Sub) {
         case "create": {
     let embed = new MessageEmbed()
@@ -65,7 +66,7 @@ let Sub = interaction.options.getSubcommand();
       .setColor(client.colors.none)
       .setTimestamp()
       .setDescription('**your ticket channel will be created but are you sure to do this??\nif your ticket created please wait the moderators or admins to speek there.**')
-      .addField(client.emotes.reason+'| INFOS','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+client.emotes.ticket+'"` or else click to `"'+client.emotes.x+'"`.')
+      .addField(client.emotes.reason+'| Info','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+client.emotes.ticket+'"` or else click to `"'+client.emotes.x+'"`.')
       .setURL(client.config.discord.server_support)
       .setFooter({
         text: `Request To Create Ticket • ${client.embed.footerText}`,
@@ -93,19 +94,19 @@ let Sub = interaction.options.getSubcommand();
               .setStyle("DANGER")
           ])
       ]
-  }).then(msg=>{
-    db.set(`CreateTicketMSG_${interaction.guild.id}_${interaction.user.id}`, msg.id)
   })
+  let msg = await interaction.fetchReply();
+    db.set(`guild_${interaction.guild.id}.ticket.message_${interaction.channel.id}`, msg.id)
                         
         }break;
         case "close": {
-      if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
+      if(interaction.channel.name.startsWith(`ticket-`)||interaction.channel.name === db.get(`guild_${interaction.guild.id}.ticket.name_${interaction.user.id}`)){
 
               interaction.reply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.close}| Close Ticket`)
-                .setDescription(`Dear friend, you requested for closing ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket, are you sure for close here??`)
+                .setDescription(`Dear friend, you requested for closing ${interaction.guild.members.cache.find(c => c.id === db.get(`guild_${interaction.guild.id}.ticket.control_${interaction.channel.id}`))} ticket, are you sure for close here??`)
                       ],
                 components: [new MessageActionRow()
                 .addComponents([new MessageButton()
@@ -152,8 +153,8 @@ if(msg.embeds[0].title === `${client.emotes.close}| Close Ticket`){
          }
         }break;
         case "open": {
-      if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      if(interaction.channel.name.startsWith(`ticket-`)||interaction.channel.name === db.get(`guild_${interaction.guild.id}.ticket.name_${interaction.user.id}`)){
+          if(!interaction.member.roles.cache.has(admin_role)&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
         interaction.reply({
                 embeds: [new MessageEmbed()
@@ -207,15 +208,15 @@ if(msg.embeds[0].title === `${client.emotes.open}| Open Ticket`){
          }
         }break;
         case "delete": {
-      if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      if(interaction.channel.name.startsWith(`ticket-`)||interaction.channel.name === db.get(`guild_${interaction.guild.id}.ticket.name_${interaction.user.id}`)){
+          if(!interaction.member.roles.cache.has(admin_role)&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])&&!interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
 
                interaction.reply({
                 embeds: [new MessageEmbed()
                         .setColor(client.colors.none)
                         .setTitle(`${client.emotes.trash}| Delete Ticket`)
-                .setDescription(`Dear friend, you requested for delete ${interaction.guild.members.cache.find(c => c.id === db.get(`TicketControl_${interaction.channel.id}`))} ticket, are you sure for delete here??`)
+                .setDescription(`Dear friend, you requested for delete ${interaction.guild.members.cache.find(c => c.id === db.get(`guild_${interaction.guild.id}.ticket.control_${interaction.channel.id}`))} ticket, are you sure for delete here??`)
                       ],
                 components: [new MessageActionRow()
                 .addComponents([new MessageButton()
@@ -263,9 +264,9 @@ if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
          }
         }break;
         case "rename": {
-      if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
+      if(interaction.channel.name.startsWith(`ticket-`)||interaction.channel.name === db.get(`guild_${interaction.guild.id}.ticket.name_${interaction.user.id}`)){
       let ticketName = interaction.options.getString("name");
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+          if(!interaction.member.roles.cache.has(admin_role)&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
      interaction.reply({
          embeds: [new MessageEmbed()
@@ -297,7 +298,7 @@ if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
          ]
          )]
      })
-       db.set(`RenameTicket_${interaction.channel.id}`, ticketName)
+       db.set(`guild_${message.guild.id}.ticket.rename_${message.channel.id}`, ticketName)
      interaction.reply({ 
       embeds: [embed],
       components: [button] 
@@ -327,7 +328,7 @@ if(msg.embeds[0].title === client.emotes.rename+'| **Request To Change Ticket Na
                    .setCustomId("error")
                    .setDisabled(true))]
            })
-db.delete(`RenameTicket_${interaction.channel.id}`)
+db.delete(`guild_${message.guild.id}.ticket.rename_${message.channel.id}`)
 }
         }, 1000 * 50)
         }else{
@@ -335,9 +336,9 @@ return errorMessage(client, interaction, `**My Friend, here is not a ticket chan
         }
         }break;    
         case "invite": {
-      if(interaction.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||interaction.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||interaction.channel.name === db.get(`ticketName_${interaction.user.id}_${interaction.guild.id}`)){
+      if(interaction.channel.name.startsWith(`ticket-`)||interaction.channel.name === db.get(`guild_${interaction.guild.id}.ticket.name_${interaction.user.id}`)){
       let member = interaction.options.getMember('member');
-          if(!interaction.member.roles.cache.has(db.get(`TicketAdminRole_${interaction.guild.id}`))&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+          if(!interaction.member.roles.cache.has(admin_role)&&!interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
 let embed = new MessageEmbed()
             .setAuthor({
@@ -369,7 +370,7 @@ let button = new MessageActionRow()
        components: [button]
      })
      let msg = await interaction.fetchReply()
-       db.set(`TicketControlNewMember_${interaction.channel.id}`, member.id)
+       db.set(`guild_${interaction.guild.id}.ticket.new_member_${interaction.channel.id}`, member.id)
         setTimeout(() => {
 if(msg.embeds[0].title === client.emotes.print+'| **Request To Adding People To Ticket**'){
           msg.edit({
@@ -393,7 +394,7 @@ if(msg.embeds[0].title === client.emotes.print+'| **Request To Adding People To 
                    .setCustomId("error")
                    .setDisabled(true))]
            })
-             db.delete(`TicketControlNewMember_${interaction.channel.id}`)
+             db.delete(`guild_${interaction.guild.id}.ticket.new_member_${interaction.channel.id}`)
         }
         }, 1000 * 50)
         

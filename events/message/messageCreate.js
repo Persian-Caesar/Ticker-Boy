@@ -46,13 +46,13 @@ module.exports = async (client, message) => {
 
 //======== Command for shows the prefix ========
     if (message.author.bot || message.channel.type === "DM" || message.channel.type === "GROUP_DM") return;//a direct message between users
-    let logsChannel = message.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${message.guild.id}`));
+    let logsChannel = message.guild.channels.cache.find(c => c.id === db.fetch(`guild_${message.guild.id}.modlog`));
     if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>` || message.content === `${client.prefix}prefix`) {
       let errorprefixEmbed = new MessageEmbed()
             .setColor(client.colors.none)
             .setThumbnail(client.user.displayAvatarURL())
             .setTimestamp(Date.now())
-            .setDescription(`My prefix in this guild is "**${require('quick.db').fetch(`prefix_${message.guild.id}`)||client.prefix}**". `)
+            .setDescription(`My prefix in this guild is "**${require('quick.db').fetch(`guild_${message.guild.id}.prefix`)||client.prefix}**". `)
             .setAuthor({
               name: `prefix of ${client.user.tag} shows👌🏻`,
               iconURL: client.user.displayAvatarURL()
@@ -67,7 +67,7 @@ module.exports = async (client, message) => {
   }
 
 //======== Command Prefix & args ========
-    const Tprefix = await db.fetch(`prefix_${message.guild.id}`)||client.prefix;
+  const Tprefix = await db.fetch(`guild_${message.guild.id}.prefix`)||client.prefix;
   const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(Tprefix)})\\s*`);
   if (!prefixRegex.test(message.content)) return;
@@ -116,7 +116,7 @@ if(commandName.length > 0){
  
 //======== Command Handler ========
 try{
-  if (command) command.run(client, message, args, prefix, logsChannel);
+  if (command) command.run(client, message, args, Tprefix, logsChannel);
  } catch (error) {
     //console.error(error);
     //message.reply(`${client.emotes.error}| There was an error executing that command.`).catch(console.error);

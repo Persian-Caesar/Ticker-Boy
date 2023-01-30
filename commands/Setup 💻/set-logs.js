@@ -27,15 +27,15 @@ module.exports = {
     if(!channel || channel.type !== "GUILD_TEXT") 
         return errorMessage(client, message, "please mention some valid channel to setup server logs.\n valid channel: `\"GUILD_TEXT\"`")
      
-if(message.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${message.guild.id}`))){
-     return errorMessage(client, message, `**My Friend, you just have a logs channel befor it to ${message.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${message.guild.id}`))}.**`)
+if(message.guild.channels.cache.find(c => c.id === db.fetch(`guild_${message.guild.id}.modlog`))){
+     return errorMessage(client, message, `**My Friend, you just have a logs channel befor it to ${message.guild.channels.cache.find(c => c.id === db.fetch(`guild_${message.guild.id}.modlog`))}.**`)
 
 }else {
     message.reply({
     embeds: [new MessageEmbed().setTitle('✅| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`process is successfuly.\n I just setup your ticket logs channel to ${channel}.`).setFooter({text: `Successfuly • Requested By ${message.author.tag} `, iconURL: message.guild.iconURL({dynamic:true})}).setThumbnail(message.author.displayAvatarURL({dynamic:true}))],
     ephemeral: true,
   })
-  db.set(`modlog_${message.guild.id}`, channel.id)
+  db.set(`guild_${message.guild.id}.modlog`, channel.id)
   channel.send({
     embeds: [new MessageEmbed().setColor(client.colors.none).setDescription(`just now here is ticket logs channel for send members tickets information setupped to ${channel}.`).setTitle('✅| ** Process Is Successfuly**').setFooter({text: `Logs Setuped • Requested By ${message.author.tag} `, iconURL: message.guild.iconURL({dynamic:true})}).setThumbnail(message.author.displayAvatarURL({dynamic:true}))]
   })

@@ -50,10 +50,7 @@ module.exports = {
         let collector = message.channel.createMessageComponentCollector({ time: 30000 })
         collector.on('collect', async (interaction)=>{
           if(!interaction.user.id === message.author.id){
-            interaction.reply({
-              ephemeral: true,
-              content: `**${client.emotes.error}| This component only for ${message.author} and you can't use it.\nuse "\`${prefix}setup\`" for setup the ticket system**`
-            })
+            errorMessage(client, interaction, `**${client.emotes.error}| This component only for ${message.author} and you can't use it.\nuse "\`${prefix}setup\`" for setup the ticket system**`)
           }
           if(interaction.isButton()){
             if(interaction.customId === "ticket_setup_custom"){
@@ -85,9 +82,10 @@ module.exports = {
               })
               await channel.send({
                 embeds: [embed],
-                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')])] 
               })
               embed = new MessageEmbed()
+              collector.stop()
             }
           }
         })
@@ -124,9 +122,10 @@ module.exports = {
           })
           await channel.send({
                 embeds: [embed],
-                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')])] 
               })
           embed = new MessageEmbed()
+          collector.stop()
          }
         }
         })

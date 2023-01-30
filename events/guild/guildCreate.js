@@ -7,8 +7,8 @@ module.exports = async (client, guild) => {
             maxAge: 0, 
             maxUses: 5
         })
-    const owner = await guild.members.cache.get(guild.ownerId);
-    const embed = new MessageEmbed()
+    let owner = await guild.members.cache.get(guild.ownerId);
+    let embed = new MessageEmbed()
     .setAuthor({
         name: client.user.tag,
         iconURL: client.user.displayAvatarURL()
@@ -26,10 +26,6 @@ module.exports = async (client, guild) => {
     channel.send({
         embeds: [embed]
     })
-/*  if(!guild.id==="901877002926174279"&&guild.memberCount < 90){
-   owner.send("Hi I left on your server because the number of members of your server is less than 100")
-  guild.leave()
- }*/
 }
 /**
  * @Info

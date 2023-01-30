@@ -17,13 +17,13 @@ module.exports = {
     usage: "",
  run: async function(client, message, args, prefix){
 
-      if(message.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||message.channel.name === db.get(`ticketName_${message.author.id}_${message.guild.id}`)){
-        if(!message.member.roles.cache.has(db.get(`TicketAdminRole_${message.guild.id}`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      if(message.channel.name.startsWith(`ticket-`)||message.channel.name === db.get(`guild_${message.guild.id}.ticket.name_${message.author.id}`)){
+        if(!message.member.roles.cache.has(db.get(`guild_${message.guild.id}.ticket.admin_role`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
 let embed = new MessageEmbed()
                  .setColor(client.colors.none)
                  .setTitle(`${client.emotes.trash}| Delete Ticket`)
-                 .setDescription(`Dear friend, you requested for delete ${message.guild.members.cache.find(c => c.id === db.get(`TicketControl_${message.channel.id}`))} ticket, are you sure for delete here??`)
+                 .setDescription(`Dear friend, you requested for delete ${message.guild.members.cache.find(c => c.id === db.get(`guild_${message.guild.id}.ticket.control_${message.channel.id}`))} ticket, are you sure for delete here??`)
                 
           message.reply({
                 embeds: [embed],
@@ -41,9 +41,8 @@ let embed = new MessageEmbed()
                  ])
                 ]
            }).then((msg)=>{
+           setTimeout(() => {
             if(msg.embeds[0].title === `${client.emotes.trash}| Delete Ticket`){
-
-       setTimeout(() => {
            msg.edit({
              embeds: [new MessageEmbed()
             .setAuthor({
@@ -65,9 +64,8 @@ let embed = new MessageEmbed()
                    .setCustomId("error")
                    .setDisabled(true))]
            })
+       }
         }, 1000 * 50)
-            
-          }
            })
         }else {
            errorMessage(client, message, `**My Friend, here is not a ticket channel please use this command in other channel**`)

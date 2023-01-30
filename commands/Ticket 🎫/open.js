@@ -16,13 +16,13 @@ module.exports = {
     category: 'Ticket 🎫',
     usage: "",
  run: async function(client, message, args, prefix){
-      if(message.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||message.channel.name === db.get(`ticketName_${message.author.id}_${message.guild.id}`)){
-        if(!message.member.roles.cache.has(db.get(`TicketAdminRole_${message.guild.id}`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      if(message.channel.name.startsWith(`ticket-`)||message.channel.name === db.get(`guild_${message.guild.id}.ticket.name_${message.author.id}`)){
+        if(!message.member.roles.cache.has(db.get(`guild_${message.guild.id}.ticket.admin_role`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
 let embed = new MessageEmbed()
       .setColor(client.colors.none)
       .setTitle(`${client.emotes.open}| Open Ticket`)
-      .setDescription(`Dear friend, you requested for openning ${message.guild.members.cache.find(c => c.id === db.get(`TicketControl_${message.channel.id}`))} ticket, are you sure for open here??`)
+      .setDescription(`Dear friend, you requested for openning ${message.guild.members.cache.find(c => c.id === db.get(`guild_${message.guild.id}.ticket.control_${message.channel.id}`))} ticket, are you sure for open here??`)
                       
           message.reply({
                 embeds: [embed],

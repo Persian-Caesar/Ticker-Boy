@@ -17,8 +17,8 @@ module.exports = {
   usage: "[ Mention-user | ID | Name ]",
  run: async function(client, message, args, prefix, logsChannel){
    
-if(message.channel.name.startsWith(`${client.emotes.help}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.report}︱ticket-`)||message.channel.name.startsWith(`${client.emotes.admin}︱ticket-`)||message.channel.name === db.get(`ticketName_${message.author.id}_${message.guild.id}`)){
-        if(!message.member.roles.cache.has(db.get(`TicketAdminRole_${message.guild.id}`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+if(message.channel.name.startsWith(`ticket-`)||message.channel.name === db.get(`guild_${message.guild.id}.ticket.name_${message.author.id}`)){
+        if(!message.member.roles.cache.has(db.get(`guild_${message.guild.id}.ticket.admin_role`))&&!message.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return errorMessage(client, message, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
      var member = message.mentions.members.first() || message.guild.members.cache.find(u =>{ u.id == args[0] ||  u.user.username == args[0] || u.nickname == args[0] });
   
@@ -56,9 +56,9 @@ return errorMessage(client, message, "**for adding people to ticket, you have go
          ]
          )]
         }).then(msg=>{
-        db.set(`TicketControlNewMember_${message.channel.id}`, member.user.id)
+        db.set(`guild_${message.guild.id}.ticket.new_member_${message.channel.id}`, member.user.id)
         setTimeout(() => {
-if(msg.embeds.length === 1 && msg.embeds[0].title === '📇| **Request To Adding People To Ticket**'){
+if(msg.embeds[0].title === '📇| **Request To Adding People To Ticket**'){
            msg.edit({
              embeds: [new MessageEmbed()
             .setAuthor({
@@ -80,7 +80,7 @@ if(msg.embeds.length === 1 && msg.embeds[0].title === '📇| **Request To Adding
                    .setCustomId("error")
                    .setDisabled(true))]
            })
-             db.delete(`TicketControlNewMember_${message.channel.id}`)
+             db.delete(`guild_${message.guild.id}.ticket.new_member_${message.channel.id}`)
 }
         }, 1000 * 50)
       })

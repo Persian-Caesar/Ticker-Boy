@@ -48,26 +48,7 @@ module.exports = {
      embeds: [pingingEmbed],
      components: [new MessageActionRow().addComponents([pingButton])]
               }).then((m)=>{
-          wait(1000)
-             pingingEmbed.setDescription('**Pinging.**')
-             m.edit({ embeds: [pingingEmbed] })
-          wait(1000)
-             pingingEmbed.setDescription('**Pinging..**')
-             m.edit({ embeds: [pingingEmbed] })
-          wait(1000)
-             pingingEmbed.setDescription('**Pinging...**')
-             m.edit({ embeds: [pingingEmbed] })
-          wait(1000)
-             pingingEmbed.setDescription('**Pinging.**')
-             m.edit({ embeds: [pingingEmbed] })
-           wait(1000)
-             pingingEmbed.setDescription('**Pinging..**')
-             m.edit({ embeds: [pingingEmbed] })
-           wait(1000)
-             pingingEmbed.setDescription('**Pinging...**')
-             m.edit({ embeds: [pingingEmbed] })
-     
-           wait(2000)
+           wait(100)
         pingButton
           .setDisabled(true)
           .setStyle("SUCCESS")

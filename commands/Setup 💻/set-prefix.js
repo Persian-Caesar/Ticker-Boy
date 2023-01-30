@@ -19,11 +19,14 @@ module.exports = {
         try {
             
             if(!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
-            errorMessage(client, message, "my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
+            errorMessage(client, message, "my friend you are don't have this permissions: `\"MANAGE_GUILD\"`.")
             }
             var newPrefix = args.slice().join(' ')
-            if (!newPrefix) {
-                db.set(`prefix_${message.guild.id}`, `${bot.prefix}`);
+            if (newPrefix && newPrefix.length > 7) { 
+                   return errorMessage(bot, message, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
+            }
+            if (newPrefix === bot.prefix || !newPrefix) {
+                db.set(`guild_${message.guild.id}.prefix`, `${bot.prefix}`);
                 message.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
@@ -81,11 +84,8 @@ module.exports = {
                         })
                          ]
               });
-            } else if (newPrefix) {
-                if (newPrefix.length > 7) { 
-                    errorMessage(client, message, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
-                }
-                db.set(`prefix_${message.guild.id}`, `${newPrefix}`);
+            } else {
+                db.set(`guild_${message.guild.id}.prefix`, `${newPrefix}`);
                 message.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({

@@ -19,7 +19,7 @@ module.exports = {
       .setColor(bot.colors.none)
       .setTimestamp()
       .setDescription('**your ticket channel will be created but are you sure to do this??\nif your ticket created please wait the moderators or admins to speek there.**')
-      .addField(bot.emotes.reason+'| INFOS','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+bot.emotes.ticket+'"` or else click to `"'+bot.emotes.x+'"`.')
+      .addField(bot.emotes.reason+'| Info','if you want to create a ticket channel for yourself, you have to click to this emoji: `"'+bot.emotes.ticket+'"` or else click to `"'+bot.emotes.x+'"`.')
       .setURL(bot.config.discord.server_support)
       .setFooter({
         text: `Request To Create Ticket • ${bot.embed.footerText}`,
@@ -47,7 +47,7 @@ module.exports = {
           ])
       ]
   }).then(msg=>{
-    db.set(`CreateTicketMSG_${message.guild.id}_${message.author.id}`, msg.id)
+    db.set(`guild_${message.guild.id}.ticket.message_${message.channel.id}`, msg.id)
     setTimeout(()=>{
   if(msg.embeds[0].title === `${bot.emotes.ticket}| **Request To Create Ticket**`){
       embed.setFooter({

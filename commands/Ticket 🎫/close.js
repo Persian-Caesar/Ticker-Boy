@@ -16,12 +16,12 @@ module.exports = {
   category: 'Ticket 🎫',
   usage: "",
   run: async function(client, message, args, prefix) {
-    if (message.channel.name.startsWith(`${client.emotes.help}︱ticket-`) || message.channel.name.startsWith(`${client.emotes.exchange}︱ticket-`) || message.channel.name.startsWith(`${client.emotes.report}︱ticket-`) || message.channel.name.startsWith(`${client.emotes.admin}︱ticket-`) || message.channel.name === db.get(`ticketName_${message.author.id}_${message.guild.id}`)) {
+    if (message.channel.name.startsWith(`ticket-`) || message.channel.name === db.get(`guild_${message.guild.id}.ticket.name_${message.author.id}`)) {
       message.reply({
         embeds: [new MessageEmbed()
           .setColor(client.colors.none)
           .setTitle(`${client.emotes.close}| Close Ticket`)
-          .setDescription(`Dear friend, you requested for closing ${message.guild.members.cache.find(c => c.id === db.get(`TicketControl_${message.channel.id}`))} ticket, are you sure for close here??`)
+          .setDescription(`Dear friend, you requested for closing ${message.guild.members.cache.find(c => c.id === db.get(`guild_${interaction.guild.id}.ticket.control_${message.channel.id}`))} ticket, are you sure for close here??`)
         ],
         components: [new MessageActionRow()
           .addComponents([new MessageButton()
@@ -36,9 +36,9 @@ module.exports = {
             .setLabel("Close It")
           ])]
       }).then((msg) => {
+       setTimeout(() => {
         if (msg.embeds[0].title === `${client.emotes.close}| Close Ticket`) {
 
-          setTimeout(() => {
             msg.edit({
               embeds: [new MessageEmbed()
                 .setAuthor({
@@ -60,8 +60,8 @@ module.exports = {
                   .setCustomId("error")
                   .setDisabled(true))]
             })
+           }
           }, 1000 * 50)
-        }
       })
     } else {
       errorMessage(client, message, `**My Friend, here is not a ticket channel please use this command in other channel**`)

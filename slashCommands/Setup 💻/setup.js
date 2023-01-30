@@ -28,7 +28,7 @@ module.exports = {
          type: "CHANNEL",
          channelTypes: ["GUILD_TEXT"],
          required: true
-      }]
+      }],
    },{
     name: "admin",
     type: "SUB_COMMAND",
@@ -49,33 +49,62 @@ module.exports = {
     type: "CHANNEL",
     channelTypes: ["GUILD_TEXT"],
     required: false
-    }]
+    }],
   },{
     name: 'prefix',
     type: "SUB_COMMAND",
     description: "setup bot prefix in guild.",
     options: [{
-      name: "prefix_text",
-      description: "write server prefix in .",
+      name: "input",
+      description: "write server prefix.",
+      type: "STRING",
+      required: false
+    }],
+  },{
+    name: 'parent',
+    type: "SUB_COMMAND",
+    description: "setup tickets category.",
+    options: [{
+      name: "category",
+      description: "Select a category to setupping tickets categories.",
+      type: "CHANNEL",
+      channelTypes: ["GUILD_CATEGORY"],
+      required: true
+    }]
+  },{
+    name: "menu",
+    description: "setup ticket system menu options and category.",
+    type: "SUB_COMMAND",
+    options: [{
+      name: "name",
+      description: "write category of menu option name.",
       type: "STRING",
       required: true
-    }],
+    },{
+      name: "emote",
+      description: "add some emote for setup caategory menu option.",
+      type: "STRING",
+      required: false
+    }]
   }],
 
   run: async (client, interaction) => {
 
 let Sub = interaction.options.getSubcommand();
   switch (Sub) {
-  case "prefix": {
+    case "prefix": {
     try {
-          let logsChannel = interaction.guild.channels.cache.find(c => c.id === db.get(`modlog_${interaction.guild.id}`));
-          let newPrefix = interaction.options.getString('prefix_text')  
+          let logsChannel = interaction.guild.channels.cache.find(c => c.id === db.get(`guild_${interaction.guild.id}.modlog`));
+          let newPrefix = interaction.options.getString('input')  
             
             if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)){
-              errorMessage(client, interaction, "my friend you are don't have this permissions: `\"MANAGE_GUILD\" or \"ADMINISTRATOR\"`.")
+             return errorMessage(client, interaction, "my friend you are don't have this permissions: `\"MANAGE_GUILD\"`.")
             }
-            if (newPrefix === client.prefix) {
-                db.set(`prefix_${interaction.guild.id}`, `${client.prefix}`);
+            if (newPrefix && newPrefix.length > 7) {
+                  return errorMessage(client, interaction, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
+                }
+            if (newPrefix === client.prefix || !newPrefix) {
+                db.set(`guild_${interaction.guild.id}.prefix`, `${client.prefix}`);
                 interaction.reply({
                     embeds: [new MessageEmbed()
                         .setAuthor({
@@ -135,10 +164,7 @@ let Sub = interaction.options.getSubcommand();
                  ]
               });
             } else {
-                if (newPrefix.length > 7) { 
-                    errorMessage(client, interaction, "this prefix `"+newPrefix+"` is to long.\nplease chose shorter one.")
-                }
-                db.set(`prefix_${interaction.guild.id}`, `${newPrefix}`);
+                db.set(`guild_${interaction.guild.id}.prefix`, `${newPrefix}`);
                 interaction.reply({
                     ephemeral: true,
                     embeds: [new MessageEmbed()
@@ -198,11 +224,11 @@ let Sub = interaction.options.getSubcommand();
               });
         }
        } catch (error) {
-           errorMessage(client, interaction, error)
+           errorMessage(client, interaction, `\`\`\`js\n${error}\`\`\``)
            console.log(error)
       }
   }break;
-  case "ticket": {
+    case "ticket": {
   let channel =  interaction.options.getChannel("channel")||interaction.channel;
   if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) 
 return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
@@ -225,16 +251,14 @@ return errorMessage(client, interaction, "```js\nyou are not have permissions fo
                     })
             ],
           components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Setup Ticket To Default").setStyle('PRIMARY')],[new MessageButton().setCustomId('ticket_setup_custom').setEmoji(client.emotes.hamer).setLabel("Setup Ticket To Customize").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
-        }).then(async (msg)=>{
+        }).then(async (m)=>{
+          let msg = interaction.fetchReply()
 
         //use buttons and modals function
         let collector = await interaction.channel.createMessageComponentCollector({ time: 30000 })
         collector.on('collect', async (collect)=>{
           if(!collect.user.id === interaction.user.id){
-            collect.reply({
-              ephemeral: true,
-              content: `**${client.emotes.error}| This component only for ${interaction.user} and you can't use it.\nuse "\`${prefix}setup\`" for setup the ticket system**`
-            })
+            errorMessage(client, collect, `**${client.emotes.error}| This component only for ${interaction.user} and you can't use it.\nuse "\`${prefix}setup\`" for setup the ticket system**`)
           }
           if(collect.isButton()){
             if(collect.customId === "ticket_setup_custom"){
@@ -266,9 +290,10 @@ return errorMessage(client, interaction, "```js\nyou are not have permissions fo
               })
               await channel.send({
                 embeds: [embed],
-                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')])] 
               })
               embed = new MessageEmbed()
+              collector.stop()
             }
           }
         })
@@ -305,13 +330,15 @@ return errorMessage(client, interaction, "```js\nyou are not have permissions fo
           })
           await channel.send({
                 embeds: [embed],
-                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
+                components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('create_ticket').setEmoji(client.emotes.ticket).setLabel("Create Ticket").setStyle('SUCCESS')])] 
               })
           embed = new MessageEmbed()
+          collector.stop()
          }
         }
         })
         collector.on('end', (collect)=>{
+          if(!msg.embeds[0].title === client.emotes.success + '| **Ticket Is Successfuly Setuped To Default**' || !msg.embeds[0].title === client.emotes.success + '| **Ticket Is Successfuly Setuped To Customize**'){
           interaction.editReply({
                       embeds: [new MessageEmbed()
                     .setAuthor({
@@ -328,45 +355,79 @@ return errorMessage(client, interaction, "```js\nyou are not have permissions fo
             ],
             components: [new MessageActionRow().addComponents([new MessageButton().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Setup Ticket To Default").setStyle('PRIMARY').setDisabled(true)],[new MessageButton().setCustomId('ticket_setup_custom').setEmoji(client.emotes.hamer).setLabel("Setup Ticket To Customize").setStyle('SUCCESS').setDisabled(true)]),new MessageActionRow().addComponents([new MessageButton().setStyle("LINK").setEmoji(client.emotes.support).setLabel("Support").setURL(client.config.discord.server_support)])] 
           })
-          
+          }
         })
         })
   }break;
-  case "logs": {
+    case "logs": {
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
   let channel =  interaction.options.getChannel("channel")
-if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))){
-     return errorMessage(client, interaction, `**My Friend, you just have a logs channel befor it to ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))}.**`)
+if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.modlog`))){
+     return errorMessage(client, interaction, `**My Friend, you just have a logs channel befor it to ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.modlog`))}.**`)
 }else {
     interaction.reply({
     embeds: [new MessageEmbed().setTitle('✅| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`process is successfuly.\n I just setup your ticket logs channel to ${channel}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
     ephemeral: true,
   })
-  db.set(`modlog_${interaction.guild.id}`, channel.id)
+  db.set(`guild_${interaction.guild.id}.modlog`, channel.id)
   channel.send({
     embeds: [new MessageEmbed().setColor(client.colors.none).setDescription(`just now here is ticket logs channel for send members tickets information setupped to ${channel}.`).setTitle('✅| ** Process Is Successfuly**').setFooter({text: `Logs Setuped • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))]
   })
 }
   }break;
-  case "admin": {
+    case "admin": {
   let role = interaction.options.getRole("role")
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_ROLES\" \n```")
       
-if(interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))) return errorMessage(client, interaction, `**My Friend, you just have a setup your ticket mod roles befor it to ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))}.**`)
+if(interaction.guild.roles.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.admin_role`))) return errorMessage(client, interaction, `**My Friend, you just have a setup your ticket mod roles befor it to ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.admin_role`))}.**`)
 
     interaction.reply({
     embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just setup your ticket admin role to ${role}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
     ephemeral: true,
   })
-  db.set(`TicketAdminRole_${interaction.guild.id}`, role.id)
-    if(db.fetch(`modlog_${interaction.guild.id}`)){
-  interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`)).send({
+  db.set(`guild_${interaction.guild.id}.ticket.admin_role`, role.id)
+    if(db.fetch(`guild_${interaction.guild.id}.modlog`)){
+  interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.modlog`)).send({
     embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.none).setDescription(`I just setup ticket admin role to ${role} in this guild.`).setFooter({text: `Logs Setuped • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))]
   })
     }
 
   }break;
-  }
+    case "parent": {
+     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+    let category =  interaction.options.getChannel("category");
+    if(interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.category`))){
+      return errorMessage(client, interaction, `**My Friend, you just have a category befor it to ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.category`))}.**`)
+    }else {
+     interaction.reply({
+       embeds: [new MessageEmbed().setTitle('✅| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`process is successfuly.\n I just setup your tickets category to ${category}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
+        ephemeral: true,
+     })
+     db.set(`guild_${interaction.guild.id}.ticket.category`, category.id)
+   }
+   }break;
+    case "menu": {
+      if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      
+      let name = interaction.options.getString("name")
+      let emote = interaction.options.getString("emote")
+      let options = {}
+      let content = `${client.emotes.success}| Successfully menu option setuped.`
+      if(name){
+        options = { label: name, value: name }
+        content += `\n> menu name: **${name}**`
+      }
+      if(name&&emote){
+        options = { label: name, value: name, emoji: emote }
+        content += `\n> menu emoji: **${emote}**`
+      }
+      db.push(`guild_${interaction.guild.id}.ticket.menu_option`,options)
+      interaction.reply({
+        content: content,
+        ephemeral: true
+      })
+    }break;
+   }
   }
 }
 /**

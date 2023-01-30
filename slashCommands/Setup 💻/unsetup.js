@@ -24,35 +24,63 @@ module.exports = {
     name: "admin",
     type: "SUB_COMMAND",
     description: "unsetup ticket admin role in guild",
+  },{
+    name: 'parent',
+    type: "SUB_COMMAND",
+    description: "unsetup tickets category."
+  },{
+    name: "menu",
+    description: "unsetup ticket system menu options and category.",
+    type: "SUB_COMMAND",
   }],
   run: async (client, interaction) => {
 
 let Sub = interaction.options.getSubcommand();
   switch (Sub) {
-  case "logs": {
+   case "logs": {
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
 
-if(!interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`)))
+if(!interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.modlog`)))
 return errorMessage(client, interaction, "```js\nin this guild admin role dose not setuped. I can't delete it befor setup\n```")
 
     interaction.reply({
-    embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup your ticket logs channel  and delete the ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`modlog_${interaction.guild.id}`))}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
+    embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup your ticket logs channel  and delete the ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.modlog`))}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
     ephemeral: true,
   })
-  db.delete(`modlog_${interaction.guild.id}`)
+  db.delete(`guild_${interaction.guild.id}.modlog`)
   }break;
-  case "admin": {
+   case "admin": {
                 if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_ROLES\" \n```")
 
-if(!interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))) return errorMessage(client, interaction, "```js\nin this guild admin role dose not setuped. I can't delete it befor setup\n```")
+if(!interaction.guild.roles.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.admin_role`))) return errorMessage(client, interaction, "```js\nin this guild admin role dose not setuped. I can't delete it befor setup\n```")
 
     interaction.reply({
-    embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup your ticket admin role and delete the ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`TicketAdminRole_${interaction.guild.id}`))}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
+    embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup your ticket admin role and delete the ${interaction.guild.roles.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.admin_role`))}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
     ephemeral: true,
   })
-  db.delete(`TicketAdminRole_${interaction.guild.id}`)
+  db.delete(`guild_${interaction.guild.id}.ticket.admin_role`)
 
   }break;
+   case "parent": {
+     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+if(!interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.category`))) return errorMessage(client, interaction, "```js\nin this guild ticket category dose not setuped. I can't delete it befor setup\n```")
+
+    interaction.reply({
+    embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup your ticket category and delete the ${interaction.guild.channels.cache.find(c => c.id === db.fetch(`guild_${interaction.guild.id}.ticket.category`))}.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
+    ephemeral: true,
+  })
+  db.delete(`guild_${interaction.guild.id}.ticket.category`)
+   
+  }break;
+   case "menu": {
+      if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return errorMessage(client, interaction, "```js\nyou are not have permissions for use this.\nPermissions Need: \"MANAGE_CHANNELS\" \n```")
+      
+      interaction.reply({
+       embeds: [new MessageEmbed().setTitle('☑️| ** Process Is Successfuly**').setColor(client.colors.green).setDescription(`\n I just unsetup ticket system menu options and category.`).setFooter({text: `Successfuly • Requested By ${interaction.user.tag} `, iconURL: interaction.guild.iconURL({dynamic:true})}).setThumbnail(interaction.user.displayAvatarURL({dynamic:true}))],
+      ephemeral: true,
+     })
+     db.delete(`guild_${interaction.guild.id}.ticket.menu_option`)
+    }break;
  }
 }
 }

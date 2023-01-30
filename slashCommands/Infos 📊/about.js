@@ -42,10 +42,6 @@ module.exports = {
       }
       let connectedchannelsamount = 0;
       let guilds = client.guilds.cache.map((guild) => guild);
-      for (let i = 0; i < guilds.length; i++) {
-          if (guilds[i].me.voice.channel) connectedchannelsamount += 1;
-      }
-      if (connectedchannelsamount > client.guilds.cache.size) connectedchannelsamount = client.guilds.cache.size;
 let infoEmbed = new Discord.MessageEmbed()
       .setColor(client.colors.none)
       .setTitle(`Stats from \`${client.user.username}\``)
