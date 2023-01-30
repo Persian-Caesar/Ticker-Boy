@@ -13,27 +13,27 @@ module.exports = async (client, guild) => {
     .addFields([{
       name: `👑| Owner Tag:`,
       value: `owner tag: \`${owner.user.tag}\``,
-      inlien: true
+      inline: true
     },{
       name: `👓| Owner ID:`,
       value: `owner Id: \`${owner.user.id}\``,
-      inlien: true
+      inline: true
     },{
       name: `👥| Total Members:`,
       value: `guild members count: \`${guild.members.cache.size}\``,
-      inlien: true
+      inline: true
     },{
       name: `📬| Server Invite:`,
       value: `server invite link:  **can't create it :(**`,
-      inlien: true
+      inline: true
     },{
       name: `🆔| Guild ID:`,
       value: `guild Id: **\`${guild.id}\`**`,
-      inlien: true
+      inline: true
     },{
       name: `📅| Created at:`,
       value: `guild created at: **<t:${Date.parse(guild.createdAt) / 1000}:R>**`,
-      inlien: true
+      inline: true
     }])
     .setColor("#2F3136")
     .setThumbnail(guild.iconURL({ dynamic: true }))
