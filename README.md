@@ -58,9 +58,10 @@ Use "/help" command to see all commands. It is very easy to set up the bot on yo
 
 for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
 ```js
-TOKEN="BOT_TOKEN"
-PREFIX="BOT_PREFIX"
-CLIENT_ID="BOT_CLIENT_ID"
+PREFIX="PLACE_BOT_PREFIX"
+CLIENT_ID="USER_CLIENT_ID"
+USER_SECRET_ID="USER_SECRET_CLIENT_ID"
+TOKEN="PLACE_BOT_TOKEN"
 ```
 
 if you need so much configuration about the bot you can go in to the `config.js` file and edit some parameters for customizing your bot, that file addresses is here `/storage/config.js`
