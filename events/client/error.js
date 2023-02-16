@@ -1,6 +1,8 @@
 let clc = require('cli-color');
 module.exports = (client, error) => {
-  client.on("error",() => clc.redBright(console.error()));
+  console.warn(error + " occured");
+  client.destroy();
+  client.login(client.token);
   console.log(clc.redBright(String(error)))
 }
 /**

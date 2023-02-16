@@ -1,12 +1,9 @@
-let clc = require('cli-color');
+const clc = require('cli-color');
 module.exports = async (client, event, id) => {
   client.logger(clc.redBright(`Shard #${id} Disconnected`));
-    setInterval(() => {
-     if(!client || !client.user) {
-      console.log("The Client Didn't Login Proccesing Kill 1")
+  setInterval(() => {
+      client.logger("The Client Didn't Login Proccesing Kill 1")
         process.kill(1);
-    } else {
-   }
   }, 10000); 
 }
 /**

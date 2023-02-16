@@ -1,9 +1,9 @@
-let clc = require('cli-color');
+const clc = require('cli-color');
 module.exports = async (client, thread) => {
  try{
-     await thread.join();
-   }catch (error){
-      console.log(clc.redBright(error))
+  if (thread.joinable) await thread.join();
+ }catch (error){
+     console.log(clc.redBright(error))
  }
 }
 /**

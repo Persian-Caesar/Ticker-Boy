@@ -6,12 +6,12 @@ module.exports = async (bot) => {
   try {
     let amount = 0;
     const slashCommandsArray = [];
-    readdirSync(`${process.cwd()}/slashCommands/`).forEach((dir) => {
-      const slashCommands = readdirSync(`${process.cwd()}/slashCommands/${dir}/`).filter((file) => file.endsWith(".js"));
+    readdirSync(`${process.cwd()}/commands/`).forEach((dir) => {
+      const slashCommands = readdirSync(`${process.cwd()}/commands/${dir}/`).filter((file) => file.endsWith(".js"));
       for (let file of slashCommands) {
-        const pull = require(`${process.cwd()}/slashCommands/${dir}/${file}`);
+        const pull = require(`${process.cwd()}/commands/${dir}/${file}`);
         if (pull.name) {
-          bot.slashCommands.set(pull.name, pull);
+          bot.commands.set(pull.name, pull);
           if (["MESSAGE", "USER"].includes(pull.type)) delete pull.description;
           slashCommandsArray.push(pull)
           amount++
@@ -43,6 +43,8 @@ module.exports = async (bot) => {
           // await bot.guilds.cache.get(bot.config.discord.support_server_id).commands.set(slashCommandsArray);
           // For Global Server👇🏻
           await bot.application.commands.set(slashCommandsArray);
+          //For remove all /commands on guilds
+          //await bot.application.commands.set([])
         } catch (error) {
           console.log(error)
         }
