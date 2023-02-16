@@ -2,29 +2,23 @@
 require('dotenv').config()
 const { 
   Client, 
-  Intents, 
   Collection 
 } = require('discord.js');
+const { 
+  QuickDB 
+} = require(`quick.db`);
+const db = new QuickDB({});
 const config = require(`${process.cwd()}/storage/config.js`);
-const status = require(`${process.cwd()}/storage/status.json`);
 const clc = require("cli-color");
 const fs = require('fs');
 const client = new Client({
-    intents: [new Intents(32767)], // 32767 == full intents, calculated from intent calculator 
+    restRequestTimeout: 120000,
+    intents: 32767, // 32767 == full intents, calculated from intent calculator 
     shards: 'auto',
     allowedMentions: {
-    parse: ["roles", "users", "everyone"],//mentions disable
-    repliedUser: false,//disable mention in replying messages
+      parse: ["roles", "users", "everyone"],//mentions disable
+      repliedUser: false,//disable mention in replying messages
     },
-    /*presence: {//setting bot status in client
-        activities: [{
-          name: `${status.text}`.replace("{prefix}", config.discord.prefix), 
-          type: status.type, 
-          url: status.url
-        }],
-        status: status.presence,
-        afk: true
-    },*/
     ws:{
         properties: {
             browser: "Discord Android",//Discord Web | Discord Android | Discord Ios | Discord Client
@@ -32,6 +26,7 @@ const client = new Client({
         },
     },
 });
+client.db = db;
 client.config = config;
 client.prefix = client.config.discord.prefix;
 client.token = client.config.discord.token;
@@ -40,12 +35,11 @@ client.colors = require(`${process.cwd()}/storage/colors.json`);
 client.embed = require(`${process.cwd()}/storage/embed.json`);
 client.categories = fs.readdirSync(`${process.cwd()}/commands`);
 client.commands = new Collection();
-client.slashCommands = new Collection();
 client.cooldowns = new Collection();
 
 //======== Loading Starts =========
 var starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
-start = new Map();
+let start = new Map();
 starts.forEach((file) => {
   require(`${process.cwd()}/start/${file}`)(client);
   start.set(file);
@@ -73,7 +67,7 @@ if(client.token){
 //========== Replit Alive
 setInterval(() => {
      if(!client || !client.user) {
-      console.log("The Client Didn't Login Proccesing Kill 1")
+      client.logger("The Client Didn't Login Proccesing Kill 1")
         process.kill(1);
     } else {
    }
