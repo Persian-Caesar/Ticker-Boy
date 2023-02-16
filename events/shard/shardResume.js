@@ -1,14 +1,6 @@
-let clc = require('cli-color');
+const clc = require('cli-color');
 module.exports = async (client, id, replayedEvents) => {
   client.logger(clc.green(`Shard #${id} Resumed`))
-  setInterval(() => {
-     if(!client || !client.user) {
-      console.log("The Client Didn't Login Proccesing Kill 1")
-        process.kill(1);
-    } else {
-   }
-  }, 10000); 
-
 }
 /**
  * @Info

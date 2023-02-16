@@ -1,39 +1,40 @@
 const { 
-  EmbedBuilder,
-  ActionRowBuilder,
   ButtonBuilder,
-  Collection,
-  ButtonStyle,
+  ActionRowBuilder,
+  SelectMenuBuilder,
+  EmbedBuilder, 
   PermissionsBitField,
-  SelectMenuBuilder
-} = require("discord.js");
+  ButtonStyle,
+  ApplicationCommandType,
+  ApplicationCommandOptionType
+ } = require('discord.js');
 const {
   HelpCategoryEmbed,
   errorMessage
 } = require(`${process.cwd()}/functions/functions`);
-module.exports = async (client, message) => {
-let db = client.db;
-//======== Command for shows the prefix ========
-    if (message.author.bot || !message.guild) return;//a direct message between users
-
-//=========== Help Menu With Mention Bot
-    let contents = [
-      `<@!${client.user.id}>`,
-      `<@${client.user.id}>`
-    ];
-    if (contents.includes(message.content)) {
-  //============ Check Perm
-      if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return message.author.send({content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${message.channel}`,});
-  if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.UseExternalEmojis]))  return message.reply({content: `${client.emotes.error}| I am missing the Permission to \`UseExternalEmojis\` in ${message.channel}`});
-  if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.EmbedLinks])) return message.reply({ content: `${client.emotes.error}| I am missing the Permission to \`EmbedLinks\` in ${message.channel}` });
-      
+module.exports = {
+  name: 'help',
+  description: 'Show to you about bot info and commands.',
+  category: 'Infos 📊',
+  type: ApplicationCommandType.ChatInput,
+  cooldown: 1,
+  userPermissions: ["SendMessages"],
+  botPermissions: ["SendMessages", "EmbedLinks"],
+  options: [{
+    name: "command",
+    description: "Write bot command name to show info about it.",
+    type: ApplicationCommandOptionType.String,
+  }],
+  run: async (client, interaction, args, prefix) => {
+  let command_name = interaction.options.getString("command");
+  let db = client.db;
   let help = new EmbedBuilder()
    .setAuthor({ 
       name: `${client.user.username} Help`
    })
    .setFooter({ 
-      text: `Requested by ${message.author.tag}`, 
-      iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+      text: `Requested by ${interaction.user.tag}`, 
+      iconURL: interaction.user.displayAvatarURL({ dynamic: true }) 
    })
    .setColor(client.colors.none)
    .addFields([{
@@ -46,7 +47,70 @@ let db = client.db;
      inline: false
    }])
    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-      let menu_options = [{
+
+  if(command_name) {
+    const cmd = client.commands.get(command_name.toLowerCase());
+    if(!cmd || !cmd.name){
+        return interaction.reply({ content: `**${client.emotes.error}| It seems like \`${command_name.toLowerCase()}\` is not a valid command! Please try Again!**`, ephemeral: true })
+    }
+    if(cmd.category === "Owner 👑" && !client.config.owner.some(r => r.includes(interaction.user.id))) return errorMessage(client, interaction, `> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
+    const embed = new EmbedBuilder()
+      .setColor(client.colors.none)
+      .setAuthor({ 
+        name: `${client.user.username} Help`
+      })
+      .setFooter({ 
+        text: `Requested by ${interaction.user.tag} • for more info use /help`, 
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }) 
+      })
+      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+
+    let component = [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Secondary).setLabel('Report').setEmoji(client.emotes.report).setCustomId(`report`)), new ActionRowBuilder().addComponents([new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Invite Me').setEmoji(client.emotes.invite).setURL(client.config.discord.invite),new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Support').setEmoji(client.emotes.help).setURL(`${client.config.discord.server_support}`)])]
+    let cmds = client.application.commands.cache.find(c => c.name === cmd.name);
+    embed.setTitle(`</${cmds.name}:${cmds.id}>`)
+    let fields = [{
+        name: 'Name:', 
+        value: `${cmd.name}`
+    },{
+        name: 'Description:', 
+        value: `${cmd.description || 'No Description provided!'}`
+    },{
+        name: 'Category:', 
+        value: `${cmd.category}`
+    }]
+    if(cmd.cooldown){
+       fields.push({
+         name: 'Cooldown:',
+         value: `**\`${cmd.cooldown} Seconds\`**`
+        })
+    }
+    if(cmd.options && cmd.options.some(op=> op.type === ApplicationCommandOptionType.Subcommand)){
+       let name = [];
+       await cmds.options? cmds.options.some(op=> op.type === ApplicationCommandOptionType.Subcommand)? cmds.options.map((option)=>{ name.push(cmds.name +" "+ option.name)}) : name.push(`${cmds.name}`) : name.push(`${cmds.name}`)
+       fields.push({
+         name: 'Subcommands:',
+         value: `**${name.map(n=> `</${n}:${cmds.id}>`).join(' , ')}**`
+        })
+    }
+    if(cmd.userPermissions){
+       fields.push({
+         name: 'Permissions Need To User:',
+         value: `**[ ${cmd.userPermissions.map(i => { return `\`${i}\`` }).join(" , ")} ]**`
+        })
+    }
+    if(cmd.botPermissions){
+       fields.push({
+         name: 'Permissions Need To Bot:',
+         value: `**[ ${cmd.botPermissions.map(i => { return `\`${i}\`` }).join(" , ")} ]**`
+        })
+    }
+    embed.addFields(fields)
+    return interaction.reply({ 
+        embeds: [embed], 
+        components: component
+    })
+  }else{
+    let menu_options = [{
               label: 'Infos Help',
               value: 'Infos 📊',
               emoji: '📊',
@@ -63,7 +127,7 @@ let db = client.db;
               value: 'Premium 💎',
               emoji: '💎',
     }]
-    if(client.config.owner.some(r => r.includes(message.author.id))){
+    if(client.config.owner.some(r => r.includes(interaction.user.id))){
       menu_options.push({
               label: 'Owner Help',
               value: 'Owner 👑',
@@ -85,16 +149,16 @@ let db = client.db;
 
     let component_1 = [new ActionRowBuilder().addComponents(help_menu.setDisabled(false)),new ActionRowBuilder().addComponents(home_btn.setDisabled(true),new ButtonBuilder().setStyle(ButtonStyle.Primary).setLabel('Premium').setEmoji(client.emotes.premium).setCustomId("premium")),new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Secondary).setLabel('Report').setEmoji(client.emotes.report).setCustomId(`report`),new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Invite Me').setEmoji(client.emotes.invite).setURL(client.config.discord.invite),new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Support').setEmoji(client.emotes.help).setURL(`${client.config.discord.server_support}`))];
     
-    const embedMessage = await message.reply({
+    await interaction.reply({
       embeds: [help], 
       components: component_1
     })
+    const embedMessage = await interaction.fetchReply()
     const collector = embedMessage.createMessageComponentCollector({ time: 70000 });
     collector.on('collect', async (m) => {
-         if(m.user.id === message.author.id){
+         if(m.user.id === interaction.user.id){
          if(m.isButton()){
           if(m.customId === "home_page"){
-            home_btn.setDisabled(true)
             m.update({
               embeds: [help],
               components: component_1
@@ -109,12 +173,13 @@ let db = client.db;
            }
          }
          }else{
-         return errorMessage(client, m, `This message only for ${message.author} and you can't use it.\nfor use components send this: "${`</${client.application.commands.cache.find(c => c.name === "help").name}:${client.application.commands.cache.find(c => c.name === "help").id}>`}"`)
+         return errorMessage(client, m, `This message only for ${interaction.user} and you can't use it.\nfor use components send this: "${`</${client.application.commands.cache.find(c => c.name === "help").name}:${client.application.commands.cache.find(c => c.name === "help").id}>`}"`)
          }
     })
     setTimeout(()=>{ return embedMessage.edit({  components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('timeout').setEmoji(client.emotes.alert).setLabel('Time Is Up').setStyle(ButtonStyle.Primary).setDisabled(true),new ButtonBuilder().setStyle(ButtonStyle.Primary).setLabel('Premium').setEmoji(client.emotes.premium).setCustomId("premium")),new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Secondary).setLabel('Report').setEmoji(client.emotes.report).setCustomId(`report`),new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Invite Me').setEmoji(client.emotes.invite).setURL(client.config.discord.invite),new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Support').setEmoji(client.emotes.help).setURL(`${client.config.discord.server_support}`))] })},70000)
-  }
-};
+   }
+   }
+}
 /**
  * @Info
  * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar

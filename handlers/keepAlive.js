@@ -7,7 +7,7 @@ let port = client.config.source.port;
 app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  res.send(`Your App Sucessfully Hosted By Espress`);
+  res.send(`Your App Sucessfully Hosted By Express`);
   res.end()
 });
 

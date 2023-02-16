@@ -1,8 +1,8 @@
-let clc = require('cli-color');
+const clc = require('cli-color');
 module.exports = async (client, id) => {
   try {
     client.logger(clc.greenBright(`Shard #${id} Ready`));
-  } catch { /* */ }
+  } catch(e) { console.error(e) }
 }
 /**
  * @Info

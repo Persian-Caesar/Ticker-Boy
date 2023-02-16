@@ -1,44 +1,65 @@
 const {
-  Client,
-  Collection,
-  Intents,
-  Permissions,
-  MessageEmbed,
-  MessageActionRow,
-  MessageButton,
-  MessageSelectMenu  
+  ButtonBuilder,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  EmbedBuilder, 
+  ButtonStyle,
+  ChannelType,
+  ApplicationCommandType,
+  ApplicationCommandOptionType
 } = require("discord.js");
 module.exports = {
+  logMessage: async function(client, interaction, channel, message, reason, emote, has_file, file){
+    let member = interaction.guild.members.cache.find(m=> m.id === interaction.member.id);
+    if(has_file === true){
+      return channel.send({
+        files: [file],
+        embeds: [new EmbedBuilder().setTitle(`${emote}| ${reason}`).setColor(client.colors.none).setThumbnail(member.user.displayAvatarURL({ format: "png", dynamic: true })).setDescription(`${message}`).setTimestamp().addFields([{ name: `**Requested By:**`, value: `**${member.user} | ${member.user.tag} | ${member.user.id}**`, inline: false },{ name: `**Target Channel:**`, value: `**${interaction.channel} | ${interaction.channel.name} | ${interaction.channel.id}**`, inline: false },{ name: `**Date:**`, value: `**<t:${Date.parse(new Date()) / 1000}:D> | <t:${Date.parse(new Date()) / 1000}:R>**`, inline: false },{ name: `**Reason:**`, value: `\`\`\`js\n${reason}\`\`\``, inline: false }]).setFooter({ text: `${interaction.guild.name} • Logs Information`, iconURL: interaction.guild.iconURL({ dynamic: true }) })],
+      })
+    }else{
+      return channel.send({
+        embeds: [new EmbedBuilder().setTitle(`${emote}| ${reason}`).setColor(client.colors.none).setThumbnail(member.user.displayAvatarURL({ format: "png", dynamic: true })).setDescription(`${message}`).setTimestamp().addFields([{ name: `**Requested By:**`, value: `**${member.user} | ${member.user.tag} | ${member.user.id}**`, inline: false },{ name: `**Target Channel:**`, value: `**${interaction.channel} | ${interaction.channel.name} | ${interaction.channel.id}**`, inline: false },{ name: `**Date:**`, value: `**<t:${Date.parse(new Date()) / 1000}:D> | <t:${Date.parse(new Date()) / 1000}:R>**`, inline: false },{ name: `**Reason:**`, value: `\`\`\`js\n${reason}\`\`\``, inline: false }]).setFooter({ text: `${interaction.guild.name} • Logs Information`, iconURL: interaction.guild.iconURL({ dynamic: true }) })],
+      })
+    }
+  },
   errorMessage: async function(client, interaction, error){
     let member = interaction.guild.members.cache.find(m=> m.id === interaction.member.id);
     return interaction.reply({
-        embeds: [new MessageEmbed().setAuthor({ name: `Requested by ` + member.user.tag, iconURL: member.user.displayAvatarURL({ dynamic: true }) }).setTitle('⛔️| **We Got An Error**').setColor(client.colors.red).setDescription(`${error}`).setFooter({ text: "Error • "+client.embed.footerText, iconURL: interaction.guild.iconURL({ dynamic: true }) })],
-        components: [new MessageActionRow().addComponents(new MessageButton().setStyle("DANGER").setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
+        embeds: [new EmbedBuilder().setTitle('⛔️| **We Got An Error**').setColor(client.colors.red).setDescription(`${error}`).setFooter({ text: `Requested by ${member.user.tag} • Error • ${client.embed.footerText}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) }).setThumbnail(interaction.guild.iconURL({ dynamic: true }))],
+        components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
         ephemeral: true,
     })
   },
-  HelpCategoryEmbed: async function(commands, CategoryName, client, message, prefix){
-  let embed = new MessageEmbed()
-      .setThumbnail(client.user.displayAvatarURL({ format: "png" }))
-      .setTitle(`${client.user.tag} | **${CategoryName}** Help`)
-      .setDescription(`**See the text below to use the commands.\n\n${(client.commands.filter(c => c.category === CategoryName)).map(i => '`' + prefix + i.name + '`').join(' , ')}**`)
-      .setURL(client.config.discord.server_support)
-        .setFooter({ 
-      text: `${message.guild.name} • ${client.embed.footerText}`, 
-      iconURL: client.embed.footerIcon
-   })
-      .setAuthor({ name: `Requested by ${message.user.tag}`, iconURL: message.member.displayAvatarURL({ dynamic: true }) })      
+  HelpCategoryEmbed: async function(commands, CategoryName, client, message, component){
+     let member = message.guild.members.cache.find(m=> m.id === message.member.id);
+     let embed = new EmbedBuilder()
+      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ 
+        name: `${client.user.username} Help`
+      })
+      .setTitle(`${CategoryName}`)
+      .setFooter({ 
+        text: `Requested by ${member.user.tag}`, 
+        iconURL: member.user.displayAvatarURL({ dynamic: true }) 
+      })
       .setColor(client.colors.none)
-      commands.filter(c => c.category === CategoryName).forEach((cmd) => {
-        embed.addFields({
-           name: `**${prefix}${cmd.name} ${cmd.usage ? `\`${cmd.usage}\`` : ""}**`, 
-           value: `**Description: \`${cmd.description}\` | Aliases:** \`(${cmd.aliases ? cmd.aliases : ""})\``, 
-           inline: true 
+    
+     commands.filter(c => c.category === CategoryName).forEach((cmd) => {
+        let cm = client.application.commands.cache.find(c => c.name === cmd.name)
+        let name = []
+        let bb = cm.options? cm.options.some(op=> op.type === ApplicationCommandOptionType.Subcommand)? cm.options.map((option)=>{ name.push(cm.name +" "+ option.name)}) : name.push(`${cm.name}`) : name.push(`${cm.name}`)
+        name.forEach(nm=>{
+          embed.addFields({
+           name: `**${`</${nm}:${cm.id}>`}**`, 
+           value: `**Description: \`${cm.options.some(op=> op.type === ApplicationCommandOptionType.Subcommand)? cm.options.map(op=> op.name === nm.slice(`${cm.name} `.length)? op.description : "").join("") : `${cm.description}`}\`**`, 
+           inline: false 
           });
-    })
-    return message.update({
-              embeds: [embed],
-    });
+        })
+     })
+     return message.update({
+        embeds: [embed],
+        components: component
+     })
   },
   wait: async function(ms){
             let start = new Date().getTime();

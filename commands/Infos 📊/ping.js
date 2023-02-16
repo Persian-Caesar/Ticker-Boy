@@ -1,65 +1,73 @@
+const { 
+  ButtonBuilder,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  EmbedBuilder, 
+  ButtonStyle,
+  ApplicationCommandType,
+  ApplicationCommandOptionType
+} = require('discord.js');
 const {
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
-  Permissions
-} = require("discord.js");
-const {
-  wait
-} = require(`${process.cwd()}/functions/functions`);
+   wait
+} = require(`${process.cwd()}/functions/functions.js`);
 module.exports = {
-  name: "ping", //the command name for execution & for helpcmd [OPTIONAL]
-  aliases: [ "pong" ], //the command aliases for helpcmd [OPTIONAL]
-  category: "Infos 📊", //the command category for helpcmd [OPTIONAL]
-  usage: '',
-  description: "get bot ms requestes and bot ping.", //the command description for helpcmd [OPTIONAL]
-  run: async function(bot, message, args, prefix){
-            let timer = 3000;
-            var states = "🟢 Excellent";
-            var states2 = "🟢 Excellent";
-            var msg = `${Date.now() - message.createdTimestamp}`;
-            var api = `${Math.round(bot.ws.ping)}`;
-            if (Number(msg) > 70) states = "🟢 Good";
-            if (Number(msg) > 170) states = "🟡 Not Bad";
-            if (Number(msg) > 350) states = "🔴 Soo Bad";
-            if (Number(api) > 70) states2 = "🟢 Good";
-            if (Number(api) > 170) states2 = "🟡 Not Bad";
-            if (Number(api) > 350) states2 = "🔴 Soo Bad";
+  name: 'ping',
+  description: 'Get bot latency and ping.',
+  category: 'Infos 📊',
+  type: ApplicationCommandType.ChatInput,
+  cooldown: 2,
+  userPermissions: ["SendMessages"],
+  botPermissions: ["SendMessages", "EmbedLinks"],  
+  run: async (client, interaction, args) => {
+ let timer = 3000;
+ var states = "🟢 Excellent";
+ var states2 = "🟢 Excellent";
+ var msg = `${Date.now() - interaction.createdTimestamp}`;
+ var api = `${Math.round(client.ws.ping)}`;
+ if (Number(msg) > 70) states = "🟢 Good";
+ if (Number(msg) > 170) states = "🟡 Not Bad";
+ if (Number(msg) > 350) states = "🔴 Soo Bad";
+ if (Number(api) > 70) states2 = "🟢 Good";
+ if (Number(api) > 170) states2 = "🟡 Not Bad";
+ if (Number(api) > 350) states2 = "🔴 Soo Bad";
     
-    let pingEmbed = new MessageEmbed()
-      .setThumbnail(bot.user.displayAvatarURL())
-      .setColor(bot.colors.none)
-      .setDescription(`**Pong🏓!** \n 📱${bot.user.username} Ping `)
-      .addField("**Time Taken:**", `\`${msg + " ms 📶 | " + states}\``, true)
-      .addField("**WebSocket:**", `\`${api + " ms 📶 | " + states2}\``, true)
+ let pingEmbed = new EmbedBuilder()
+     .setThumbnail(client.user.displayAvatarURL())
+      .setColor(client.colors.none)
+      .setDescription(`**Pong🏓!** \n 📱${client.user.username} Ping `)
+      .addFields([{
+        name: "**Time Taken:**",
+        value: `\`${msg + " ms 📶 | " + states}\``,
+        inline: true
+      },{
+        name: "**WebSocket:**", 
+        value: `\`${api + " ms 📶 | " + states2}\``,
+        inline: true
+      }])
       .setTimestamp()
-      .setFooter({text:`Requested by ${message.author.tag}`, iconURL:`${message.author.displayAvatarURL()}`});
-   let pingingEmbed = new MessageEmbed()
-      .setColor(bot.colors.none)
+      .setFooter({text:`Requested by ${interaction.user.tag}`, iconURL:`${interaction.user.displayAvatarURL()}`});
+    
+   let pingingEmbed = new EmbedBuilder()
+      .setColor(client.colors.none)
       .setDescription(`**Pinging...**`)
       .setTimestamp()
-   let pingButton = new MessageButton()
+    
+   let pingButton = new ButtonBuilder()
           .setDisabled(true)
-          .setStyle("PRIMARY")
+          .setStyle(ButtonStyle.Primary)
           .setCustomId("loading")
           .setEmoji("🔃")
           .setLabel("Process Is Loading...")
-   message.reply({ 
+    
+   interaction.reply({ 
      embeds: [pingingEmbed],
-     components: [new MessageActionRow().addComponents([pingButton])]
-              }).then((m)=>{
-           wait(100)
-        pingButton
-          .setDisabled(true)
-          .setStyle("SUCCESS")
-          .setCustomId("pong")
-          .setEmoji("🏓")
-          .setLabel("Pong!!")
-             m.edit({ embeds: [pingEmbed], components: [new MessageActionRow().addComponents([pingButton])] })
-
-      })
-     
-   }
+     components: [new ActionRowBuilder().addComponents(pingButton)],
+     ephemeral: true
+    }).then((m)=>{
+        wait(200)
+        interaction.editReply({ embeds: [pingEmbed], components: [new ActionRowBuilder().addComponents(pingButton.setDisabled(true).setStyle(ButtonStyle.Success).setCustomId("pong").setEmoji("🏓").setLabel("Pong!!"))] })
+    })
+  }
 }
 /**
  * @Info

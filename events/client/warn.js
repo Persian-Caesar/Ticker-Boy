@@ -1,6 +1,5 @@
 let clc = require('cli-color');
 module.exports = (client, error) => {
-    client.on("warn", (info) => console.log(info));
     console.log(clc.redBright(String(error)))
 }
 /**
