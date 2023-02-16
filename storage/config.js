@@ -7,7 +7,6 @@ module.exports = {
         },   
         anti_crash: true,//turn on or off the antiCrash file
         keep_alive: true,//turn on or off the keepAlive file
-        dashboard: false,//turn on or off the bot dashboard website
         port: 1528,//don't need to touch or changed
         callback: '',//you need get your repl.co link in replit with keepAlive code, then replace the link right behind of /callback
         secret: process.env.USER_SECRET_ID,//bot secret id, you can get it in discord developer portal
