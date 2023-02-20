@@ -25,8 +25,7 @@ with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905
 **👌🏻Perfect Help Menu For Members:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076431446048247848/2A313D9B-33C5-40D0-A825-78AB631F9868.jpeg" width = 40% />
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076431520459390986/0B4FACEA-5559-4E9C-A9FB-0BB545CA515C.jpeg" width = 40% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041798984676683876/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_05_20_..png?width=411&height=559" width = 40% />
   </a>
 
 ---
@@ -34,18 +33,16 @@ with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905
 **⚒️Worked With Advanced Button Systems:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076432693207781466/CC3AF727-77B7-482D-857C-29C6CE840100.jpeg" width = 40% />
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076432769372147752/F4367D8C-C04E-4471-AE42-DD1C3804080B.jpeg" width = 40% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799572005064704/Discord___cmd___Persian_Czar_Test_Server_-_Google_Chrome_23_08_1401_11_07_57_..png" width = 40% />
+    <img align="center" src="https://media.discordapp.net/attachments/906230974319300638/1041799783402184797/Captures_23_08_1401_11_09_40_..png" width = 40% />
   </a>
 
 ---
 
-**💻Perfect Dashboard and Easy To Setup:**
+**💻Easy To Setup:**
 
   <a href="http://sobhan.epizy.com">
-    <img align="center" src ="https://cdn.discordapp.com/attachments/940357295051784252/1076431596875427891/31FCF2F6-5457-4872-8D0E-4508069608F4.jpeg" width = 40% />
-    <img align="center" src ="https://cdn.discordapp.com/attachments/940357295051784252/1076431740563898409/DBCECBEE-AAD3-4A3A-AA4D-9FBAC8BBD18F.jpeg" width = 40% />
-    
+    <img align="center" src ="https://media.discordapp.net/attachments/906230974319300638/1056493508929798154/Discord___cmd___Ticker_Boy_Support_-_Google_Chrome_12_25_2022_12_08_39_PM.png?width=411&height=390" width = 40% />
   </a>
 
 </details>
