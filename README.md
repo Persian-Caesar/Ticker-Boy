@@ -63,7 +63,6 @@ for setup your bot, you need put bot secret "Token" in `.env` file and replaced 
 ```js
 PREFIX="PLACE_BOT_PREFIX"
 CLIENT_ID="USER_CLIENT_ID"
-USER_SECRET_ID="USER_SECRET_CLIENT_ID"
 TOKEN="PLACE_BOT_TOKEN"
 ```
 
@@ -87,24 +86,15 @@ if you need so much configuration about the bot you can go in to the `config.js`
 
 Packages  |  Version  |  Install
 ------------- | ------------- | -------------
-[quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^7.1.3  | `npm install quick.db`
-[passport-discord](https://www.npmjs.com/package/passport-discord) | Latest ^0.1.4  | `npm install passport-discord`
-[axios](https://www.npmjs.com/package/axios) | Lastest ^0.27.2 | `npm install axios`
-[body-parser](https://www.npmjs.com/package/body-parser) | Lastest ^1.20.0 | `npm install body-parser`
+[quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^9.0.8  | `npm install quick.db`
 [cli-color](https://www.npmjs.com/package/cli-color) | Lastest ^2.0.2 | `npm install cli-color`
-[cpu-stat](https://www.npmjs.com/package/cpu-stat) | Lastest ^2.0.1 | `npm install cpu-stat`
-[discord.js](https://www.npmjs.com/package/discord.js) | Lastest ^13.7.0 | `npm install discord.js`
+[discord.js](https://www.npmjs.com/package/discord.js) | Lastest ^14.7.1 | `npm install discord.js`
 [dotenv](https://www.npmjs.com/package/dotenv) | Lastest ^16.0.1 | `npm install dotenv`
-[ejs](https://www.npmjs.com/package/ejs) | Lastest ^3.1.8 | `npm install ejs`
 [express](https://www.npmjs.com/package/express) | Lastest ^4.18.1 | `npm install express`
-[express-session](https://www.npmjs.com/package/express-session) | Lastest ^1.17.3 | `npm install express-session`
 [fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
-[memorystore](https://www.npmjs.com/package/memorystore) | Lastest ^1.6.7 | `npm install memorystore`
 [moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
-[ms](https://www.npmjs.com/package/ms) | Lastest ^2.1.3 | `npm install ms`
-[os](https://www.npmjs.com/package/os) | Lastest ^0.1.2 | `npm install os`
-[passport](https://www.npmjs.com/package/passport) | Lastest ^0.6.0 | `npm install passport`
-
+[discord-html-transcripts](https://www.npmjs.com/package/discord-html-transcripts) | Lastest ^3.1.3 | `npm install discord-html-transcripts`
+[better-sqlite3](https://www.npmjs.com/package/better-sqlite3) | Lastest ^8.0.1 | `npm install better-sqlite3`
 
 - if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
