@@ -53,7 +53,7 @@ with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905
 ---
 
 ## 🛠 How Use Bot?
-Use "/help" command to see all commands. It is very easy to set up the bot on your server and it is not difficult at all, first you use the "/setup ticket" command to set up the ticket menu on the server, then you use the "/setup admin" command to set up the responsive admin in the ticket, by giving the necessary access to Your server staff can answer the tickets. To set up log tickets on your server, use the "/setup logs" command so that the bot will automatically inform you and the staff about the ticket information when opening a ticket in the log. (These commands are in demo form and will be rewritten in the future.)
+Use "/help" command to see all commands. It is very easy to set up the bot on your server and it is not difficult at all, first you use the "/ticket setup" command to set up the ticket menu on the server, then you use the "/settings" command to set up the responsive admin in the ticket, by giving the necessary access to Your server staff can answer the tickets. To set up log tickets on your server, use the "/settings" command and select to log and the bot will automatically inform you and the staff about the ticket information when opening a ticket in the log. (These commands are in demo form and will be rewritten in the future.)
 
 ---
 
