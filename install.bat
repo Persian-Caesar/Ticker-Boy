@@ -2,5 +2,5 @@ echo off
 color 1
 cls
 :a
-npm install dotenv discord.js cli-color cpu-stat moment os quick.db fs express
+npm install quick.db cli-color discord.js dotenv express fs moment discord-html-transcripts better-sqlite3
 goto a
