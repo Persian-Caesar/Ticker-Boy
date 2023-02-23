@@ -16,7 +16,7 @@ const clc = require("cli-color");
 module.exports = async (client, interaction) => {
  try {
     let db = client.db;
-    let prefix = await db.has(`guild_${interaction.guild.id}.prefix`)? db.get(`guild_${interaction.guild.id}.prefix`) : client.prefix;
+    let lang = await db.has(`guild_${interaction.guild.id}.language`)? await db.get(`guild_${interaction.guild.id}.language`) : "en-US";
     if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return interaction.user.send({ content: `${client.emotes.off}| I am missing the Permission to \`SendMessages\` in ${interaction.channel}`, ephemeral: true })
     if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.UseExternalEmojis])) 
     return interaction.reply({ content: `${client.emotes.off}| I am missing the Permission to \`UseExternalEmojis\` in ${interaction.channel}`, ephemeral: true })
@@ -75,14 +75,14 @@ module.exports = async (client, interaction) => {
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
         
           //======== Slash Command Handler ========
-          command.run(client, interaction, args, prefix);
+          command.run(client, interaction, args, lang);
        } else {
            return;
        }
      }
      if(interaction.isUserContextMenuCommand()){
         const command = client.Commands.get(interaction.commandName);
-        if(command) command.run(client, interaction, prefix);
+        if(command) command.run(client, interaction, lang);
      }
  }catch(e){
    console.log(e)

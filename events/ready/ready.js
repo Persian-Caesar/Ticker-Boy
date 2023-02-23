@@ -14,7 +14,7 @@ module.exports = async (client) => {
       }else{
         Guilds = Guilds;
       }
-      let Presence = [ "dnd", "idle", "online" ]; //can be: online | dnd | idle | offline
+      let Presence = [ "dnd", "idle" ]; //can be: online | dnd | idle | offline
       let PresencePower = Presence[Math.floor(Math.random() * Presence.length)]
       let Activity = [
         `/help`,
@@ -23,7 +23,7 @@ module.exports = async (client) => {
         `${totalUsers} Users`
       ];
       let ActivityPower = `${Activity[Math.floor(Math.random() * Activity.length)]} | Ticker Boy`;
-      let Display = [ Discord.ActivityType.Watching ]; //can be: Discord.ActivityType.Competing = 5 or	Discord.ActivityType.Custom =	4 or Discord.ActivityType.Listening	= 2 or Discord.ActivityType.Playing =	0 or Discord.ActivityType.Streaming =	1 or Discord.ActivityType.Watching =	3
+      let Display = [ 1, 3 ]; //can be: Discord.ActivityType.Competing = 5 or	Discord.ActivityType.Custom =	4 or Discord.ActivityType.Listening	= 2 or Discord.ActivityType.Playing =	0 or Discord.ActivityType.Streaming =	1 or Discord.ActivityType.Watching =	3
       let DisplayPower = Display[Math.floor(Math.random() * Display.length)];
       let URL = [ `https://www.twitch.tv/sobhan_srza` ];
       let URLPower = URL[Math.floor(Math.random() * URL.length)];

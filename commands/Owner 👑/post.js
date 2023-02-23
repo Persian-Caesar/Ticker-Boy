@@ -160,45 +160,44 @@ module.exports = {
    let timestamp = interaction.options.getBoolean("timestamp");
    let embed = new EmbedBuilder()
    try{
-     
    if(color){
-     embed.setColor(color.toLowerCase().split(' ').map(string => string.charAt(0).toUpperCase() + string.slice(1)).join(''))
+     embed.setColor(`${color}`)
    }
    if(description){
-     embed.setDescription(description)
+     embed.setDescription(`${description}`)
    }
    if(image){
-     embed.setImage(image)
+     embed.setImage(`${image}`)
    }
    if(timestamp === true){
      embed.setTimestamp(new Date())
    }
    if(title){
-     embed.setTitle(title)
+     embed.setTitle(`${title}`)
    }
    if(author_text){
      embed.setAuthor({
-       name: author_text
+       name: `${author_text}`
      })
    }
    if(author_iconURL && author_text){
      embed.setAuthor({
-       iconURL: author_iconURL,
-       name: author_text       
+       iconURL: `${author_iconURL}`,
+       name: `${author_text}`       
      })
    }
    if(footer_text){
      embed.setFooter({
-       text: footer_text
+       text: `${footer_text}`
      })
    }
    if(footer_iconURL && footer_text){
      embed.setFooter({
-       iconURL: footer_iconURL,
-       text: footer_text       
+       iconURL: `${footer_iconURL}`,
+       text: `${footer_text}`
      })
    }
-   let embeds = embed?.description || embed?.title || embed?.author || embed?.footer || embed?.image;
+   let embeds = embed.data.description || embed.data.title || embed.data.author || embed.data.footer || embed.data.image;
    if(embeds && text){
      interaction.reply({
        content: `**✅| successfully post your embed and text in${channel}**`,
@@ -225,42 +224,10 @@ module.exports = {
      content: text
     })
    }else if(!embeds && !text){
-    interaction.reply({
-        embeds: [new EmbedBuilder()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription("```js\nPlese for post some text and embed, you have to fill \"text\" or fill the embed arrays.\n```")
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+    errorMessage(client, interaction, `\`\`\`js\nPlese for post some text or embed, you have to fill \"text\" or fill the embed arrays.\n\`\`\``)
    }
-   }catch (e){
-     interaction.reply({
-          embeds: [new EmbedBuilder()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription(`\`\`\`js\n${e}\n\`\`\``)
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+   }catch(e){
+     errorMessage(client, interaction, `\`\`\`js\n${e}\n\`\`\``)
    }
   }break;
   case "dm":{
@@ -277,9 +244,8 @@ module.exports = {
    let timestamp = interaction.options.getBoolean("timestamp");
    let embed = new EmbedBuilder()
    try{
-     
    if(color){
-     embed.setColor(color.toLowerCase().split(' ').map(string => string.charAt(0).toUpperCase() + string.slice(1)).join(''))
+      embed.setColor(`${color}`)
    }
    if(description){
      embed.setDescription(description)
@@ -315,7 +281,7 @@ module.exports = {
        text: footer_text       
      })
    }
-   let embeds = embed?.description || embed?.title || embed?.author || embed?.footer || embed?.image;
+   let embeds = embed.data.description || embed.data.title || embed.data.author || embed.data.footer || embed.data.image;
    if(embeds && text){
      interaction.reply({
        content: `**✅| successfully post your embed and text in${channel}**`,
@@ -342,46 +308,14 @@ module.exports = {
      content: text
     })
    }else if(!embeds && !text){
-    interaction.reply({
-        embeds: [new EmbedBuilder()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription("```js\nPlese for post some text and embed, you have to fill \"text\" or fill the embed arrays.\n```")
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+    errorMessage(client, interaction, `\`\`\`js\nPlese for post some text or embed, you have to fill \"text\" or fill the embed arrays.\n\`\`\``)
    }
-   }catch (e){
-         interaction.reply({
-        embeds: [new EmbedBuilder()
-               .setAuthor({
-                 name: `Requested by ` + interaction.user.tag,
-                 iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-               })
-               .setTitle('⛔️| **We Got An Error**')
-               .setColor("RED")
-               .setDescription(`\`\`\`js\n${e}\n\`\`\``)
-               .setFooter({
-                 text: "Error • "+client.embed.footerText,
-                 iconURL: interaction.guild.iconURL({ dynamic: true })
-               })
-        ],
-        components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Danger).setLabel("Error").setEmoji("⚠️").setCustomId("error").setDisabled(true))], 
-        ephemeral: true,
-    })
+   }catch(e){
+         errorMessage(client, interaction, `\`\`\`js\n${e}\n\`\`\``)
    }
   }break;
  }
- }catch (e){
+ }catch(e){
          errorMessage(client, interaction, `\`\`\`js\n${e}\n\`\`\``)
    } 
  }
