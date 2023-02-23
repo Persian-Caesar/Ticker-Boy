@@ -2,22 +2,16 @@ const fs = require('fs');
 var clc = require("cli-color");
 module.exports = async (bot) => {
   try{
-    bot.events = new Map();
+    let counter = 0;
     const stringlength = 69;
     fs.readdirSync(`${process.cwd()}/events`).forEach(dirs => {
       const events = fs.readdirSync(`${process.cwd()}/events/${dirs}`).filter(files => files.endsWith('.js'));
       for (const file of events) {
           const event = require(`${process.cwd()}/events/${dirs}/${file}`);
-          bot.events.set(event);
+          counter += 1;
           bot.on(file.split(".")[0], event.bind(null, bot));
       };
   });
-    /*const events = fs.readdirSync(`${process.cwd()}/events`).filter(file => file.endsWith('.js'));
-      for (const file of events) {
-        const event = require(`${process.cwd()}/events/${file}`);
-          bot.events.set(event);
-          bot.on(file.split(".")[0], event.bind(null, bot));
-      };*/
 try {
     console.log("\n")
     console.log(clc.greenBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`))
@@ -45,7 +39,7 @@ try {
     console.log("\n")
     console.log(clc.yellowBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`))
     console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
-    console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.redBright(bot.events.size)} Events Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${bot.events.size} Events Is Loaded!!`.length) + clc.yellowBright("┃"))
+    console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.redBright(counter)} Events Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${counter} Events Is Loaded!!`.length) + clc.yellowBright("┃"))
     console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
     console.log(clc.yellowBright(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`))
     console.log("\n")

@@ -9,6 +9,7 @@ const {
   TextInputStyle,
   ButtonStyle,
   ChannelType,
+  ComponentType,
   ApplicationCommandType,
   ApplicationCommandOptionType
 } = require('discord.js');
@@ -260,8 +261,9 @@ module.exports = {
           components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('ticket_default').setEmoji(client.emotes.system).setLabel("Setup Ticket To Default").setStyle(ButtonStyle.Primary), new ButtonBuilder().setCustomId('ticket_setup_custom').setEmoji(client.emotes.hamer).setLabel("Setup Ticket To Customize").setStyle(ButtonStyle.Success)), new ActionRowBuilder().addComponents([new ButtonBuilder().setStyle(ButtonStyle.Link).setEmoji(client.emotes.help).setLabel("Support").setURL(client.config.discord.server_support)])],
           fetchReply: true
         }).then(async(msg)=>{
-        let collector = await msg.createMessageComponentCollector({ time: 120000 })
-        collector.on('collect', async (collect)=>{
+        let time = 120000;
+        await msg.createMessageComponentCollector({ time: time }).on('collect', async (collect)=>{
+          if(!collect.guild.id === interaction.guild.id) return;
           if(!collect.user.id === interaction.user.id){
             return errorMessage(client, collect, `**${client.emotes.error}| This component only for ${interaction.user} and you can't use it.\nuse "\`</ticket setup:${client.application.commands.cache.find(c => c.name === "ticket").id}>\`" for setup the ticket system**`)
           }
@@ -292,8 +294,11 @@ module.exports = {
               })
             }
           }
-        })
-        client.on('interactionCreate', async (collect)=>{
+          })
+        await interaction.awaitModalSubmit({ time: time }).then(async(collect)=>{
+            try{
+              if(!collect.guild.id === interaction.guild.id) return;
+          if(!collect.user.id === interaction.user.id) return errorMessage(client, collect, `This message only for ${collect.user} and you can't use it.`)
       if(collect.isModalSubmit()){
         if(collect.customId === 'ticket_modal'){
           let title = collect.fields.getTextInputValue('ticket_title')
@@ -303,21 +308,10 @@ module.exports = {
           let button_emoji = collect.fields.getTextInputValue('ticket_button_emoji')
           let embed = new EmbedBuilder()
           let button = new ButtonBuilder().setCustomId('create_ticket').setStyle(ButtonStyle.Success)
-          if(button_name){
-            button.setLabel(`${button_name}`)
-          }else{
-            button.setLabel("Create Ticket")
-          }
-          if(button_emoji){
-            button.setEmoji(`${button_emoji}`)
-          }else{
-            button.setEmoji(client.emotes.ticket)
-          }
-          if(color){
-            embed.setColor(`${color}`)
-          }else{
-            embed.setColor(client.colors.none)
-          }
+          button.setLabel(`${button_name? button_name : "Create Ticket"}`)
+          button.setEmoji(`${button_emoji? button_emoji : client.emotes.ticket}`)
+          embed.setColor(`${color? color : client.colors.none}`)
+          
           if(description){
             embed.setDescription(description)
           }
@@ -334,12 +328,16 @@ module.exports = {
           })
          }
         }
+              
+              }catch(e){
+           //errorMessage(client, collect, `\`\`\`js\n${e}\n\`\`\``)
+         }
         })
-        collector.on('end', (collect)=>{
+        setTimeout(()=>{
           interaction.editReply({
             components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('timeout').setEmoji(client.emotes.alert).setLabel('Time Is Up').setStyle(ButtonStyle.Primary).setDisabled(true)).addComponents(new ButtonBuilder().setStyle(ButtonStyle.Secondary).setLabel('Report').setEmoji(client.emotes.report).setCustomId(`report`), new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel('Support').setEmoji(client.emotes.help).setURL(`${client.config.discord.server_support}`))]
           })
-        })
+        }, time)
         })
       }break;
     }

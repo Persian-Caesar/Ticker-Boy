@@ -22,7 +22,7 @@ const client = new Client({
     ws:{
         properties: {
             browser: "Discord Android",//Discord Web | Discord Android | Discord Ios | Discord Client
-            os: "Android"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
+            os: "Linux"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
         },
     },
 });
@@ -33,23 +33,24 @@ client.token = client.config.discord.token;
 client.emotes = require(`${process.cwd()}/storage/emotes.json`);
 client.colors = require(`${process.cwd()}/storage/colors.json`);
 client.embed = require(`${process.cwd()}/storage/embed.json`);
+client.findlang = require(`${process.cwd()}/storage/languages.json`);
 client.categories = fs.readdirSync(`${process.cwd()}/commands`);
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
 //======== Loading Starts =========
 var starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
-let start = new Map();
+let counter = 0;
 starts.forEach((file) => {
   require(`${process.cwd()}/start/${file}`)(client);
-  start.set(file);
+  counter += 1;
 });
 try {
   const stringlength = 69;
   console.log("\n")
   console.log(clc.yellowBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`))
   console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
-  console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.magentaBright(start.size)} Starts Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${start.size} Starts Is Loaded!!`.length) + clc.yellowBright("┃"))
+  console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.magentaBright(counter)} Starts Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${counter} Starts Is Loaded!!`.length) + clc.yellowBright("┃"))
   console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
   console.log(clc.yellowBright(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`))
   console.log("\n")
