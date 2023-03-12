@@ -144,7 +144,7 @@ module.exports = {
 
  run: async (client, interaction) => {
   try{
-     if(!client.config.owner.some(r => r.includes(interaction.user.id))) return errorMessage(client, interac`> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
+     if(!client.config.owner.some(r => r.includes(interaction.user.id))) return errorMessage(client, interaction, `> You are not allowed to run this Command\n\n> **You need to be one of those guys: ${client.config.owner.map(id => `<@${id}>`)}**`)
  switch (interaction.options.getSubcommand()) {
   case "channel": {
    let text = interaction.options.getString("text");
