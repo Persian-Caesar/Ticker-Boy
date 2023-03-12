@@ -167,7 +167,7 @@ module.exports = {
             embeds: [new EmbedBuilder().setAuthor({ name: `Requested by ` + interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) }).setTitle(client.emotes.rename + '| **Request To Change Ticket Name**').setColor(client.colors.none).setDescription("are you sure to change your ticket channel name??").setFooter({ text: "Change Name • " + client.embed.footerText, iconURL: interaction.guild.iconURL({ dynamic: true }) })],
             components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle(ButtonStyle.Success).setEmoji(client.emotes.rename).setLabel("Change Name").setCustomId("renameTicketTrue"), new ButtonStyle().setStyle(ButtonStyle.Danger).setEmoji(client.emotes.x).setLabel("Cancel").setCustomId("cancel"))]
           })
-          await db.set(`guild_${message.guild.id}.ticket.rename_${message.channel.id}`, ticketName)
+          await db.set(`guild_${interaction.guild.id}.ticket.rename_${interaction.channel.id}`, ticketName)
           interaction.reply({
             embeds: [embed],
             components: [button]
@@ -176,7 +176,7 @@ module.exports = {
             interaction.editReply({
               components: [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('timeout').setEmoji(client.emotes.alert).setLabel('Time Is Up').setStyle(ButtonStyle.Primary).setDisabled(true))]
             })
-            await db.delete(`guild_${message.guild.id}.ticket.rename_${message.channel.id}`)
+            await db.delete(`guild_${interaction.guild.id}.ticket.rename_${interaction.channel.id}`)
           }, 60 * 1000)
         } else {
           return errorMessage(client, interaction, `**My Friend, here is not a ticket channel please use this command in other channel**`)
