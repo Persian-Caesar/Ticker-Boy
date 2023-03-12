@@ -17,9 +17,9 @@ module.exports = async (client, interaction) => {
  try {
     let db = client.db;
     let lang = await db.has(`guild_${interaction.guild.id}.language`)? await db.get(`guild_${interaction.guild.id}.language`) : "en-US";
-    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return interaction.user.send({ content: `${client.emotes.off}| I am missing the Permission to \`SendMessages\` in ${interaction.channel}`, ephemeral: true })
+    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return interaction.user.send({ content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${interaction.channel}`, ephemeral: true })
     if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.UseExternalEmojis])) 
-    return interaction.reply({ content: `${client.emotes.off}| I am missing the Permission to \`UseExternalEmojis\` in ${interaction.channel}`, ephemeral: true })
+    return interaction.reply({ content: `${client.emotes.error}| I am missing the Permission to \`UseExternalEmojis\` in ${interaction.channel}`, ephemeral: true })
     if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.EmbedLinks])) 
     return interaction.reply({ content: `${client.emotes.error}| I am missing the Permission to \`EmbedLinks\` in ${interaction.channel}`, ephemeral: true })
      if(interaction.isCommand()){
