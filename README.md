@@ -121,6 +121,10 @@ that was so easy, after you click that buttons👇🏻 you will create some proj
 </p>
 </details>
 
+<details><summary> How install bot on our pc? </summary>
+https://user-images.githubusercontent.com/90289153/234234956-c9a32292-c1a6-4585-8075-8849d23cc5e8.mp4
+</details>
+
 ---
 
 # **📫 Contact me in :** &nbsp;
