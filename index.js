@@ -2,7 +2,8 @@
 require('dotenv').config()
 const { 
   Client, 
-  Collection 
+  Collection,
+  IntentsBitField
 } = require('discord.js');
 const { 
   QuickDB 
@@ -13,7 +14,15 @@ const clc = require("cli-color");
 const fs = require('fs');
 const client = new Client({
     restRequestTimeout: 120000,
-    intents: 32767, // 32767 == full intents, calculated from intent calculator 
+    intents: new IntentsBitField(32767),
+    partials: [
+       Partials.Message,
+       Partials.Channel,
+       Partials.Reaction,
+       Partials.User,
+       Partials.GuildMember,
+       Partials.ThreadMember
+    ],
     shards: 'auto',
     allowedMentions: {
       parse: ["roles", "users", "everyone"],//mentions disable
