@@ -13,17 +13,15 @@ const {
 } = require(`${process.cwd()}/functions/functions`);
 module.exports = async (client, message) => {
 let db = client.db;
-//======== Command for shows the prefix ========
-    if (message.author.bot || !message.guild) return;//a direct message between users
-
+if (message.author.bot || !message.guild) return;//a direct message between users
 //=========== Help Menu With Mention Bot
-    let contents = [
-      `<@!${client.user.id}>`,
-      `<@${client.user.id}>`
-    ];
-    if (contents.includes(message.content)) {
+let contents = [
+  `<@!${client.user.id}>`,
+  `<@${client.user.id}>`
+];
+if (contents.includes(message.content)) {
   //============ Check Perm
-      if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return message.author.send({content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${message.channel}`,});
+  if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return message.author.send({content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${message.channel}`,});
   if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.UseExternalEmojis]))  return message.reply({content: `${client.emotes.error}| I am missing the Permission to \`UseExternalEmojis\` in ${message.channel}`});
   if(!message.channel.permissionsFor(message.guild.members.me).has([PermissionsBitField.Flags.EmbedLinks])) return message.reply({ content: `${client.emotes.error}| I am missing the Permission to \`EmbedLinks\` in ${message.channel}` });
       
