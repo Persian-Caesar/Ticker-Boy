@@ -16,12 +16,8 @@ const clc = require("cli-color");
 module.exports = async (client, interaction) => {
  try {
     let db = client.db;
-    let lang = await db.has(`guild_${interaction.guild.id}.language`)? await db.get(`guild_${interaction.guild.id}.language`) : "en-US";
-    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return interaction.user.send({ content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${interaction.channel}`, ephemeral: true })
-    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.UseExternalEmojis])) 
-    return interaction.reply({ content: `${client.emotes.error}| I am missing the Permission to \`UseExternalEmojis\` in ${interaction.channel}`, ephemeral: true })
-    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.EmbedLinks])) 
-    return interaction.reply({ content: `${client.emotes.error}| I am missing the Permission to \`EmbedLinks\` in ${interaction.channel}`, ephemeral: true })
+    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.SendMessages])) return interaction.user.send({ content: `${client.emotes.error}| I am missing the Permission to \`SendMessages\` in ${interaction.channel}`, ephemeral: true });
+    if(!interaction.channel.permissionsFor(interaction.guild.members.me).has([PermissionsBitField.Flags.EmbedLinks])) return interaction.reply({ content: `${client.emotes.error}| I am missing the Permission to \`EmbedLinks\` in ${interaction.channel}`, ephemeral: true });
      if(interaction.isCommand()){
       const command = client.commands.get(interaction.commandName);
       if (command){
@@ -37,10 +33,7 @@ module.exports = async (client, interaction) => {
             }
             if (command.toggleOff) {
                     return await interaction.reply({
-                        embeds: [new EmbedBuilder()
-                            .setTitle(`${client.emotes.badage}| **That Command Has Been Disabled By The Developers! Please Try Later.**`)
-                            .setColor(client.colors.red)
-                        ],
+                        embeds: [new EmbedBuilder().setTitle(`${client.emotes.badage}| **That Command Has Been Disabled By The Developers! Please Try Later.**`).setColor(client.colors.red)],
                         ephemeral: true
                     }).catch((e) => {
                         console.log(e)
@@ -50,8 +43,7 @@ module.exports = async (client, interaction) => {
             command.botPermissions.forEach(perm=> bot_perms.push(PermissionsBitField.Flags[perm]))
             let user_perms = [];
             command.userPermissions.forEach(perm=> user_perms.push(PermissionsBitField.Flags[perm]))
-            if (!interaction.guild.members.me.permissions.has([bot_perms] || [])) return await interaction.reply({                    embeds: [new EmbedBuilder().setDescription(`${client.emotes.x}| **I don't have permission to respond </${client.application.commands.cache.find(c => c.name === command.name).name}:${client.application.commands.cache.find(c => c.name === command.name).id}> command!! \nPermissions need: [${command.botPermissions.map(p=> `\`${p}\``).join(" , ")}]**`).setColor(client.colors.orange)], ephemeral: true   }).catch((e) => { console.log(e) });
-
+            if (!interaction.guild.members.me.permissions.has([bot_perms] || [])) return await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`${client.emotes.x}| **I don't have permission to respond </${client.application.commands.cache.find(c => c.name === command.name).name}:${client.application.commands.cache.find(c => c.name === command.name).id}> command!! \nPermissions need: [${command.botPermissions.map(p=> `\`${p}\``).join(" , ")}]**`).setColor(client.colors.orange)], ephemeral: true   }).catch((e) => { console.log(e) });
             if (!interaction.member.permissions.has([user_perms] || [])) return await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`${client.emotes.error}| **You don't have  permission to use </${client.application.commands.cache.find(c => c.name === command.name).name}:${client.application.commands.cache.find(c => c.name === command.name).id}> command!! \nPermissions need: [${command.userPermissions.map(p=> `\`${p}\``).join(" , ")}]**`).setColor(client.colors.red)], ephemeral: true }).catch((e) => { console.log(e) });
         
             //======== Slash Command Cooldown ========
@@ -75,14 +67,14 @@ module.exports = async (client, interaction) => {
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
         
           //======== Slash Command Handler ========
-          command.run(client, interaction, args, lang);
+          command.run(client, interaction, args);
        } else {
            return;
        }
      }
      if(interaction.isUserContextMenuCommand()){
         const command = client.Commands.get(interaction.commandName);
-        if(command) command.run(client, interaction, lang);
+        if(command) command.run(client, interaction);
      }
  }catch(e){
    console.log(e)
