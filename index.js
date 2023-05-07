@@ -2,18 +2,25 @@
 require('dotenv').config()
 const { 
   Client, 
-  Collection 
+  Collection,
+  IntentsBitField
 } = require('discord.js');
 const { 
   QuickDB 
 } = require(`quick.db`);
-const db = new QuickDB({});
+const db = new QuickDB();
 const config = require(`${process.cwd()}/storage/config.js`);
 const clc = require("cli-color");
 const fs = require('fs');
 const client = new Client({
-    restRequestTimeout: 120000,
-    intents: 32767, // 32767 == full intents, calculated from intent calculator 
+    restRequestTimeout: 15000,
+    intents: new IntentsBitField(32767),
+    partials: [
+       Partials.Message,
+       Partials.Channel,
+       Partials.User,
+       Partials.GuildMember
+    ],
     shards: 'auto',
     allowedMentions: {
       parse: ["roles", "users", "everyone"],//mentions disable
@@ -33,7 +40,6 @@ client.token = client.config.discord.token;
 client.emotes = require(`${process.cwd()}/storage/emotes.json`);
 client.colors = require(`${process.cwd()}/storage/colors.json`);
 client.embed = require(`${process.cwd()}/storage/embed.json`);
-client.findlang = require(`${process.cwd()}/storage/languages.json`);
 client.categories = fs.readdirSync(`${process.cwd()}/commands`);
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -59,7 +65,7 @@ try {
 //======== Consol ========
 if(client.token){
     client.login(client.token).catch(e => {
-     console.log(clc.red("The Bot Token You Entered Into Your Project Is Incorrect Or Your Bot's INTENTS Are OFF!\n"))
+     console.log(clc.red("The Bot Token You Entered Into Your Project Is Incorrect Or Your Bot's INTENTS Are OFF!\n" + e))
    })
   } else {
    console.log(clc.red("Please Write Your Bot Token Opposite The Token In The config.js File In Your Project!"))   
@@ -68,7 +74,7 @@ if(client.token){
 //========== Replit Alive
 setInterval(() => {
      if(!client || !client.user) {
-      client.logger("The Client Didn't Login Proccesing Kill 1")
+        client.logger("The Client Didn't Login Proccesing Kill 1")
         process.kill(1);
     } else {
    }
