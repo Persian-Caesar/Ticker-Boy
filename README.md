@@ -94,7 +94,7 @@ Packages  |  Version  |  Install
 [fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
 [moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
 [discord-html-transcripts](https://www.npmjs.com/package/discord-html-transcripts) | Lastest ^3.1.3 | `npm install discord-html-transcripts`
-[better-sqlite3](https://www.npmjs.com/package/better-sqlite3) | Lastest ^8.0.1 | `npm install better-sqlite3`
+[write-file-atomic](https://www.npmjs.com/package/write-file-atomic) | Lastest ^8.0.1 | `npm install write-file-atomic`
 
 - if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
 
