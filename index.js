@@ -6,12 +6,15 @@ const {
   IntentsBitField
 } = require('discord.js');
 const { 
-  QuickDB 
+  QuickDB,
+  JSONDriver
 } = require(`quick.db`);
-const db = new QuickDB();
 const config = require(`${process.cwd()}/storage/config.js`);
 const clc = require("cli-color");
 const fs = require('fs');
+const db = new QuickDB({ 
+  driver: new JSONDriver() 
+});
 const client = new Client({
     restRequestTimeout: 15000,
     intents: new IntentsBitField(32767),
@@ -45,14 +48,14 @@ client.commands = new Collection();
 client.cooldowns = new Collection();
 
 //======== Loading Starts =========
-var starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
+let starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
 let counter = 0;
+let stringlength = 69;
 starts.forEach((file) => {
   require(`${process.cwd()}/start/${file}`)(client);
   counter += 1;
 });
 try {
-  const stringlength = 69;
   console.log("\n")
   console.log(clc.yellowBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`))
   console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
