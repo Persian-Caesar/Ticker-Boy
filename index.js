@@ -3,7 +3,8 @@ require('dotenv').config()
 const { 
   Client, 
   Collection,
-  IntentsBitField
+  IntentsBitField,
+  Partials
 } = require('discord.js');
 const { 
   QuickDB,
