@@ -33,7 +33,7 @@ const client = new Client({
     ws:{
         properties: {
             browser: "Discord Android",//Discord Web | Discord Android | Discord Ios | Discord Client
-            os: "Linux"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
+            os: "Android"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
         },
     },
 });
