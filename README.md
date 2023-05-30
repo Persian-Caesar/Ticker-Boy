@@ -1,11 +1,11 @@
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
-  <a href="https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975">
-    <img align="right" src = "https://cdn.discordapp.com/avatars/905297556836343849/0b1cd53d9c7d499861a5c138b6e80403.webp?size=4096" width=25% >
-  </a>
+<a href="https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441">
+    <img align="right" src = "https://cdn.discordapp.com/avatars/1101868490308198421/ff53f09c6e286fce2b3ab978a89998a7.webp?size=4096" width=25% >
+</a>
 
 Hi👋🏻
 
-I'm **[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)🎟**
+I'm **[Ticker Boy](https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441)🎟**
 
 With my help, you can create a completely professional ticket system in your Discord server⚙️
 
@@ -15,7 +15,7 @@ By adding me to your server, experience a better and new ticket system 🫂❤�
 
 Ticker Boy writes and Coded With Love❤️ and so much works❤️‍🔥
 
-with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=905297556836343849&scope=bot+applications.commands&permissions=2080374975)"** you can help us to make so many bots in future🫂.   
+with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
 
 <details><summary> some example images about the bot📌 </summary>
 
