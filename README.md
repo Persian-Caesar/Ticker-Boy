@@ -1,4 +1,25 @@
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
+
+<div align="center">
+    <img src="https://img.shields.io/github/package-json/v/Persian-Caesar/Ticker-Boy?label=Version">
+    <div>
+        <img src="https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License">
+        <img src="https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last Commit">
+        <img src="https://img.shields.io/github/release-date/Persian-Caesar/Ticker-Boy?label=Last Release">
+        <img src="https://img.shields.io/github/downloads/Persian-Caesar/Ticker-Boy/total?label=Downloads">
+    </div>
+    <img src="https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?label=Forks">
+    <img src="https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?label=Stars">
+    <img src="https://img.shields.io/github/watchers/Persian-Caesar/Ticker-Boy?label=Watchers">
+    <img src="https://img.shields.io/github/languages/code-size/Persian-Caesar/Ticker-Boy?label=Code Size">
+    <img src="https://img.shields.io/github/directory-file-count/Persian-Caesar/Ticker-Boy?label=Files">
+    <div>
+        <img style="display:block;margin-left:auto;margin-right:auto;width:30%;" src="https://github-readme-stats.vercel.app/api/pin/?username=Persian-Caesar&repo=Ticker-Boy&theme=react">
+    </div>
+</div>
+
+---
+
 <a href="https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441">
     <img align="right" src = "https://cdn.discordapp.com/avatars/1101868490308198421/ff53f09c6e286fce2b3ab978a89998a7.webp?size=4096" width=25% >
 </a>
@@ -54,6 +75,10 @@ with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=110
 
 ## 🛠 How Use Bot?
 Use "/help" command to see all commands. It is very easy to set up the bot on your server and it is not difficult at all, first you use the "/ticket setup" command to set up the ticket menu on the server, then you use the "/settings" command to set up the responsive admin in the ticket, by giving the necessary access to Your server staff can answer the tickets. To set up log tickets on your server, use the "/settings" command and select to log and the bot will automatically inform you and the staff about the ticket information when opening a ticket in the log. (These commands are in demo form and will be rewritten in the future.)
+
+---
+
+![Made with node.js](https://badges.aleen42.com/src/node.svg) | ![Stars](https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?style=flat-square) | ![Forks](https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?style=flat-square)
 
 ---
 
