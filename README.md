@@ -1,7 +1,8 @@
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
 
 <div align="center">
-    <img src="https://img.shields.io/github/package-json/v/Persian-Caesar/Ticker-Boy?label=Version">
+    <img src="https://badges.aleen42.com/src/node.svg">
+    <img src="https://img.shields.io/github/v/release/Persian-Caesar/Ticker-Boy?label=Version">
     <div>
         <img src="https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License">
         <img src="https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last Commit">
