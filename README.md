@@ -79,10 +79,6 @@ Use "/help" command to see all commands. It is very easy to set up the bot on yo
 
 ---
 
-![Made with node.js](https://badges.aleen42.com/src/node.svg) | ![Stars](https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?style=flat-square) | ![Forks](https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?style=flat-square)
-
----
-
 ## 🍴 How Install?
 
 for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
