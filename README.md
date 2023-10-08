@@ -1,3 +1,5 @@
+# New version of source will be publish if all of source star is became: `100`
+
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
 
 <div align="center">
