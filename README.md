@@ -29,7 +29,7 @@
 
 Hi👋🏻
 
-I'm **[Ticker Boy](https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441)🎟**
+I'm **[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1101868490308198421&redirect_uri=https://discord.gg/P4XxUmebDa&response_type=code&&permissions=395674250441)🎟**
 
 With my help, you can create a completely professional ticket system in your Discord server⚙️
 
@@ -39,7 +39,7 @@ By adding me to your server, experience a better and new ticket system 🫂❤�
 
 Ticker Boy writes and Coded With Love❤️ and so much works❤️‍🔥
 
-with inviting **"[Ticker Boy](https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
+with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1101868490308198421&redirect_uri=https://discord.gg/P4XxUmebDa&response_type=code&&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
 
 <details><summary> some example images about the bot📌 </summary>
 
