@@ -23,13 +23,13 @@
 
 ---
 
-<a href="https://discord.com/oauth2/authorize?client_id=1101868490308198421&scope=bot+applications.commands&permissions=395674250441">
+<a href="https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441">
     <img align="right" src = "https://cdn.discordapp.com/avatars/1101868490308198421/ff53f09c6e286fce2b3ab978a89998a7.webp?size=4096" width=25% >
 </a>
 
 Hi👋🏻
 
-I'm **[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1101868490308198421&redirect_uri=https://discord.gg/P4XxUmebDa&response_type=code&&permissions=395674250441)🎟**
+I'm **[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441)🎟**
 
 With my help, you can create a completely professional ticket system in your Discord server⚙️
 
@@ -39,7 +39,7 @@ By adding me to your server, experience a better and new ticket system 🫂❤�
 
 Ticker Boy writes and Coded With Love❤️ and so much works❤️‍🔥
 
-with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1101868490308198421&redirect_uri=https://discord.gg/P4XxUmebDa&response_type=code&&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
+with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
 
 <details><summary> some example images about the bot📌 </summary>
 
@@ -98,7 +98,7 @@ if you need so much configuration about the bot you can go in to the `config.js`
         token: process.env.TOKEN,//please don't touch 
         prefix: process.env.PREFIX,//please don't touch 
         invite: `https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975`,//please don't touch 
-        server_support: "https://discord.gg/at5Q72HNAx",//you can changed it
+        server_support: "https://discord.gg/AfkuXgCKAQ",//you can changed it
         server_id: "912596015075455016",//you can changed it
         server_channel_report: "988020418612961322",//you can changed it
         server_channel_status: "988020102186303608",//you can changed it     
@@ -177,7 +177,7 @@ that was so easy, after you click that buttons👇🏻 you will create some proj
   </a>
 </p>
 <p align="left">
-  <a href="https://discord.gg/P4XxUmebDa" target="_blank"> 
+  <a href="https://discord.gg/AfkuXgCKAQ" target="_blank"> 
     <img src="https://discord.com/api/guilds/1054814674979409940/widget.png?style=banner2" alt="pc-development.png">
   </a>
 </p>
