@@ -1,4 +1,4 @@
-# New version of source will be publish if all of source star is became: `100`
+![bandicam_2024-05-18_00-00-24-376](https://github.com/user-attachments/assets/802cce8b-1f53-47c5-95cb-06f81367f43e)# New version of source will be publish if all of source star is became: `100`
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
 
@@ -49,17 +49,16 @@ with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot
 **👌🏻Perfect Help Menu For Members:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076431446048247848/2A313D9B-33C5-40D0-A825-78AB631F9868.jpeg" width = 40% />
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076431520459390986/0B4FACEA-5559-4E9C-A9FB-0BB545CA515C.jpeg" width = 40% />
-  </a>
+    <img align="center" src="https://github.com/user-attachments/assets/b4ab4e87-4b25-41db-9fbc-8e1b8b34cbd2" width = 40% />
+    <img align="center" src="https://github.com/user-attachments/assets/17bc7335-73e3-4663-a04d-fb72f7bd9181" width = 40% />
+ </a>
 
 ---
 
 **⚒️Worked With Advanced Button Systems:**
 
   <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076432693207781466/CC3AF727-77B7-482D-857C-29C6CE840100.jpeg" width = 40% />
-    <img align="center" src="https://cdn.discordapp.com/attachments/940357295051784252/1076432769372147752/F4367D8C-C04E-4471-AE42-DD1C3804080B.jpeg" width = 40% />
+    <img align="center" src="https://github.com/user-attachments/assets/2360b080-492d-47fa-8ac9-2c2b3ecfb7dc" width = 40% />
   </a>
 
 ---
@@ -67,9 +66,8 @@ with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot
 **💻Perfect Dashboard and Easy To Setup:**
 
   <a href="http://sobhan.epizy.com">
-    <img align="center" src ="https://cdn.discordapp.com/attachments/940357295051784252/1076431596875427891/31FCF2F6-5457-4872-8D0E-4508069608F4.jpeg" width = 40% />
-    <img align="center" src ="https://cdn.discordapp.com/attachments/940357295051784252/1076431740563898409/DBCECBEE-AAD3-4A3A-AA4D-9FBAC8BBD18F.jpeg" width = 40% />
-    
+<img align="center" src="https://github.com/user-attachments/assets/f52340be-7358-4f90-b7dd-1b91e7820d8b" width = 40% />
+    <img align="center" src="https://github.com/user-attachments/assets/7588b4b1-6ff4-44c1-8d0a-4bba1de5a3ed" width = 40% />    
   </a>
 
 </details>
