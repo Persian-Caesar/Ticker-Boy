@@ -1,4 +1,4 @@
-![bandicam_2024-05-18_00-00-24-376](https://github.com/user-attachments/assets/802cce8b-1f53-47c5-95cb-06f81367f43e)# New version of source will be publish if all of source star is became: `100`
+# New version of source will be publish if all of source star is became: `100`
 
 ## 🎫 Ticker Boy Source (advanced ticket system🎟)
 
