@@ -10,7 +10,6 @@
         <img src="https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License">
         <img src="https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last Commit">
         <img src="https://img.shields.io/github/release-date/Persian-Caesar/Ticker-Boy?label=Last Release">
-        <img src="https://img.shields.io/github/downloads/Persian-Caesar/Ticker-Boy/total?label=Downloads">
     </div>
     <img src="https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?label=Forks">
     <img src="https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?label=Stars">
