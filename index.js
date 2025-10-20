@@ -1,94 +1,128 @@
-//======== Packages ========
-require('dotenv').config()
-const { 
-  Client, 
-  Collection,
-  IntentsBitField,
-  Partials
-} = require('discord.js');
-const { 
-  QuickDB,
-  JSONDriver
-} = require(`quick.db`);
-const config = require(`${process.cwd()}/storage/config.js`);
-const clc = require("cli-color");
-const fs = require('fs');
-const db = new QuickDB({ 
-  driver: new JSONDriver() 
-});
-const client = new Client({
-    restRequestTimeout: 15000,
-    intents: new IntentsBitField(32767),
-    partials: [
-       Partials.Message,
-       Partials.Channel,
-       Partials.User,
-       Partials.GuildMember
+/**
+ * @license
+  BSD 3-Clause License
+
+  Copyright (c) 2021-2025, the respective contributors, as shown by Persian Caesar and Sobhan.SRZA (mr.sinre) file.
+
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+  * Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+// Packages
+require("dotenv").config();
+const
+  {
+    Client,
+    Collection,
+    GatewayIntentBits,
+    Partials
+  } = require("discord.js"),
+  clc = require("cli-color"),
+  fs = require("fs"),
+  data = require("./package.json"),
+  error = require("./src/functions/error.js"),
+  post = require("./src/functions/post.js"),
+  handle = fs.readdirSync("./src/handlers")
+    .filter(file => file.endsWith(".js")),
+
+  client = new Client({
+    intents: [
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.MessageContent
     ],
-    shards: 'auto',
-    allowedMentions: {
-      parse: ["roles", "users", "everyone"],//mentions disable
-      repliedUser: false,//disable mention in replying messages
-    },
-    ws:{
-        properties: {
-            browser: "Discord Android",//Discord Web | Discord Android | Discord Ios | Discord Client
-            os: "Android"//Other | Android | iOS | TempleOS | Linux | Mac OS X | Windows
-        },
-    },
-});
-client.db = db;
-client.config = config;
+    partials: [
+      Partials.Message,
+      Partials.Channel,
+      Partials.Reaction,
+      Partials.User,
+      Partials.GuildMember,
+      Partials.ThreadMember
+    ]
+  });
+
+client.config = require("./config");
 client.prefix = client.config.discord.prefix;
 client.token = client.config.discord.token;
-client.emotes = require(`${process.cwd()}/storage/emotes.json`);
-client.colors = require(`${process.cwd()}/storage/colors.json`);
-client.embed = require(`${process.cwd()}/storage/embed.json`);
-client.categories = fs.readdirSync(`${process.cwd()}/commands`);
+client.colors = require("./src/storage/colors.json");
+client.embed = require("./src/storage/embed.json");
+client.emotes = require("./src/storage/emotes.json").theme;
+client.findlang = require("./src/storage/languages.json");
+client.categories = fs.readdirSync("./src/commands");
 client.commands = new Collection();
 client.cooldowns = new Collection();
+client.languages = {};
+const languages = fs.readdirSync("./src/locales");
+for (const language of languages.filter(file => file.endsWith(".json"))) {
+  client.languages[`${language.split(".json").join("")}`] = require(`./src/locales/${language}`);
+};
+Object.freeze(client.languages);
 
-//======== Loading Starts =========
-let starts = fs.readdirSync(`${process.cwd()}/start`).filter(file => file.endsWith('.js'));
-let counter = 0;
-let stringlength = 69;
-starts.forEach((file) => {
-  require(`${process.cwd()}/start/${file}`)(client);
-  counter += 1;
+// Load Handlers 
+let amount = 0;
+post(
+  clc.cyanBright(`Welcome to ${clc.blueBright(data.name)}! | Version: ${clc.blueBright(data.version)}`) + "\n" +
+  `Coded By ${clc.yellow("Sobhan-SRZA")} & ${clc.yellow("Persian Caesar")} With ${clc.redBright("❤️")}` + "\n" +
+  `Discord: ${clc.blueBright("Mr.Sinre")} | ${clc.blueBright("mr.sinre")} | ${clc.blueBright("https://dsc.gg/persian-caesar")}`,
+  "W",
+  "magentaBright",
+  "cyanBright"
+);
+post(`Logging into the BOT...`, "S", "yellowBright", "greenBright");
+handle.forEach((file) => {
+  require(`./src/handlers/${file}`)(client);
+  amount += 1;
 });
-try {
-  console.log("\n")
-  console.log(clc.yellowBright(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`))
-  console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
-  console.log(clc.yellowBright(`     ┃ `) + clc.greenBright(`                   ${clc.magentaBright(counter)} Starts Is Loaded!!`) + " ".repeat(-1 + stringlength - ` ┃ `.length - `                   ${counter} Starts Is Loaded!!`.length) + clc.yellowBright("┃"))
-  console.log(clc.yellowBright(`     ┃ `) + " ".repeat(-1 + stringlength - ` ┃ `.length) + clc.yellowBright("┃"))
-  console.log(clc.yellowBright(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`))
-  console.log("\n")
-} catch { /* */ }
+post(`${clc.cyanBright(amount)} Handler Is Loaded!!`, "S", "yellowBright", "greenBright");
 
-//======== Consol ========
-if(client.token){
-    client.login(client.token).catch(e => {
-     console.log(clc.red("The Bot Token You Entered Into Your Project Is Incorrect Or Your Bot's INTENTS Are OFF!\n" + e))
-   })
-  } else {
-   console.log(clc.red("Please Write Your Bot Token Opposite The Token In The config.js File In Your Project!"))   
-  }
+// Login 
+if (client.token) {
+  client.login(client.token).catch(e => {
+    post("The Bot Token You Entered Into Your Project Is Incorrect Or Your Bot's INTENTS Are OFF!!", "E", "red", "redBright");
+    error(e);
+  });
+} else {
+  post("Please Write Your Bot Token Opposite The Token In The config.js File In Your Project!!", "E", "red", "redBright");
+};
 
-//========== Replit Alive
-setInterval(() => {
-     if(!client || !client.user) {
-        client.logger("The Client Didn't Login Proccesing Kill 1")
-        process.kill(1);
-    } else {
-   }
-}, 10000); 
+// Anti Crash
+if (client.config.source.anti_crash) {
+  process.on("unhandledRejection", (reason) => error(reason));
+  process.on("rejectionHandled", (promise) => error(promise));
+  process.on("uncaughtException", (e) => error(e));
+  process.on("uncaughtExceptionMonitor", (e) => error(e));
+};
 /**
- * @Info
- * Bot Coded by Mr.SIN RE#1528 :) | https://dsc.gg/persian-caesar
- * @Info
+ * @copyright
+ * Coded by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA
+ * @copyright
  * Work for Persian Caesar | https://dsc.gg/persian-caesar
- * @Info
+ * @copyright
  * Please Mention Us "Persian Caesar", When Have Problem With Using This Code!
- * @Info
- */
+ * @copyright
+*/
