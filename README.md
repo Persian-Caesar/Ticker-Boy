@@ -1,156 +1,394 @@
-## 🎫 Ticker Boy Source (advanced ticket system🎟)
+# 🎫 **Ticker Boy** - Advanced Discord Ticket System Bot
 
 <div align="center">
-    <img src="https://badges.aleen42.com/src/npm.svg">
-    <img src="https://badges.aleen42.com/src/node.svg">
-    <img src="https://badges.aleen42.com/src/javascript.svg">
-    <img src="https://img.shields.io/github/v/release/Persian-Caesar/Ticker-Boy?label=Version">
-    <div>
-        <img src="https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License">
-        <img src="https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last Commit">
-        <img src="https://img.shields.io/github/release-date/Persian-Caesar/Ticker-Boy?label=Last Release">
-    </div>
-    <img src="https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?label=Forks">
-    <img src="https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?label=Stars">
-    <img src="https://img.shields.io/github/watchers/Persian-Caesar/Ticker-Boy?label=Watchers">
-    <img src="https://img.shields.io/github/languages/code-size/Persian-Caesar/Ticker-Boy?label=Code Size">
-    <img src="https://img.shields.io/github/directory-file-count/Persian-Caesar/Ticker-Boy?label=Files">
-    <div>
-        <img style="display:block;margin-left:auto;margin-right:auto;width:30%;" src="https://github-readme-stats.vercel.app/api/pin/?username=Persian-Caesar&repo=Ticker-Boy&theme=react">
-    </div>
+
+[![npm](https://badges.aleen42.com/src/npm.svg)](https://www.npmjs.com/)
+[![node](https://badges.aleen42.com/src/node.svg)](https://nodejs.org/)
+[![javascript](https://badges.aleen42.com/src/javascript.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![version](https://img.shields.io/github/v/release/Persian-Caesar/Ticker-Boy?label=Version)](https://github.com/Persian-Caesar/Ticker-Boy/releases)
+[![license](https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License)](LICENSE)
+[![last-commit](https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last%20Commit)](https://github.com/Persian-Caesar/Ticker-Boy/commits/main)
+[![release-date](https://img.shields.io/github/release-date/Persian-Caesar/Ticker-Boy?label=Last%20Release)](https://github.com/Persian-Caesar/Ticker-Boy/releases)
+[![stars](https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?style=social)](https://github.com/Persian-Caesar/Ticker-Boy/stargazers)
+[![forks](https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?style=social)](https://github.com/Persian-Caesar/Ticker-Boy/network/members)
+[![code-size](https://img.shields.io/github/languages/code-size/Persian-Caesar/Ticker-Boy?label=Code%20Size)](https://github.com/Persian-Caesar/Ticker-Boy)
+[![files](https://img.shields.io/github/directory-file-count/Persian-Caesar/Ticker-Boy?label=Files)](https://github.com/Persian-Caesar/Ticker-Boy)
+
+[![GitHub Repo stars](https://github-profile-trophy.vercel.app/?username=Persian-Caesar&theme=radical&no-bg=true&margin-w=4&margin-h=4)](https://github.com/Persian-Caesar)
+
 </div>
 
 ---
+
+## 🚀 **What is Ticker Boy?**
 
 <a href="https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441">
     <img align="right" src = "https://cdn.discordapp.com/avatars/1101868490308198421/ff53f09c6e286fce2b3ab978a89998a7.webp?size=4096" width=25% >
 </a>
 
-Hi👋🏻
+**Ticker Boy** is a **feature-rich, production-ready Discord bot** designed specifically for **advanced ticket management** in Discord servers. Built with **Discord.js v14**, it provides a **professional support system** for communities, gaming servers, and businesses. 
 
-I'm **[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441)🎟**
+### **Core Purpose**
+- **Streamline Support**: Users create tickets via interactive buttons/menus, staff claim/resolve them with transcripts.
+- **Admin Dashboard**: Configure everything via `/settings` (language, panels, roles, logs, claims).
+- **Scalable**: Supports **thousands of servers** with multi-DB options (JSON, MySQL, MongoDB).
+- **Customizable**: Multi-language (EN/Persian), themes, embeds, and permissions.
 
-With my help, you can create a completely professional ticket system in your Discord server⚙️
+**Version 1.3.9 Highlights**:
+- **Fixed Ticket Bugs**: Improved stability in create/close/claim flows.
+- **Enhanced Buttons**: Better interaction handling, no more "interaction failed" errors.
+- **Quality Improvements**: Optimized DB queries, reduced memory usage, better error logging.
+- **New Features**: Claim system toggle, parent category support (open/close), menu options, mod logs.
+- **Dashboard**: Express-based web interface for stats/settings.
+- **Transcripts**: HTML exports for closed tickets (via `discord-html-transcripts`).
+- **Multi-Language**: EN-US & Persian with dynamic localization.
+- **Webhook Logging**: Auto-reports joins/leaves/errors to support server.
+- **Anti-Crash**: Full error handling with webhook alerts.
 
-My capabilities and features include fast and strong support, support for slash commands, support for text commands, having a beautiful and professional dashboard for setting bots on the server, working with the ticket system using buttons and menus and other things🎓
-
-By adding me to your server, experience a better and new ticket system 🫂❤️‍🔥
-
-Ticker Boy writes and Coded With Love❤️ and so much works❤️‍🔥
-
-with inviting **"[Ticker Boy](https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441)"** you can help us to make so many bots in future🫂.   
-
-<details><summary> some example images about the bot📌 </summary>
-
-
----
-
-**👌🏻Perfect Help Menu For Members:**
-
-  <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://github.com/user-attachments/assets/b4ab4e87-4b25-41db-9fbc-8e1b8b34cbd2" width = 40% />
-    <img align="center" src="https://github.com/user-attachments/assets/17bc7335-73e3-4663-a04d-fb72f7bd9181" width = 40% />
- </a>
+Perfect for **support teams** needing **fast, organized ticket handling** without manual channels.
 
 ---
 
-**⚒️Worked With Advanced Button Systems:**
+## ✨ **Key Features**
 
-  <a href="http://sobhan.epizy.com/">
-    <img align="center" src="https://github.com/user-attachments/assets/2360b080-492d-47fa-8ac9-2c2b3ecfb7dc" width = 40% />
-  </a>
-
----
-
-**💻Perfect Dashboard and Easy To Setup:**
-
-  <a href="http://sobhan.epizy.com">
-<img align="center" src="https://github.com/user-attachments/assets/f52340be-7358-4f90-b7dd-1b91e7820d8b" width = 40% />
-    <img align="center" src="https://github.com/user-attachments/assets/7588b4b1-6ff4-44c1-8d0a-4bba1de5a3ed" width = 40% />    
-  </a>
-
-</details>
-
----
-
-## 🛠 How Use Bot?
-Use "/help" command to see all commands. It is very easy to set up the bot on your server and it is not difficult at all, first you use the "/ticket setup" command to set up the ticket menu on the server, then you use the "/settings" command to set up the responsive admin in the ticket, by giving the necessary access to Your server staff can answer the tickets. To set up log tickets on your server, use the "/settings" command and select to log and the bot will automatically inform you and the staff about the ticket information when opening a ticket in the log. (These commands are in demo form and will be rewritten in the future.)
+| Feature                 | Description                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| **Interactive Tickets** | Button/menu-based creation, claim, close, reopen, rename, add/remove users, delete.         |
+| **Admin Dashboard**     | `/settings` with select menus, modals, buttons for full customization.                      |
+| **Multi-DB Support**    | JSON (default), SQLite, MySQL, MongoDB via QuickDB/QuickMongo.                              |
+| **Claim System**        | Staff claim tickets; toggleable, with permissions.                                          |
+| **Transcripts**         | Auto-generate HTML transcripts on close/delete, DM to staff.                                |
+| **Logging**             | Mod logs, webhook alerts (joins/leaves, errors, reports).                                   |
+| **Parent Categories**   | Auto-move tickets to open/close categories.                                                 |
+| **Multi-Language**      | English & Persian; per-guild configurable.                                                  |
+| **Permissions**         | Granular role-based access (admin roles, ManageChannels).                                   |
+| **Cooldowns**           | Per-command, per-user (configurable).                                                       |
+| **Status Updates**      | Auto-updating bot stats embed in support server (servers, users, ping, uptime, CPU/memory). |
+| **Anti-Crash**          | Catches unhandled errors, logs to webhook/console.                                          |
+| **Dashboard**           | Web UI (Express + EJS) for stats (localhost:3000).                                          |
+| **Commands**            | Slash + Prefix support; categories: Admin, Misc, Owner, Ticket.                             |
 
 ---
 
-## 🍴 How Install?
+## 📦 **Dependencies**
 
-for setup your bot, you need put bot secret "Token" in `.env` file and replaced it with `BOT_TOKEN` after that for add bot prefix you need go again in and put your bot `prefix` in `.env` file then replaced it with `BOT_PREFIX` then for working your bot well you have to put bot client id in last file and replaced it with `BOT_CLIENT_ID` 
-```js
-PREFIX="PLACE_BOT_PREFIX"
-CLIENT_ID="USER_CLIENT_ID"
-TOKEN="PLACE_BOT_TOKEN"
-```
+| Package                                                                            | Version  | Purpose                         |
+| ---------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| [axios](https://www.npmjs.com/package/axios)                                       | ^1.5.0   | HTTP requests (e.g., chatbots). |
+| [cli-color](https://www.npmjs.com/package/cli-color)                               | ^2.0.2   | Colored console logging.        |
+| [cpu-stat](https://www.npmjs.com/package/cpu-stat)                                 | ^2.0.1   | CPU stats for status embeds.    |
+| [discord-html-transcripts](https://www.npmjs.com/package/discord-html-transcripts) | ^3.1.3   | Ticket transcript generation.   |
+| [discord.js](https://discord.js.org/)                                              | ^14.13.0 | Discord API client.             |
+| [dotenv](https://www.npmjs.com/package/dotenv)                                     | ^16.4.5  | Environment variables.          |
+| [ejs](https://ejs.co/)                                                             | ^3.1.10  | Dashboard templates.            |
+| [express](https://expressjs.com/)                                                  | ^4.19.2  | Web dashboard server.           |
+| [moment](https://momentjs.com/)                                                    | ^2.29.4  | Date/time formatting.           |
+| [mongoose](https://mongoosejs.com/)                                                | ^7.1.1   | MongoDB ORM (if used).          |
+| [quick.db](https://quickdb.js.org/)                                                | ^9.1.7   | File/SQLite DB wrapper.         |
+| [quickmongo](https://www.npmjs.com/package/quickmongo)                             | ^5.2.0   | MongoDB driver for QuickDB.     |
 
-if you need so much configuration about the bot you can go in to the `config.js` file and edit some parameters for customizing your bot, that file addresses is here `/storage/config.js`
-```js
-//some example code from "storage/config.js"
+Install with: `npm install`
 
-    discord: {
-        token: process.env.TOKEN,//please don't touch 
-        prefix: process.env.PREFIX,//please don't touch 
-        invite: `https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=bot+applications.commands+identify+guilds+applications.commands.permissions.update&permissions=2080374975`,//please don't touch 
-        server_support: "https://discord.gg/AfkuXgCKAQ",//you can changed it
-        server_id: "912596015075455016",//you can changed it
-        server_channel_report: "988020418612961322",//you can changed it
-        server_channel_status: "988020102186303608",//you can changed it     
-    },
+---
+
+## 📁 **Project Structure**
 
 ```
-
-- if you didn't install source packages you need for install all packages open that👉🏻 `install.bat`
-
-Packages  |  Version  |  Install
-------------- | ------------- | -------------
-[quick.db](https://www.npmjs.com/package/quick.db)  | Latest ^9.0.8  | `npm install quick.db`
-[cli-color](https://www.npmjs.com/package/cli-color) | Lastest ^2.0.2 | `npm install cli-color`
-[discord.js](https://www.npmjs.com/package/discord.js) | Lastest ^14.7.1 | `npm install discord.js`
-[dotenv](https://www.npmjs.com/package/dotenv) | Lastest ^16.0.1 | `npm install dotenv`
-[express](https://www.npmjs.com/package/express) | Lastest ^4.18.1 | `npm install express`
-[fs](https://www.npmjs.com/package/fs) | Lastest ^0.0.1-security | `npm install fs`
-[moment](https://www.npmjs.com/package/moment) | Lastest ^2.29.3 | `npm install moment`
-[discord-html-transcripts](https://www.npmjs.com/package/discord-html-transcripts) | Lastest ^3.1.3 | `npm install discord-html-transcripts`
-[write-file-atomic](https://www.npmjs.com/package/write-file-atomic) | Lastest ^5.0.1 | `npm install write-file-atomic`
-
-- if the source packages needs updates you can open that file for update there👉🏻 `update.bat`
-
-- if you install all packages and want run your source you have to open that👉🏻 `start.bat`
-
-- EZPZ your ticket sytem are installed and running around 🕺
-
-<details><summary> How run bot in replit or heroco? </summary>
-
-that was so easy, after you click that buttons👇🏻 you will create some project like this source with importing this source🎓 and after that with installing bot packages, and place bot some important objects run your bot.
-<p align="center">
-
-  <a href="https://heroku.com/deploy?template=https://github.com/Sobhan-SRZA/Ticker-Boy/">
-    <img align="center" alt="Deploy on Herokucd" src ="https://www.herokucdn.com/deploy/button.svg" >
-  </a>
-
-  <a href="https://glitch.com/edit/#!/import/github/Sobhan-SRZA/Ticker-Boy/">
-    <img align="center" alt="Remix on Glitch" src ="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" >
-  </a>
-
-  <a href="https://repl.it/github/Sobhan-SRZA/Ticker-Boy/">
-    <img align="center" alt="Use on Replit" src ="https://repl.it/badge/github/Sobhan-SRZA/Ticker-Boy/" >
-  </a>
-</p>
-</details>
-
-<details><summary> How install bot on our pc? </summary>
-
-[Run bot on pc](https://user-images.githubusercontent.com/90289153/234236959-082bc0bd-91da-4adc-b4de-d10c21cb839f.mp4)
-
-</details>
+Ticker Boy/
+├── config.js                  # Bot config (DB, Discord, support)
+├── index.js                   # Main entrypoint
+├── package.json               # Dependencies & scripts
+├── example.env                # Env template
+├── LICENSE                    # BSD-3-Clause
+├── start.bat                  # Auto-install & start
+├── src/
+│   ├── commands/              # All commands (Admin, Misc, Owner, Ticket)
+│   │   ├── Admin/settings.js  # Main dashboard
+│   │   ├── Misc/{help,invite,ping}.js
+│   │   ├── Owner/{dbset,serverleave,serverlist}.js
+│   │   └── Ticket/{add,claim,close,create,delete,open,rename,transcript}.js
+│   ├── dashboard/             # Express web UI
+│   │   ├── index.js
+│   │   ├── public/            # Static files (CSS, HTML)
+│   │   └── views/             # EJS templates
+│   ├── events/                # Event handlers
+│   │   ├── button/interactionCreate.js
+│   │   ├── command/interactionCreate.js
+│   │   ├── guild/{create,delete}.js
+│   │   ├── menu/interactionCreate.js
+│   │   ├── message/messageCreate.js
+│   │   ├── modal/interactionCreate.js
+│   │   ├── ready/ready.js
+│   │   ├── status/ready.js
+│   │   └── ticket/interactionCreate.js
+│   ├── functions/             # Utilities
+│   │   ├── chooseRandom.js
+│   │   ├── database.js
+│   │   ├── error.js
+│   │   ├── errorMessage.js
+│   │   ├── functions.js       # Multi-purpose utils
+│   │   ├── help.js
+│   │   ├── loadCommand.js
+│   │   ├── post.js
+│   │   ├── ticket.js          # Ticket core
+│   │   └── ... (20+ more)
+│   ├── handlers/              # Bootloaders
+│   │   ├── 1-antivirus.js     # (Missing in your upload?)
+│   │   ├── 2-database.js
+│   │   ├── 3-events.js
+│   │   ├── 4-dashboard.js
+│   │   └── 5-commandHandler.js
+│   ├── locales/               # Translations
+│   │   ├── en.json
+│   │   └── per.json
+│   └── storage/               # Static data
+│       ├── colors.json
+│       ├── embed.json
+│       ├── emotes.json
+│       └── languages.json
+```
 
 ---
 
-# **📫| Contact me in**
+## 🔧 **Important Functions**
+
+| Function                                                                 | Input                       | Output            | Description                                     |
+| ------------------------------------------------------------------------ | --------------------------- | ----------------- | ----------------------------------------------- |
+| **chooseRandom(array)**                                                  | `array: any[]`              | `any`             | Returns random item from array.                 |
+| **createORgetInvite(guild)**                                             | `guild: Guild`              | `Invite \| null`  | Creates or fetches server invite.               |
+| **DB.has(key)**                                                          | `key: string`               | `boolean`         | Checks if DB key exists.                        |
+| **DB.get(key, def?)**                                                    | `key: string, def?: any`    | `any`             | Gets value from DB (with default).              |
+| **DB.set(key, val)**                                                     | `key: string, val: any`     | `Promise<void>`   | Sets DB value.                                  |
+| **DB.push(key, val)**                                                    | `key: string, val: any`     | `Promise<void>`   | Appends to DB array.                            |
+| **DB.add(key, num)**                                                     | `key: string, num: number`  | `Promise<number>` | Increments DB number.                           |
+| **deleteResponse({interaction, message})**                               | Interaction/Message         | `void`            | Deletes reply/message safely.                   |
+| **editResponse({interaction, message, data})**                           | Options obj                 | `Message`         | Edits interaction/message.                      |
+| **error(err)**                                                           | `err: Error`                | `void`            | Logs error to console/webhook.                  |
+| **errorMessage(client, interaction, text)**                              | Client, Interaction, string | `void`            | Sends styled error embed.                       |
+| **firstUpperCase(string)**                                               | `string: string`            | `string`          | Title-cases string (e.g., "hello" → "Hello").   |
+| **logMessage(client, interaction, channel, desc, reason, emote, file?)** | Params obj                  | `void`            | Sends formatted log embed (with optional file). |
+| **loadCommand(dirname, type, commands)**                                 | Paths, Map                  | `void`            | Loads commands from folders.                    |
+| **post(data, type, color1, color2)**                                     | Params                      | `void`            | Colored console logger.                         |
+| **response(interaction, data)**                                          | Interaction, MessageOptions | `Message`         | Sends/edits response.                           |
+| **selectLanguage(lang)**                                                 | `lang: string`              | `Object`          | Loads locale JSON.                              |
+| **sendGuildAlert({client, guild, ...})**                                 | Options obj                 | `Message`         | Sends guild join/leave webhook.                 |
+| **ticket.create(client, interaction)**                                   | Client, Interaction         | `void`            | Creates ticket channel.                         |
+| **ticket.close(client, interaction)**                                    | Client, Interaction         | `void`            | Closes ticket, generates transcript.            |
+| **ticket.claim(client, interaction)**                                    | Client, Interaction         | `void`            | Claims ticket for staff.                        |
+| **checkPing(ms)**                                                        | `ms: number`                | `string`          | Ping status emoji/text (e.g., "🟢 Excellent").   |
+
+---
+
+## 🛠 **Installation**
+
+### **Prerequisites**
+- **Node.js** ≥16.9.0
+- **Discord Bot Token** ([Developer Portal](https://discord.com/developers/applications))
+- Optional: MySQL/MongoDB server
+
+### **Steps**
+1. **Clone Repo**:
+   ```bash
+   git clone https://github.com/Persian-Caesar/Ticker-Boy.git
+   cd Ticker-Boy
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Setup Environment** (copy `example.env` → `.env`):
+   ```env
+   token=YOUR_BOT_TOKEN
+   prefix=!
+   database_type=json  # json/sql/mysql/mongodb
+   # MongoDB:
+   database_mongoURL=mongodb+srv://user:pass@cluster.mongodb.net/
+   # MySQL:
+   database_msql_host=localhost
+   database_msql_user=root
+   database_msql_password=pass
+   database_msql_database=tickerboy
+   # Support:
+   support_id=1054814674979409940
+   support_url=https://discord.gg/xh2S2h67UW
+   webhook_url=YOUR_WEBHOOK_URL  # For logging
+   ```
+
+4. **Customize `config.js`** (optional):
+   - Dashboard port/host
+   - Status activities
+   - Owners/VIP roles
+   - Invite links
+
+5. **Run Bot**:
+   ```bash
+   node index.js
+   ```
+   Or: `start.bat` (auto-install + run)
+
+**Invite Bot**: Use links in `config.js` (no-perms, admin, default).
+
+---
+
+## ⚙️ **Configuration**
+
+### **config.js Sections**
+- **source**: Language, anti-crash, dashboard (port: 3000), DB type.
+- **discord**: Token, prefix, status, invites, support (webhook, roles, owners).
+- **topgg**: Vote page URL.
+
+**DB Types**:
+- `json`: File-based (easiest).
+- `sql`: SQLite (local).
+- `mysql`: Remote MySQL.
+- `mongodb`: Cloud MongoDB.
+
+---
+
+## 📋 **Commands**
+
+| Category     | Command               | Description                        | Permissions                 |
+| ------------ | --------------------- | ---------------------------------- | --------------------------- |
+| **Admin 👨‍💼**  | `/settings`           | Interactive guild setup dashboard. | ManageChannels, ManageGuild |
+| **Misc 📊**   | `/help [command]`     | Bot info & command list.           | SendMessages                |
+| **Misc 📊**   | `/invite`             | Invite bot links.                  | SendMessages                |
+| **Misc 📊**   | `/ping`               | Bot latency/ping.                  | SendMessages                |
+| **Owner 👑**  | `dbset <key> <value>` | Set DB value.                      | Owner IDs                   |
+| **Owner 👑**  | `serverleave`         | Leave small guilds (<50 members).  | Owner IDs                   |
+| **Owner 👑**  | `serverlist`          | Paginated server list.             | Owner IDs                   |
+| **Ticket 🎫** | `/add @user`          | Add user to ticket.                | ManageChannels              |
+| **Ticket 🎫** | `/claim`              | Claim ticket.                      | ManageChannels              |
+| **Ticket 🎫** | `/close`              | Close ticket.                      | SendMessages                |
+| **Ticket 🎫** | `/create`             | Create ticket.                     | SendMessages                |
+| **Ticket 🎫** | `/delete`             | Delete ticket.                     | ManageChannels              |
+| **Ticket 🎫** | `/open`               | Reopen ticket.                     | ManageChannels              |
+| **Ticket 🎫** | `/rename <name>`      | Rename ticket.                     | ManageChannels              |
+| **Ticket 🎫** | `/transcript`         | Generate HTML transcript.          | ManageChannels              |
+
+**Prefix**: Configurable (default: empty for slash-only).
+
+---
+
+## 🗄 **Database Schema**
+
+Guild data: `guild_${guildId}`
+
+```js
+{
+  language: "en",
+  prefix: "!",
+  ticket_type: "Reason - Menu - UserTag",
+  ticket_claim: true,
+  admin_roles: ["roleId1"],
+  modlog: "channelId",
+  categories: { open: "catId", close: "catId" },
+  panel: {
+    channel: "channelId",
+    menu_options: [{ label: "Support", value: "Support", emoji: "🎫" }]
+  },
+  tickets: [
+    {
+      channelId: "id",
+      channelName: "ticket-user",
+      user: "userId",
+      newUser: "addedUserId",
+      closed: false,
+      claimed: "claimerId"
+    }
+  ]
+}
+```
+
+Global: `totalCommandsUsed: number`
+
+---
+
+## 💻 **Dashboard**
+
+- **Enabled**: `config.source.dashboard.on = true`
+- **URL**: `http://localhost:3000` (configurable port/host)
+- **Tech**: Express + EJS templates
+- **Features**: Stats, commands, premium (WIP), invite
+- **Views**: `/test`, 404 handler
+- **Static**: CSS/JS in `/public`
+
+---
+
+## 🌐 **Localization**
+
+- **Files**: `src/locales/{en,per}.json`
+- **Default**: English
+- **Per-Guild**: `/settings` → Language
+- **Usage**: `client.languages[lang].commands.help.embed1.title`
+
+---
+
+## 🛡️ **Error Handling**
+
+- **Anti-Crash**: `process.on('unhandledRejection')` → Webhook + Console.
+- **Commands**: Permission/cooldown checks with styled errors.
+- **Webhooks**: Bugs/status/reports to support threads.
+
+---
+
+## 🏃‍♂️ **Scripts**
+
+| Script      | Usage                            |
+| ----------- | -------------------------------- |
+| `npm start` | Run bot.                         |
+| `start.bat` | Auto `npm install && npm start`. |
+| `npm test`  | Placeholder (no tests).          |
+
+---
+
+## 🤝 **Contributing**
+
+1. Fork repo
+2. Create branch: `git checkout -b feature/ticket-fix`
+3. Commit: `git commit -m "Fix: ticket claim bug"`
+4. Push: `git push origin feature/ticket-fix`
+5. Open PR
+
+**Guidelines**:
+- ESLint + Prettier
+- JSDoc comments
+- Unit tests for functions
+- Mention **Persian Caesar** in credits
+
+---
+
+## 📞 **Support**
+
+- **Discord**: [Persian Caesar](https://discord.gg/xh2S2h67UW)
+- **Report Bugs**: `/settings` → Report button (sends webhook).
+- **Issues**: [GitHub Issues](https://github.com/Persian-Caesar/Ticker-Boy/issues)
+- **Vote**: [Top.gg](https://top.gg/bot/1241112292616044695/vote)
+
+---
+
+## 📄 **License**
+
+[BSD 3-Clause License](LICENSE)
+
+**Copyright (c) 2021-2025, Sobhan-SRZA (mr.sinre) & Persian Caesar**
+
+---
+
+## 👥 **Credits**
+
+- **Developer**: [Sobhan-SRZA (mr.sinre)](https://github.com/Sobhan-SRZA)
+- **Team**: [Persian Caesar](https://dsc.gg/persian-caesar)
+- **Libraries**: Discord.js, QuickDB, Express, discord-html-transcripts
+- **Icons/Emotes**: Custom Persian Caesar theme
+
+<div align="center">
+
+**⭐ Star this repo if it helps!**  
+**Built with ❤️ for Discord communities**
+
+</div>
 <div align="center">
   <a href="https://srza.ir" target="_blank">
    <img align="left" src="https://raw.githubusercontent.com/Sobhan-SRZA/Sobhan-SRZA/refs/heads/main/images/social.png" alt="Sobhan-SRZA social" width=400px>
