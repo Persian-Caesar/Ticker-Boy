@@ -5,16 +5,18 @@
 [![npm](https://badges.aleen42.com/src/npm.svg)](https://www.npmjs.com/)
 [![node](https://badges.aleen42.com/src/node.svg)](https://nodejs.org/)
 [![javascript](https://badges.aleen42.com/src/javascript.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
 [![version](https://img.shields.io/github/v/release/Persian-Caesar/Ticker-Boy?label=Version)](https://github.com/Persian-Caesar/Ticker-Boy/releases)
 [![license](https://img.shields.io/github/license/Persian-Caesar/Ticker-Boy?label=License)](LICENSE)
 [![last-commit](https://img.shields.io/github/last-commit/Persian-Caesar/Ticker-Boy?label=Last%20Commit)](https://github.com/Persian-Caesar/Ticker-Boy/commits/main)
 [![release-date](https://img.shields.io/github/release-date/Persian-Caesar/Ticker-Boy?label=Last%20Release)](https://github.com/Persian-Caesar/Ticker-Boy/releases)
+
 [![stars](https://img.shields.io/github/stars/Persian-Caesar/Ticker-Boy?style=social)](https://github.com/Persian-Caesar/Ticker-Boy/stargazers)
 [![forks](https://img.shields.io/github/forks/Persian-Caesar/Ticker-Boy?style=social)](https://github.com/Persian-Caesar/Ticker-Boy/network/members)
 [![code-size](https://img.shields.io/github/languages/code-size/Persian-Caesar/Ticker-Boy?label=Code%20Size)](https://github.com/Persian-Caesar/Ticker-Boy)
 [![files](https://img.shields.io/github/directory-file-count/Persian-Caesar/Ticker-Boy?label=Files)](https://github.com/Persian-Caesar/Ticker-Boy)
 
-[![GitHub Repo stars](https://github-profile-trophy.vercel.app/?username=Persian-Caesar&theme=radical&no-bg=true&margin-w=4&margin-h=4)](https://github.com/Persian-Caesar)
+[![GitHub Repo stars](https://github-readme-stats.vercel.app/api/pin/?username=Persian-Caesar&repo=Ticker-Boy&theme=react)](https://github.com/Persian-Caesar)
 
 </div>
 
@@ -23,7 +25,7 @@
 ## 🚀 **What is Ticker Boy?**
 
 <a href="https://discord.com/api/oauth2/authorize?scope=bot+applications.commands&client_id=1241112292616044695&redirect_uri=https://discord.gg/AfkuXgCKAQ&response_type=code&&permissions=395674250441">
-    <img align="right" src = "https://cdn.discordapp.com/avatars/1101868490308198421/ff53f09c6e286fce2b3ab978a89998a7.webp?size=4096" width=25% >
+    <img alt="ticker-boy" src="https://github.com/user-attachments/assets/0d99dc9e-8d41-406c-8587-c5fa5e468ca5" align="right" width=25% >
 </a>
 
 **Ticker Boy** is a **feature-rich, production-ready Discord bot** designed specifically for **advanced ticket management** in Discord servers. Built with **Discord.js v14**, it provides a **professional support system** for communities, gaming servers, and businesses. 
