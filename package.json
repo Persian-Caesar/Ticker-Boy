@@ -1,44 +1,32 @@
 {
   "name": "ticker-boy",
-  "main": "index.js",
-  "author": "Sobhan-SRZA (mr.sinre) & Persian Caesar",
-  "version": "1.3.9",
+  "version": "1.4.0",
   "description": "This is Ticker Boy a perfect ticket system robot with so many tools for setup and customization.",
+  "author": "Sobhan-SRZA (mr.sinre) from Persian-Caesar",
+  "main": "dist/index.js",
   "license": "BSD-3-Clause",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Persian-Caesar/Ticker-Boy.git"
+  "scripts": {
+    "build": "tsc",
+    "start:build": "npm run build && node .",
+    "start": "node ."
   },
   "bugs": {
-    "server": "https://dsc.gg/persian-caesar",
-    "url": "https://github.com/Persian-Caesar/Ticker-Boy/issues"
+    "url": "https://github.com/Persian-Caesar/ticker-boy/issues"
   },
-  "homepage": "https://github.com/Persian-Caesar/Ticker-Boy#readme",
-  "keywords": [
-    "advanced bot",
-    "ticket bot",
-    "advanced ticket bot",
-    "advanced ticket system",
-    "buttons ticket system",
-    "ticker boy",
-    "persian caesar"
-  ],
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Persian-Caesar/ticker-boy.git"
+  },
+  "homepage": "https://github.com/Persian-Caesar/ticker-boy#readme",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "axios": "^1.5.0",
-    "cli-color": "^2.0.2",
-    "cpu-stat": "^2.0.1",
-    "discord-html-transcripts": "^3.1.3",
-    "discord.js": "^14.13.0",
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "moment": "^2.29.4",
-    "mongoose": "^7.1.1",
+    "colors": "^1.4.0",
+    "discord.js": "^14.21.0",
+    "dotenv": "^16.5.0",
     "quick.db": "^9.1.7",
-    "quickmongo": "^5.2.0"
+    "quickmongo": "^6.0.0"
   }
 }

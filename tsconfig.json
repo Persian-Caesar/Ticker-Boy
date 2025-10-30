@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "outDir": "dist",
+        "module": "commonjs",
+        "target": "es2024",
+        "resolveJsonModule": true,
+        "useUnknownInCatchVariables": true,
+        "allowUnreachableCode": false,
+        "noEmitOnError": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "importHelpers": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "sourceMap": true,
+        "strictPropertyInitialization": false
+    }
+}
