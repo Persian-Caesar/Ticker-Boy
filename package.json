@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/Persian-Caesar/ticker-boy#readme",
   "devDependencies": {
-    "@types/node": "^22.5.0",
-    "typescript": "^5.5.4"
+    "@types/node": "^22.18.13",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "colors": "^1.4.0",
-    "discord.js": "^14.21.0",
-    "dotenv": "^16.5.0",
+    "discord.js": "^14.24.1",
+    "dotenv": "^16.6.1",
     "quick.db": "^9.1.7",
-    "quickmongo": "^6.0.0"
+    "quickmongo": "^5.2.0"
   }
 }

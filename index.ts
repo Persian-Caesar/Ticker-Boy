@@ -35,6 +35,7 @@ import {
     readFileSync
 } from "fs";
 import { PackageJson } from "./src/types/interfaces";
+import setupGlobalExtensions from "./src/functions/setupGlobalExtensions";
 import DiscordClient from "./src/models/Client";
 import error from "./src/utils/error";
 import post from "./src/functions/post";
@@ -42,31 +43,8 @@ import post from "./src/functions/post";
 // Add color to console messages.
 import "colors";
 
-// Adding "toCapitalize" method to String class. | ts type is in ./src/types/global.d.ts
-String.prototype.toCapitalize = function (): string {
-    return String(this).toLowerCase().replace(/\b\w/g, char => char.toUpperCase())
-}
-// Adding "replaceValues" method to String class. | ts type is in ./src/types/global.d.ts
-String.prototype.replaceValues = function (object: Record<string, any>): string {
-    let string = String(this);
-    Object
-        .keys(object)
-        .forEach(a => {
-            string = string.replace(`{${a}}`, object[a]);
-        });
-
-    return string;
-}
-// Adding "HexToNumber" method to String class. | ts type is in ./src/types/global.d.ts
-String.prototype.HexToNumber = function (): number {
-    return parseInt(this.replace("#", ""), 16)
-}
-
-// Adding "random" method to Array class. | ts type is in ./src/types/global.d.ts
-Array.prototype.random = function () {
-    const array = Array.from(this);
-    return array[Math.floor(Math.random() * array.length)]
-}
+// Adds custom methods to global prototypes (String, Array, Number)
+setupGlobalExtensions();
 
 // Load discord client
 const
