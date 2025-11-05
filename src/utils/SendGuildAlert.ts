@@ -46,7 +46,7 @@ export default async function ({
 
     const guildCreatedAt = Date.parse(guild.createdAt.toString()) / 1000;
     const embed = new EmbedBuilder()
-      .setDescription(description.replace("{guilds}", await client.guilds.cache.size.toLocaleString()))
+      .setDescription(description.replace("{guilds}", client.guilds.cache.size.toLocaleString()))
       .addFields(
         [
           {

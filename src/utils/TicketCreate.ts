@@ -1,14 +1,10 @@
-import {
-  Interaction
-} from "discord.js";
-import DiscordClient from "../../models/Client";
-import error from "../../utils/error";
+import error from "./error";
 
-export default async (client: DiscordClient, interaction: Interaction) => {
+export default async function (
+
+): Promise<void> {
   try {
-    const db = client.db!;
-    if(interaction.isButton()){
-    }
+
   }
 
   catch (e) {

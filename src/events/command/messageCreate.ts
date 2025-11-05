@@ -4,6 +4,7 @@ import {
     TextChannel
 } from "discord.js";
 import checkCmdCooldown from "../../utils/checkCmdCooldown";
+import selectLanguage from "../../utils/selectLanguage";
 import checkCmdPerms from "../../utils/checkCmdPerms";
 import DiscordClient from "../../models/Client";
 import dbAccess from "../../utils/dbAccess";
@@ -17,13 +18,16 @@ export default async (client: DiscordClient, message: Message) => {
         const language = selectLanguage(lang).replies;
 
         // Filter dm channels
-        if (message.channel.type === ChannelType.DM) return;
+        if (message.channel.type === ChannelType.DM)
+            return;
 
         // Filter webhooks
-        if (!message || message?.webhookId) return;
+        if (!message || message?.webhookId)
+            return;
 
         // Filter the bots
-        if (message.author?.bot) return;
+        if (message.author?.bot)
+            return;
 
         // Command Prefix & args
         const

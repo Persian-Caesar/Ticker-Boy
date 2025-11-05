@@ -67,6 +67,8 @@ export interface Deletable {
     deletable?: boolean;
     delete(): Promise<void>;
 };
+
+export type Language = any;
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA
