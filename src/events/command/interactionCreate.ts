@@ -5,13 +5,12 @@ import {
 import checkCmdCooldown from "../../utils/checkCmdCooldown";
 import checkCmdPerms from "../../utils/checkCmdPerms";
 import DiscordClient from "../../models/Client";
-import error from "../../utils/error";
 import repeatAction from "../../utils/repeatAction";
+import dbAccess from "../../utils/dbAccess";
+import error from "../../utils/error";
 
 export default async (client: DiscordClient, interaction: Interaction) => {
   try {
-    const db = client.db!;
-
     // Load Slash Commands
     if (interaction.isCommand()) {
       const command = client.commands.get(interaction.commandName);
@@ -51,7 +50,7 @@ export default async (client: DiscordClient, interaction: Interaction) => {
             });
           }) // 3 tries to defer reply
 
-        await db.add("totalCommandsUsed", 1);
+        await dbAccess.addTotalCommandsUsed(1);
         return await command.run(client, interaction);
       }
     }

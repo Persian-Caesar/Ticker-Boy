@@ -1,27 +1,27 @@
 import { QuickDB } from "quick.db";
 
-export default class Database {
+interface DatabaseMethods<T = any> {
+  has(name: string): Promise<boolean>;
+  get<T>(name: string): Promise<T | undefined>;
+  set<T>(name: string, input: T): Promise<T>;
+  delete(name: string): Promise<number>;
+}
+
+export default class implements DatabaseMethods {
 
   db: QuickDB;
   constructor(db: QuickDB) {
     this.db = db;
+
     return this;
   }
 
   async has(name: string) {
-    if (await this.db.has(name))
-      return true;
-
-    else
-      return false;
+    return await this.db.has(name);
   }
 
-  async get(name: string) {
-    if (await this.db.has(name))
-      return await this.db.get(name);
-
-    else
-      return false;
+  async get<T>(name: string) {
+    return (await this.db.get(name)) as T || undefined;
   }
 
   async set<T>(name: string, input: T) {

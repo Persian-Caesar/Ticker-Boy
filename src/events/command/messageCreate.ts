@@ -6,11 +6,15 @@ import {
 import checkCmdCooldown from "../../utils/checkCmdCooldown";
 import checkCmdPerms from "../../utils/checkCmdPerms";
 import DiscordClient from "../../models/Client";
+import dbAccess from "../../utils/dbAccess";
+import config from "../../../config";
 import error from "../../utils/error";
 
 export default async (client: DiscordClient, message: Message) => {
     try {
-        const db = client.db!;
+        const guildId = message.guildId!;
+        const lang = (await dbAccess.getLanguage(guildId)) || config.discord.default_language;
+        const language = selectLanguage(lang).replies;
 
         // Filter dm channels
         if (message.channel.type === ChannelType.DM) return;
@@ -23,7 +27,7 @@ export default async (client: DiscordClient, message: Message) => {
 
         // Command Prefix & args
         const
-            stringPrefix = `${client.config.discord.prefix}`,
+            stringPrefix = (await dbAccess.getPrefix(guildId)) || `${config.discord.prefix}`,
             prefixRegex = new RegExp(
                 `^(<@!?${client.user!.id}>|${stringPrefix.toString().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})\\s*`
             );
@@ -76,7 +80,7 @@ export default async (client: DiscordClient, message: Message) => {
                 return;
 
             // Command Handler
-            await db.add("totalCommandsUsed", 1);
+            await dbAccess.addTotalCommandsUsed(1);
             return await command.run(client, message, args);
         }
     }
