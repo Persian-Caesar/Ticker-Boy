@@ -6,7 +6,7 @@ import {
   WebhookMessageCreateOptions
 } from "discord.js";
 import { SendGuildAlert } from "../types/interfaces";
-import EmbedData from "../storage/embed";
+import EmbedData from "../storage/EmbedData";
 import GetInvite from "./GetInvite";
 import config from "../../config";
 import error from "./error";

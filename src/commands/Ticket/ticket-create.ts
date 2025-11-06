@@ -17,15 +17,13 @@ export default {
     default_bot_permissions: new PermissionsBitField([
       PermissionFlagsBits.SendMessages,
       PermissionFlagsBits.EmbedLinks
-    ]),
-    dm_permission: true
+    ])
   },
   category: "member",
-  aliases: ["tc", "create", "tcreate", "c"],
   cooldown: 5,
   only_owner: false,
   only_slash: true,
-  only_message: true,
+  only_message: false,
 
   run: async (client, interaction, args) => {
     try {

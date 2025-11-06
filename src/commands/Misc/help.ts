@@ -25,11 +25,10 @@ export default {
     dm_permission: true
   },
   category: "member",
-  aliases: ["h", "commands"],
   cooldown: 10,
   only_owner: false,
   only_slash: true,
-  only_message: true,
+  only_message: false,
 
   run: async (client, interaction, args) => {
     try {

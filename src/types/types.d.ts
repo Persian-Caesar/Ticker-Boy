@@ -11,6 +11,8 @@ export type CommandOptions = CommandOption[] | [];
 
 export type Categoris = "member" | "admin" | "music" | "owner" | "nsfw" | "moderate" | "ticket" | "giveaway" | "api" | "image";
 
+export type Languages = "en" | "jp" | "per" | "th" | "tr" | "zh";
+
 export type Respondable =
     | CommandInteraction
     | MessageComponentInteraction

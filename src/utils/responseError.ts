@@ -10,7 +10,7 @@ import {
 import { isBaseInteraction } from "../functions/functions";
 import { Respondable } from "../types/types";
 import repeatAction from "./repeatAction";
-import EmbedData from "../storage/embed";
+import EmbedData from "../storage/EmbedData";
 import error from "./error";
 
 export default async function (

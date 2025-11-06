@@ -4,7 +4,7 @@ import {
   WebhookClient,
   WebhookMessageCreateOptions
 } from "discord.js";
-import EmbedData from "../storage/embed";
+import EmbedData from "../storage/EmbedData";
 import config from "../../config";
 import post from "../functions/post";
 
