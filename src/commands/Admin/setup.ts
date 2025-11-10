@@ -49,7 +49,9 @@ export default {
     try {
       const subcommand = getOption<string>(interaction, "getSubcommand", undefined, 0, args);
       switch (subcommand) {
-        case ""
+        case "":{
+           
+        }
       }
     }
 
